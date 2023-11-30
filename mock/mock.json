@@ -1,0 +1,47 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "night aline",
+      "date": "112233",
+      "content": "I always spent all night long alone",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "morning aline",
+      "date": "112233",
+      "content": "Today not gonna be the day",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "title": "Noon aline",
+      "date": "112233",
+      "content": "Noona Noona comeback here i will hold ur hand",
+      "userId": 2
+    },
+    {
+      "id": 4,
+      "title": "Day by day",
+      "date": "112233",
+      "content": "Is it hard? is it hurt?",
+      "userId": 2
+    }
+  ],
+
+  "users": [
+    {
+      "id": 1,
+      "username": "danggro",
+      "email": "danggro@gmail.com",
+      "created_at": "date"
+    },
+    {
+      "id": 2,
+      "username": "bambang",
+      "email": "bambang@gmail.com",
+      "created_at": "date"
+    }
+  ]
+}
