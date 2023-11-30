@@ -1,0 +1,120 @@
+main {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: var(--black);
+  color: var(--white);
+  --gradient: linear-gradient(
+    91deg,
+    #628eff 9.91%,
+    #8740cd 53.29%,
+    #580475 91.56%
+  );
+  position: relative;
+  z-index: 0;
+}
+
+main > div {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  padding: 97px 40px 47px 40px;
+  border-radius: 20px;
+  border: 1px solid #afafaf;
+  background: linear-gradient(
+      321deg,
+      rgba(191, 191, 191, 0.06) 5.98%,
+      rgba(0, 0, 0, 0) 66.28%
+    ),
+    rgba(0, 0, 0, 0.14);
+
+  box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(26.5px);
+}
+
+main > div h1 {
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+main span {
+  font-weight: 500;
+}
+
+main > div > div span {
+  display: block;
+  margin-top: -6px;
+}
+
+main > div form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+main > div form input {
+  border-radius: 12px;
+  border: 1px solid var(--white);
+  padding: 14px 16px;
+  color: var(--white);
+}
+
+main > div form input::placeholder {
+  color: var(--white);
+  opacity: 1;
+}
+
+main > div button {
+  text-align: center;
+  padding: 14px 10px;
+  border-radius: 12px;
+  background: var(--gradient);
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+main > div button:hover {
+  opacity: 0.8;
+}
+
+main > div > form span {
+  text-align: center;
+  margin-top: 50px;
+}
+
+main > div > form span a {
+  text-decoration: underline;
+}
+
+main > div > form span a:hover {
+  text-decoration: none;
+  background-image: var(--gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+main::before {
+  content: '';
+  width: 302px;
+  height: 302px;
+  position: absolute;
+  border-radius: 302px;
+  top: 15%;
+  right: 25%;
+  z-index: -1;
+  background: linear-gradient(180deg, #530061 0%, #0d0a30 100%);
+}
+
+main::after {
+  content: '';
+  width: 220px;
+  height: 220px;
+  position: absolute;
+  border-radius: 220px;
+  bottom: 15%;
+  left: 25%;
+  z-index: -1;
+  background: linear-gradient(180deg, #530061 0%, #0d0a30 100%);
+}

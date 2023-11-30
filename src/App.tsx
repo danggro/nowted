@@ -1,12 +1,14 @@
-import './assets/styles.css'
-import Home from './pages/Home'
-import image from './assets/image.jpg'
+import './assets/global.css'
+import './assets/fonts.css'
+import Login from './pages/Login'
+import { Route, Routes } from 'react-router-dom'
+
 const App = () => {
   return (
     <>
-      <h1>Hello</h1>
-      <img src={image} alt="example" />
-      <Home />
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+      </Routes>
     </>
   )
 }
