@@ -28,6 +28,7 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'import/no-named-as-default': 0,
+    'import/no-named-as-default': 'off',
+    'import/no-unresolved': 'off',
   },
 }

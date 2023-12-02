@@ -6,7 +6,6 @@ const Button = styled.button`
   text-align: center;
   padding: 14px 10px;
   border-radius: 12px;
-  background: var(--gradient);
   font-size: 1.25rem;
   font-weight: 600;
   cursor: pointer;

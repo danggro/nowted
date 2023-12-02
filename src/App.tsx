@@ -1,15 +1,15 @@
 import './assets/global.css'
 import './assets/fonts.css'
-import Login from './pages/Login'
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
+import Login from './pages/Login'
 import Signup from './pages/Signup'
+import NotePage from './pages/NotePage'
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<NotePage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
       </Routes>
