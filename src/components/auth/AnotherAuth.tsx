@@ -11,9 +11,10 @@ const Span = styled.span<{ page: string }>`
     text-decoration: underline;
     &:hover {
       text-decoration: none;
-      background-image: ${({ page }) =>
+      background: ${({ page }) =>
         page === 'login' ? palette.GRADIENT_LOGIN : palette.GRADIENT_SIGNUP};
       background-clip: text;
+      -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
   }

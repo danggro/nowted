@@ -6,3 +6,8 @@ export interface NoteType {
 }
 
 export type NoteFormType = Omit<NoteType, 'id'>
+
+export type CredentialsLogin = {
+  username: string
+  password: string
+}

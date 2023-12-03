@@ -10,6 +10,7 @@ module.exports = {
     filename: 'bundle.[contenthash].js',
     assetModuleFilename: 'assets/[hash][ext]',
     clean: true,
+    publicPath: '/',
   },
   plugins: [
     new MiniCssExtractPlugin({

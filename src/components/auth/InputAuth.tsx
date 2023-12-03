@@ -11,17 +11,26 @@ const Input = styled.input`
   }
 `
 
-const InputAuth = ({
-  type,
-  placeholder,
-  id,
-  name,
-}: {
+interface Props {
   type: string
   placeholder: string
   id: string
   name: string
-}) => {
-  return <Input type={type} placeholder={placeholder} id={id} name={name} />
+  value: string
+  setState: React.Dispatch<React.SetStateAction<string>>
+}
+
+const InputAuth = (props: Props) => {
+  const { type, placeholder, id, name, value, setState } = props
+  return (
+    <Input
+      type={type}
+      placeholder={placeholder}
+      id={id}
+      name={name}
+      value={value}
+      onChange={({ target }) => setState(target.value)}
+    />
+  )
 }
 export default InputAuth
