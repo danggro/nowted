@@ -29,19 +29,21 @@
       "userId": 2
     }
   ],
-
   "users": [
     {
       "id": 1,
       "username": "danggro",
       "email": "danggro@gmail.com",
-      "created_at": "date"
+      "created_at": "date",
+      "password": "12345678"
     },
     {
       "id": 2,
       "username": "bambang",
       "email": "bambang@gmail.com",
-      "created_at": "date"
+      "created_at": "date",
+      "password": "12345678"
     }
-  ]
+  ],
+  "login": []
 }

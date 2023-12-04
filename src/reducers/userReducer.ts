@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppDispatch } from './store'
-import { CredentialsLogin } from '../types/types'
+import { CredentialsLogin, Session } from '../types/types'
+import auth from '../services/auth'
+import users from '../services/users'
 
-const initialState: CredentialsLogin = {
+const initialState: Session = {
   username: '',
-  password: '',
+  token: '',
 }
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<CredentialsLogin>) {
+    setUser(state, action: PayloadAction<Session>) {
       return action.payload
     },
   },
@@ -28,13 +30,27 @@ const userSlice = createSlice({
 //   }
 // }
 
-// export const handleLogin = (credentials: CredentialsLogin) => {
-//   return async (dispatch: AppDispatch) => {
-//     // const user = await loginService.login(credentials)
-//     window.localStorage.setItem('loggedUser', JSON.stringify(credentials))
-//     dispatch(setUser(credentials))
-//   }
-// }
+export const handleLogin = (credentials: CredentialsLogin) => {
+  return async (dispatch: AppDispatch) => {
+    const getUsers = await users.getAll()
+    const user = getUsers.data.find((u) => u.username === credentials.username)
+    if (!user) throw new Error('User not found')
+    if (user.password !== credentials.password)
+      throw new Error('Wrong password')
+
+    const { data } = await auth.login(credentials)
+    window.localStorage.setItem(
+      'loggedUser',
+      JSON.stringify({ username: data.username, token: data.id })
+    )
+    dispatch(
+      setUser({
+        username: data.username,
+        token: data.id.toString(),
+      })
+    )
+  }
+}
 
 // export const handleLogout = () => {
 //   return (dispatch) => {

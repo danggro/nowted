@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import logoSrc from '../../assets/logo.png'
 import * as palette from '../../assets/Variables'
 import SVGAdd from './SVGAdd'
+import auth from '../../services/auth'
+import { getLocalSession } from '../../utils/utils'
+import { useNavigate } from 'react-router'
 
 const Header = styled.header`
   padding: 20px;
@@ -11,6 +14,10 @@ const Header = styled.header`
   position: sticky;
   top: 0;
   background-color: ${palette.BLACK};
+  & > div {
+    display: flex;
+    justify-content: space-between;
+  }
 `
 
 const Button = styled.button`
@@ -30,13 +37,27 @@ const Button = styled.button`
 `
 
 const HeaderNotePage = () => {
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    const sessionLocal = getLocalSession()
+    if (sessionLocal) {
+      await auth.logout(sessionLocal.token)
+      window.localStorage.clear
+      navigate('/login')
+    }
+  }
+
   return (
     <Header>
-      <img
-        src={logoSrc}
-        alt="logo-application"
-        style={{ width: 'fit-content' }}
-      />
+      <div>
+        <img
+          src={logoSrc}
+          alt="logo-application"
+          style={{ width: 'fit-content' }}
+        />
+        <Button onClick={handleLogout}>Logout</Button>
+      </div>
       <Button>
         <SVGAdd />
         <span>New Note</span>

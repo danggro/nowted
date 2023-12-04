@@ -15,22 +15,14 @@ const Button = styled.button`
     opacity: 0.8;
   }
 `
-const ButtonAuth = ({
-  children,
-  page,
-  onClick,
-}: {
-  children: string
-  page: string
-  onClick: (e: React.SyntheticEvent) => void
-}) => {
+const ButtonAuth = ({ children, page }: { children: string; page: string }) => {
   const stylePage =
     page === 'login'
       ? { background: palette.GRADIENT_LOGIN }
       : { background: palette.GRADIENT_SIGNUP }
 
   return (
-    <Button style={stylePage} type="submit" onClick={onClick}>
+    <Button style={stylePage} type="submit">
       {children}
     </Button>
   )

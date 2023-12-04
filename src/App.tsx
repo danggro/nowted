@@ -4,8 +4,12 @@ import { Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import NotePage from './pages/NotePage'
+import { useEffect } from 'react'
 
 const App = () => {
+  useEffect(() => {
+    const session = window.localStorage.getItem('loggedUser')
+  }, [])
   return (
     <>
       <Routes>

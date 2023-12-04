@@ -1,3 +1,9 @@
+export interface User {
+  id: number
+  username: string
+  password: string
+}
+
 export interface NoteType {
   id: number
   title: string
@@ -7,7 +13,12 @@ export interface NoteType {
 
 export type NoteFormType = Omit<NoteType, 'id'>
 
-export type CredentialsLogin = {
+export interface CredentialsLogin {
   username: string
   password: string
+}
+
+export interface Session {
+  username: string
+  token: string
 }
