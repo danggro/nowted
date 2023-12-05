@@ -38,10 +38,13 @@ export const handleLogin = (credentials: CredentialsLogin) => {
     if (user.password !== credentials.password)
       throw new Error('Wrong password')
 
-    const { data } = await auth.login(credentials)
+    const { data } = await auth.login({
+      username: user.username,
+      token: user.id.toString(),
+    })
     window.localStorage.setItem(
       'loggedUser',
-      JSON.stringify({ username: data.username, token: data.id, id: data.id })
+      JSON.stringify({ username: data.username, token: user.id, id: data.id })
     )
     dispatch(
       setUser({

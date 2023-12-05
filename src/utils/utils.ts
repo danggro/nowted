@@ -44,7 +44,11 @@ export const setErrorInput = (message: string, element: HTMLInputElement) => {
   element?.parentElement?.setAttribute('data-errmsg', message)
 }
 
-export const getLocalSession = (): Session | null => {
+interface SessionWithId extends Session {
+  id: string
+}
+
+export const getLocalSession = (): SessionWithId | null => {
   const session = window.localStorage.getItem('loggedUser')
   if (session) {
     return JSON.parse(session)

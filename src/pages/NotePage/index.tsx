@@ -3,12 +3,11 @@ import HeaderNotePage from './HeaderNotePage'
 import ListNote from './ListNote'
 import { useEffect, useState } from 'react'
 import { NoteType, Session } from '../../types/types'
-import axios from 'axios'
 import * as palette from '../../assets/Variables'
 import NoteView from './NoteView'
 import { useNavigate } from 'react-router'
-import { useAppSelector } from '../../hooks/hooks'
 import auth from '../../services/auth'
+import notes from '../../services/notes'
 
 const Container = styled.div`
   width: 100%;
@@ -33,15 +32,16 @@ const Content = styled.div`
   width: 100%;
 `
 const NotePage = () => {
-  const [notes, setNotes] = useState<NoteType[]>([])
+  const [notesData, setNotesData] = useState<NoteType[]>([])
   const navigate = useNavigate()
 
   const sessionLocal = window.localStorage.getItem('loggedUser')
 
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
+    const parseSession = JSON.parse(sessionLocal)
     const getSessionDb = async () => {
-      const data = await auth.getSession(JSON.parse(sessionLocal).username)
+      const data = await auth.getSession(parseSession.username)
 
       if (!data[0]) {
         window.localStorage.clear()
@@ -51,8 +51,10 @@ const NotePage = () => {
     getSessionDb()
 
     const getData = async () => {
-      const { data } = await axios.get('http://localhost:3001/api/notes')
-      setNotes(data)
+      const { data } = await notes.get(parseSession.token)
+      console.log(parseSession)
+
+      setNotesData(data)
     }
     getData()
   }, [])
@@ -63,7 +65,7 @@ const NotePage = () => {
     <Container>
       <Navigate>
         <HeaderNotePage />
-        <ListNote data={notes} />
+        <ListNote data={notesData} />
       </Navigate>
       <Content>
         <NoteView note={null} />

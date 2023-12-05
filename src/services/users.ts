@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { User, UserForm } from '../types/types'
-
-const baseUrl = process.env.BACKEND_API
+import { baseUrl } from '../utils/contants'
 
 const getAll = async () => {
   const response = await axios.get<User[]>(`${baseUrl}/users`)

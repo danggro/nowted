@@ -42,7 +42,7 @@ const HeaderNotePage = () => {
   const handleLogout = async () => {
     const sessionLocal = getLocalSession()
     if (sessionLocal) {
-      await auth.logout(sessionLocal.token)
+      await auth.logout(sessionLocal.id)
       window.localStorage.clear
       navigate('/login')
     }

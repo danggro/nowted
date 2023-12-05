@@ -51,20 +51,5 @@
       "id": 3
     }
   ],
-  "login": [
-    {
-      "username": "danggro",
-      "password": "12345678",
-      "id": 1
-    },
-    {
-      "username": "danggro",
-      "password": "12345678",
-      "id": 2
-    },
-    {
-      "username": "digran",
-      "id": 3
-    }
-  ]
+  "login": []
 }

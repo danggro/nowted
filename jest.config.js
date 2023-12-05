@@ -13,7 +13,7 @@ module.exports = {
     '(assets|models|services)': '<rootDir>/tests/mocks/fileMock.ts',
   },
   // to obtain access to the matchers.
-  setupFilesAfterEnv: ['./tests/setupTests.ts'],
+  setupFiles: ['./tests/setupTests.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   modulePaths: ['<rootDir>'],
   testEnvironment: 'jsdom',

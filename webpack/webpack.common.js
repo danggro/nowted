@@ -2,9 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const Dotenv = require('dotenv-webpack')
-const webpack = require('webpack')
-const { definitions } = new Dotenv()
-
+// const webpack = require('webpack')
+// require('dotenv').config({ path: '../.env' })
 module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.tsx'),
   resolve: {
@@ -43,8 +42,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', './src/index.html'),
     }),
-    new Dotenv({
-      path: path.resolve(__dirname, '..', './.env'),
-    }),
+    new Dotenv(),
   ],
 }
