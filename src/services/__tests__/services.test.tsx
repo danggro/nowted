@@ -1,15 +1,15 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import auth from '../auth'
 import users from '../users'
 import notes from '../notes'
-
-const baseUrl = process.env.BACKEND_DEV
+import { baseUrl } from '../../utils/contants'
+import { Note } from '../../types/types'
 
 describe('Authorization', () => {
   it('service login should get response data and status 201', async () => {
     const response = await auth.login({
       username: 'danggro',
-      token: '1',
+      token: 1,
     })
 
     expect(response.status).toEqual(201)
@@ -40,15 +40,25 @@ describe('User', () => {
 })
 
 describe.only('Notes service should', () => {
-  it.todo('create a new note', async () => {
-    // const response = await notes.add({title: 'this is title', date: '11122023', content: 'this is content'})
-    // expect(response.status).toEqual(201)
+  let responseAdd: AxiosResponse<Note, any>
+
+  it('create a new note', async () => {
+    responseAdd = await notes.add({
+      title: 'this is title',
+      date: '11122023',
+      content: 'this is content',
+      userId: 3,
+    })
+    expect(responseAdd.status).toEqual(201)
   })
-  it.skip('get notes according to userId', async () => {
-    const response = await notes.get(1)
+
+  it('get notes according to userId', async () => {
+    const response = await notes.get(responseAdd.data.userId)
     expect(response.status).toEqual(200)
-    expect(response.data.length).toEqual(2)
+    expect(response.data.length).toEqual(1)
+    expect(response.data[0].title).toEqual('this is title')
   })
+  // it.todo('get specific note accordint to id', )
   it.todo('update specific note')
   it.todo('delete specific note')
 })

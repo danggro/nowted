@@ -13,7 +13,7 @@ module.exports = {
     '(assets|models|services)': '<rootDir>/tests/mocks/fileMock.ts',
   },
   // to obtain access to the matchers.
-  setupFiles: ['./tests/setupTests.ts'],
+  setupFilesAfterEnv: ['./tests/setupTests.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   modulePaths: ['<rootDir>'],
   testEnvironment: 'jsdom',
@@ -22,3 +22,6 @@ module.exports = {
     '^.+\\.(t|j)s$': ['ts-jest', { isolatedModules: true }],
   },
 }
+process.env = Object.assign(process.env, {
+  BACKEND_DEV: 'http://localhost:3002/api',
+})

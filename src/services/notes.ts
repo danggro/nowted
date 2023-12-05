@@ -1,11 +1,15 @@
 import axios from 'axios'
 import { baseUrl } from '../utils/contants'
+import { Note, NoteForm } from '../types/types'
 
 const get = async (id: number) => {
-  console.log(process.env.NODE_ENV)
-
-  const response = await axios.get(`${baseUrl}/notes?userId_like=${id}`)
+  const response = await axios.get<Note[]>(`${baseUrl}/notes?userId_like=${id}`)
   return response
 }
 
-export default { get }
+const add = async (note: NoteForm) => {
+  const response = await axios.post(`${baseUrl}/notes`, note)
+  return response
+}
+
+export default { get, add }

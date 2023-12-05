@@ -1,13 +1,14 @@
 import styled from 'styled-components'
 import HeaderNotePage from './HeaderNotePage'
 import ListNote from './ListNote'
-import { useEffect, useState } from 'react'
-import { NoteType, Session } from '../../types/types'
+import { useContext, useEffect } from 'react'
 import * as palette from '../../assets/Variables'
 import NoteView from './NoteView'
 import { useNavigate } from 'react-router'
 import auth from '../../services/auth'
-import notes from '../../services/notes'
+import { NotesContext } from '../../context/NotesContext'
+import { getLocalSession } from '../../utils/utils'
+import NoteContextProvider from '../../context/NoteContext'
 
 const Container = styled.div`
   width: 100%;
@@ -32,16 +33,14 @@ const Content = styled.div`
   width: 100%;
 `
 const NotePage = () => {
-  const [notesData, setNotesData] = useState<NoteType[]>([])
+  const { notes, getInitialData } = useContext(NotesContext)
   const navigate = useNavigate()
-
-  const sessionLocal = window.localStorage.getItem('loggedUser')
+  const sessionLocal = getLocalSession()
 
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
-    const parseSession = JSON.parse(sessionLocal)
     const getSessionDb = async () => {
-      const data = await auth.getSession(parseSession.username)
+      const data = await auth.getSession(sessionLocal.username)
 
       if (!data[0]) {
         window.localStorage.clear()
@@ -49,28 +48,23 @@ const NotePage = () => {
       }
     }
     getSessionDb()
-
-    const getData = async () => {
-      const { data } = await notes.get(parseSession.token)
-      console.log(parseSession)
-
-      setNotesData(data)
-    }
-    getData()
+    getInitialData(sessionLocal.token)
   }, [])
 
-  if (!sessionLocal) return null
+  if (!sessionLocal || !notes) return null
 
   return (
-    <Container>
-      <Navigate>
-        <HeaderNotePage />
-        <ListNote data={notesData} />
-      </Navigate>
-      <Content>
-        <NoteView note={null} />
-      </Content>
-    </Container>
+    <NoteContextProvider>
+      <Container>
+        <Navigate>
+          <HeaderNotePage />
+          <ListNote data={notes} />
+        </Navigate>
+        <Content>
+          <NoteView />
+        </Content>
+      </Container>
+    </NoteContextProvider>
   )
 }
 export default NotePage

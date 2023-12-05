@@ -1,11 +1,14 @@
-export interface NoteType {
+export interface Note {
   id: number
   title: string
   date: string
   content: string
+  userId: number //deleted after backend finish
 }
 
-export type NoteFormType = Omit<NoteType, 'id'>
+export type NoteView = Omit<Note, 'userId'>
+
+export type NoteForm = Omit<Note, 'id'>
 
 export interface CredentialsLogin {
   username: string
@@ -14,7 +17,7 @@ export interface CredentialsLogin {
 
 export interface Session {
   username: string
-  token: string
+  token: number
 }
 
 export interface User {

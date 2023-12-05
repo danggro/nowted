@@ -1,6 +1,9 @@
 import styled from 'styled-components'
-import { NoteFormType } from 'types/types'
+import { NoteView } from '../../types/types'
 import * as palette from '../../assets/Variables'
+import { getLocalSession } from '../../utils/utils'
+import { useContext } from 'react'
+import { NoteContext } from '../../context/NoteContext'
 
 const NoteStyle = styled.div`
   display: grid;
@@ -36,13 +39,20 @@ const NoteStyle = styled.div`
   }
 `
 
-const Note = ({ title, date, content }: NoteFormType) => {
+const ListNoteItem = ({ id, title, date, content }: NoteView) => {
+  const session = getLocalSession()
+  const { setNote } = useContext(NoteContext)
+
   return (
-    <NoteStyle>
+    <NoteStyle
+      onClick={() => {
+        setNote({ id, title, date, content, userId: session.token })
+      }}
+    >
       <h2>{title}</h2>
       <span>{date}</span>
       <p>{content}</p>
     </NoteStyle>
   )
 }
-export default Note
+export default ListNoteItem

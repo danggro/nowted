@@ -1,5 +1,5 @@
-import { NoteType } from 'types/types'
-import Note from './ListNoteItem'
+import { Note } from '../../types/types'
+import ListNoteItem from './ListNoteItem'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -9,13 +9,14 @@ const Container = styled.div`
   gap: 20px;
 `
 
-const ListNote = ({ data }: { data: NoteType[] }) => {
+const ListNote = ({ data }: { data: Note[] }) => {
   return (
     <Container>
-      {data.map((note: NoteType) => {
+      {data.map((note: Note) => {
         return (
-          <Note
+          <ListNoteItem
             key={note.id}
+            id={note.id}
             title={note.title}
             date={note.date}
             content={note.content}

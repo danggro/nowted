@@ -1,8 +1,10 @@
-import { NoteType } from 'types/types'
+import { Note } from '../../types/types'
 import styled from 'styled-components'
 import SVGDate from './SVGDate'
 import * as palette from '../../assets/Variables'
 import NoteNoView from './NoteNoView'
+import { useContext } from 'react'
+import { NoteContext } from '../../context/NoteContext'
 
 const Container = styled.div`
   width: 100%;
@@ -42,8 +44,10 @@ const InputContent = styled.textarea`
   line-height: 1.75;
 `
 
-const NoteView = ({ note }: { note: NoteType | null }) => {
-  if (!note) {
+const NoteView = () => {
+  const { note } = useContext(NoteContext)
+
+  if (!note.title) {
     return <NoteNoView />
   }
 

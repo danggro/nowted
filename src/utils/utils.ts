@@ -48,10 +48,9 @@ interface SessionWithId extends Session {
   id: string
 }
 
-export const getLocalSession = (): SessionWithId | null => {
-  const session = window.localStorage.getItem('loggedUser')
-  if (session) {
-    return JSON.parse(session)
-  }
-  return null
+export const getLocalSession = (): SessionWithId => {
+  const session = JSON.parse(
+    window.localStorage.getItem('loggedUser') as string
+  )
+  return session
 }
