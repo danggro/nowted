@@ -6,28 +6,48 @@ import MainAuth from '../../components/auth/MainAuth'
 import AnotherAuth from '../../components/auth/AnotherAuth'
 import { useState } from 'react'
 import InputAuth from '../../components/auth/InputAuth'
-const Signup = () => {
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
+import { handleChange, setErrorInput } from '../../utils/utils'
+import { useUser } from '../../hooks/hooks'
+import { useNavigate } from 'react-router'
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+const Signup = () => {
+  const [username, setUsername] = useState<string>('digran')
+  const [email, setEmail] = useState<string>('digran@gmail.com')
+  const [password, setPassword] = useState<string>('12345678')
+  const users = useUser()
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    console.log(username, password)
+
+    const form = e.currentTarget.children
+    const elementUsername = form[0].childNodes[0] as HTMLInputElement
+    const elementEmail = form[1].childNodes[0] as HTMLInputElement
+
+    try {
+      await users.addUser({ username, email, password })
+      navigate('/login')
+    } catch (err: unknown) {
+      const error = err as Error
+      if (error.message === 'User not available')
+        return setErrorInput(error.message, elementUsername)
+      if (error.message === 'Email not available')
+        return setErrorInput(error.message, elementEmail)
+    }
   }
 
   return (
     <MainAuth page="signup">
       <ContainerAuth>
         <TitleAuth title="Signup" someText="Just some details to get you in!" />
-        <FormAuth>
+        <FormAuth onSubmit={handleSubmit}>
           <InputAuth
             type="text"
             id="username"
             placeholder="Username"
             name="username"
             value={username}
-            setState={setUsername}
+            onChange={(e) => handleChange(e, setUsername)}
           />
           <InputAuth
             type="email"
@@ -35,7 +55,7 @@ const Signup = () => {
             placeholder="Email"
             name="email"
             value={email}
-            setState={setEmail}
+            onChange={(e) => handleChange(e, setEmail)}
           />
           <InputAuth
             type="password"
@@ -43,11 +63,10 @@ const Signup = () => {
             placeholder="Password"
             name="password"
             value={password}
-            setState={setPassword}
+            minlength={8}
+            onChange={(e) => handleChange(e, setPassword)}
           />
-          <ButtonAuth page="signup" onClick={handleSubmit}>
-            Signup
-          </ButtonAuth>
+          <ButtonAuth page="signup">Signup</ButtonAuth>
           <AnotherAuth
             someText="Already Registered ?"
             to="/login"

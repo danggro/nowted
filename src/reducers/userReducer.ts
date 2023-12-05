@@ -41,7 +41,7 @@ export const handleLogin = (credentials: CredentialsLogin) => {
     const { data } = await auth.login(credentials)
     window.localStorage.setItem(
       'loggedUser',
-      JSON.stringify({ username: data.username, token: data.id })
+      JSON.stringify({ username: data.username, token: data.id, id: data.id })
     )
     dispatch(
       setUser({

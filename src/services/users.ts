@@ -1,16 +1,16 @@
 import axios from 'axios'
+import { User, UserForm } from '../types/types'
 
 const baseUrl = process.env.BACKEND_API
-interface User {
-  id: number
-  username: string
-  email: string
-  created_at: string
-  password: string
-}
+
 const getAll = async () => {
   const response = await axios.get<User[]>(`${baseUrl}/users`)
   return response
 }
 
-export default { getAll }
+const add = async (object: UserForm) => {
+  const response = await axios.post<UserForm>(`${baseUrl}/users`, object)
+  return response
+}
+
+export default { getAll, add }

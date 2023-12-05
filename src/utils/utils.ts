@@ -16,6 +16,8 @@ export const handleChange = (
         'data-errmsg',
         'Please fill this input form'
       )
+    if (element.validity.typeMismatch)
+      element?.parentElement?.setAttribute('data-errmsg', 'Email not valid')
     inValidStyle(element)
   } else {
     validStyle(element)
