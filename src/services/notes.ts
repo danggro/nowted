@@ -19,4 +19,9 @@ const deleteNote = async (id: number) => {
   return response
 }
 
-export default { get, add, deleteNote }
+const update = async (note: Note) => {
+  const response = await axios.put(`${baseUrl}/notes/${note.id}`, note)
+  return response
+}
+
+export default { get, add, deleteNote, update }

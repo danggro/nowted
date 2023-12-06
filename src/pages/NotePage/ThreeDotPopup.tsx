@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import SVGDelete from './SVGDelete'
+import SVGDelete from './SVG/SVGDelete'
 import * as palette from '../../assets/Variables'
 import { useContext } from 'react'
 import { NoteContext } from '../../context/NoteContext'
@@ -12,9 +12,10 @@ const Container = styled.div`
   gap: 20px;
   border-radius: 6px;
   position: absolute;
-  right: 50px;
-  top: 100px;
+  right: 0;
+  top: 50px;
   background-color: ${palette.BLACK_SECONDARY};
+  z-index: 9999;
   & > div {
     display: flex;
     gap: 15px;
@@ -38,8 +39,8 @@ const ThreeDotPopup = () => {
     setNote({ title: '', date: '', content: '', id: 0, userId: 0 })
   }
   return (
-    <Container onClick={() => handleDeleteNote()}>
-      <div>
+    <Container>
+      <div onClick={() => handleDeleteNote()}>
         <SVGDelete />
         <span>Delete</span>
       </div>

@@ -1,12 +1,14 @@
-import { Note } from '../../types/types'
 import styled from 'styled-components'
-import SVGDate from './SVGDate'
+import SVGDate from './SVG/SVGDate'
 import * as palette from '../../assets/Variables'
 import NoteNoView from './NoteNoView'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { NoteContext } from '../../context/NoteContext'
-import SVGThreeDot from './SVGThreeDot'
 import ThreeDotPopup from './ThreeDotPopup'
+import notesService from '../../services/notes'
+import { NotesContext } from '../../context/NotesContext'
+import useComponentVisible from '../../hooks/hooks'
+import ThreeDotButton from './ThreeDotButton'
 
 const Container = styled.div`
   width: 100%;
@@ -47,23 +49,30 @@ const InputContent = styled.textarea`
   line-height: 1.75;
 `
 
-const ThreeDotContainer = styled.div`
-  width: fit-content;
-  height: fit-content;
-  padding: 5px;
-  border-radius: 150px;
-  border: 1px solid ${palette.TEXT_SECONDARY};
-  color: ${palette.TEXT_SECONDARY};
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  position: absolute;
-  right: 50px;
-`
-
 const NoteView = () => {
   const { note } = useContext(NoteContext)
-  const [popup, setPopup] = useState<Boolean>(false)
+  const { updateNote } = useContext(NotesContext)
+  const [title, setTitle] = useState<string>('')
+  const [date, setDate] = useState<string>('')
+  const [content, setContent] = useState<string>('')
+
+  useEffect(() => {
+    if (note.title) setTitle(note.title)
+    if (note.date) setDate(note.date)
+    if (note.content) setContent(note.content)
+  }, [note])
+
+  const handleUpdateNoteAndNotes = async () => {
+    const updatedNote = {
+      title,
+      date,
+      content,
+      id: note.id,
+      userId: note.userId,
+    }
+    const { data } = await notesService.update(updatedNote)
+    updateNote(data)
+  }
 
   if (!note.title) {
     return <NoteNoView />
@@ -71,16 +80,15 @@ const NoteView = () => {
 
   return (
     <Container>
-      {popup ? <ThreeDotPopup /> : null}
-      <ThreeDotContainer onClick={() => setPopup(!popup)}>
-        <SVGThreeDot />
-      </ThreeDotContainer>
+      <ThreeDotButton />
       <InputTitle
         type="text"
         id="title"
         name="title"
         placeholder={note.title}
-        value={note.title}
+        value={title}
+        onChange={({ target }) => setTitle(target.value)}
+        onBlur={() => handleUpdateNoteAndNotes()}
       />
       <InputDate>
         <SVGDate />
@@ -90,14 +98,18 @@ const NoteView = () => {
           id="date"
           name="date"
           placeholder={note.date}
-          value={note.date}
+          value={date}
+          onChange={({ target }) => setDate(target.value)}
+          onBlur={() => handleUpdateNoteAndNotes()}
         />
       </InputDate>
       <InputContent
         id="content"
         name="content"
         placeholder={note.content}
-        value={note.content}
+        value={content}
+        onChange={({ target }) => setContent(target.value)}
+        onBlur={() => handleUpdateNoteAndNotes()}
       />
     </Container>
   )

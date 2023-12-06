@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import * as palette from '../../assets/Variables'
-import SVGFile from './SVGFile'
+import SVGFile from './SVG/SVGFile'
 
 const Container = styled.div`
   display: grid;

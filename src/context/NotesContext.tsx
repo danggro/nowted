@@ -22,7 +22,11 @@ const reducer = (state: Note[], action: { type: actions; payload: any }) => {
     case actions.INITIAL:
       return action.payload
     case actions.DELETE:
-      return state.filter((u) => u.id !== action.payload)
+      return state.filter((note) => note.id !== action.payload)
+    case actions.UPDATE:
+      return state.map((note) =>
+        note.id !== action.payload.id ? note : action.payload
+      )
     default:
       return state
   }
@@ -31,6 +35,7 @@ interface DefaultValue {
   notes: Note[]
   getInitialNotes: (userId: number) => void
   deleteNote: (id: number) => void
+  updateNote: (note: Note) => void
 }
 export const NotesContext = createContext<DefaultValue>({} as DefaultValue)
 
@@ -47,10 +52,14 @@ export const NotesContextProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: actions.DELETE, payload: id })
   }
 
+  const updateNote = async (note: Note) => {
+    dispatch({ type: actions.UPDATE, payload: note })
+  }
   const value = {
     notes: state,
     getInitialNotes,
     deleteNote,
+    updateNote,
   }
   return <NotesContext.Provider value={value}>{children}</NotesContext.Provider>
 }
