@@ -94,7 +94,6 @@ const NoteView = () => {
     if (note.id) {
       handleUpdateNoteAndNotes()
     } else {
-      console.log('howmany')
       handleNewNote()
     }
   }

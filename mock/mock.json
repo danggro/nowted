@@ -27,6 +27,13 @@
       "date": "112233",
       "content": "Is it hard? is it hurt?",
       "userId": 2
+    },
+    {
+      "title": "This is new note from userId 3",
+      "date": "",
+      "content": "",
+      "userId": 3,
+      "id": 5
     }
   ],
   "users": [
@@ -54,7 +61,7 @@
   "login": [
     {
       "username": "danggro",
-      "token": "1",
+      "token": 1,
       "id": 1
     }
   ]

@@ -6,15 +6,14 @@ import MainAuth from '../../components/auth/MainAuth'
 import AnotherAuth from '../../components/auth/AnotherAuth'
 import { useState } from 'react'
 import InputAuth from '../../components/auth/InputAuth'
-import { handleChange, setErrorInput } from '../../utils/utils'
-import { useUser } from '../../hooks/hooks'
+import { handleChange, setErrorInput, userUtil } from '../../utils/utils'
 import { useNavigate } from 'react-router'
 
 const Signup = () => {
   const [username, setUsername] = useState<string>('digran')
   const [email, setEmail] = useState<string>('digran@gmail.com')
   const [password, setPassword] = useState<string>('12345678')
-  const users = useUser()
+  const users = userUtil()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -25,7 +24,7 @@ const Signup = () => {
     const elementEmail = form[1].childNodes[0] as HTMLInputElement
 
     try {
-      await users.addUser({ username, email, password })
+      await users.add({ username, email, password })
       navigate('/login')
     } catch (err: unknown) {
       const error = err as Error

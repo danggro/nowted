@@ -5,19 +5,21 @@ import ContainerAuth from '../../components/auth/ContainerAuth'
 import MainAuth from '../../components/auth/MainAuth'
 import AnotherAuth from '../../components/auth/AnotherAuth'
 import React, { useEffect, useState } from 'react'
-import { handleLogin } from '../../reducers/userReducer'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import InputAuth from '../../components/auth/InputAuth'
-import { handleChange, setErrorInput } from '../../utils/utils'
+import {
+  getLocalSession,
+  handleChange,
+  setErrorInput,
+  userUtil,
+} from '../../utils/utils'
 import { useNavigate } from 'react-router'
 
 const Login = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
-  const sessionLocal = window.localStorage.getItem('loggedUser')
+  const users = userUtil()
+  const sessionLocal = getLocalSession()
 
   useEffect(() => {
     if (sessionLocal) return navigate('/')
@@ -30,8 +32,7 @@ const Login = () => {
     const elementPassword = form[1].childNodes[0] as HTMLInputElement
 
     try {
-      await dispatch(handleLogin({ username, password }))
-      navigate('/')
+      users.login({ username, password })
     } catch (err: unknown) {
       const error = err as Error
       if (error.message === 'User not found') {

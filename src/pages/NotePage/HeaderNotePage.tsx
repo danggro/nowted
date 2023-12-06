@@ -40,7 +40,8 @@ const Button = styled.button`
 
 const HeaderNotePage = () => {
   const navigate = useNavigate()
-  const { note, setNote } = useContext(NoteContext)
+  const { setNote } = useContext(NoteContext)
+
   const handleLogout = async () => {
     const sessionLocal = getLocalSession()
     if (sessionLocal) {
