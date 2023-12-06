@@ -52,7 +52,7 @@ const HeaderNotePage = () => {
   }
 
   const handleNewNote = async () => {
-    setNote({ title: '', date: '', content: '' })
+    setNote({ title: '', date: '', content: '', view: true })
   }
 
   return (

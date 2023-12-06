@@ -1,13 +1,13 @@
 import styled from 'styled-components'
-import SVGDate from './SVG/SVGDate'
-import * as palette from '../../assets/Variables'
+import * as palette from '../../../assets/Variables'
 import NoteNoView from './NoteNoView'
-import { useContext, useEffect, useState } from 'react'
-import { NoteContext } from '../../context/NoteContext'
-import notesService from '../../services/notes'
-import { NotesContext } from '../../context/NotesContext'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { NoteContext } from '../../../context/NoteContext'
+import { NotesContext } from '../../../context/NotesContext'
 import ThreeDotButton from './ThreeDotButton'
-import { getLocalSession } from '../../utils/utils'
+import { getLocalSession } from '../../../utils/utils'
+import { Note } from '../../../types/types'
+import InputDate from './InputDate'
 
 const Container = styled.div`
   width: 100%;
@@ -20,26 +20,12 @@ const Container = styled.div`
 `
 
 const Input = styled.input`
-  color: var(--white);
+  color: ${palette.WHITE};
 `
 
 const InputTitle = styled(Input)`
   font-size: 2rem;
   font-weight: 600;
-`
-
-const InputDate = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${palette.TEXT_SECONDARY};
-  input::placeholder {
-    color: ${palette.TEXT_SECONDARY} !important;
-    opacity: 1;
-  }
-  span {
-    margin-left: 20px;
-    margin-right: 60px;
-  }
 `
 
 const InputContent = styled.textarea`
@@ -67,44 +53,43 @@ const NoteView = () => {
     }
   }, [note])
 
-  const handleUpdateNoteAndNotes = async () => {
+  const handleUpdateNoteAndNotes = async (baseNote: Note) => {
     const updatedNote = {
-      title,
-      date,
-      content,
+      ...baseNote,
       id: note.id,
-      userId: note.userId,
     }
-    const { data } = await notesService.update(updatedNote)
-    updateNote(data)
+    updateNote(updatedNote)
   }
 
-  const handleNewNote = async () => {
-    const newNote = {
-      title,
-      date,
-      content,
-      userId: localSession.token,
-    }
-    const data = await addNote(newNote)
-    setNote(data)
+  const handleNewNote = async (baseNote: Note) => {
+    const data = await addNote(baseNote)
+    setNote({ ...data, view: true })
   }
 
   const handleOnBlur = () => {
+    if (!title) throw new Error('Tittle cannot be blank')
+    const dateNow = new Date().toLocaleDateString().split('/')
+    const defaultDate = `${dateNow[1]}/${dateNow[0]}/${dateNow[2]}`
+    const baseNote = {
+      title,
+      date: date ? date : defaultDate,
+      content,
+      userId: localSession.token,
+    }
     if (note.id) {
-      handleUpdateNoteAndNotes()
+      handleUpdateNoteAndNotes(baseNote)
     } else {
-      handleNewNote()
+      handleNewNote(baseNote)
     }
   }
 
-  if (note.title === undefined) {
+  if (!note.view) {
     return <NoteNoView />
   }
 
   return (
     <Container>
-      <ThreeDotButton />
+      {note.title && <ThreeDotButton />}
       <InputTitle
         type="text"
         id="title"
@@ -112,28 +97,16 @@ const NoteView = () => {
         placeholder="Title"
         value={title}
         onChange={({ target }) => setTitle(target.value)}
-        onBlur={() => handleOnBlur()}
+        onBlur={handleOnBlur}
       />
-      <InputDate>
-        <SVGDate />
-        <span>Date</span>
-        <input
-          type="text"
-          id="date"
-          name="date"
-          placeholder="dd/mm/yyyy"
-          value={date}
-          onChange={({ target }) => setDate(target.value)}
-          onBlur={() => handleOnBlur()}
-        />
-      </InputDate>
+      <InputDate date={date} setDate={setDate} onBlur={handleOnBlur} />
       <InputContent
         id="content"
         name="content"
         placeholder="Write in"
         value={content}
         onChange={({ target }) => setContent(target.value)}
-        onBlur={() => handleOnBlur()}
+        onBlur={handleOnBlur}
       />
     </Container>
   )

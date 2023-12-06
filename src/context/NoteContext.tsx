@@ -1,13 +1,13 @@
 import { ReactNode, createContext, useReducer } from 'react'
-import { Note } from '../types/types'
+import { NoteState } from '../types/types'
 
 enum actions {
   SET = 'SET',
 }
 
 export const reducer = (
-  state: Note,
-  action: { type: actions; payload: Note }
+  state: NoteState,
+  action: { type: actions; payload: NoteState }
 ) => {
   switch (action.type) {
     case actions.SET:
@@ -17,17 +17,17 @@ export const reducer = (
   }
 }
 interface DefaultValue {
-  note: Note
-  setNote: (note: Note) => void
+  note: NoteState
+  setNote: (note: NoteState) => void
 }
 export const NoteContext = createContext<DefaultValue>({} as DefaultValue)
 
 export const NoteContextProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(reducer, {} as Note)
+  const [state, dispatch] = useReducer(reducer, {} as NoteState)
 
   const value = {
     note: state,
-    setNote: (note: Note) => {
+    setNote: (note: NoteState) => {
       dispatch({ type: actions.SET, payload: note })
     },
   }

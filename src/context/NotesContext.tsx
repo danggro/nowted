@@ -54,6 +54,7 @@ export const NotesContextProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const updateNote = async (note: Note) => {
+    await notesService.update(note)
     dispatch({ type: actions.UPDATE, payload: note })
   }
   const value = {

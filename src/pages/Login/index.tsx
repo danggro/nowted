@@ -6,19 +6,15 @@ import MainAuth from '../../components/auth/MainAuth'
 import AnotherAuth from '../../components/auth/AnotherAuth'
 import React, { useEffect, useState } from 'react'
 import InputAuth from '../../components/auth/InputAuth'
-import {
-  getLocalSession,
-  handleChange,
-  setErrorInput,
-  userUtil,
-} from '../../utils/utils'
+import { getLocalSession, handleChange, setErrorInput } from '../../utils/utils'
 import { useNavigate } from 'react-router'
+import { useUtil } from '../../hooks/hooks'
 
 const Login = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
-  const users = userUtil()
+  const users = useUtil()
   const sessionLocal = getLocalSession()
 
   useEffect(() => {

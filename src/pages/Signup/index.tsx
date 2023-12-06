@@ -6,14 +6,15 @@ import MainAuth from '../../components/auth/MainAuth'
 import AnotherAuth from '../../components/auth/AnotherAuth'
 import { useState } from 'react'
 import InputAuth from '../../components/auth/InputAuth'
-import { handleChange, setErrorInput, userUtil } from '../../utils/utils'
+import { handleChange, setErrorInput } from '../../utils/utils'
 import { useNavigate } from 'react-router'
+import { useUtil } from '../../hooks/hooks'
 
 const Signup = () => {
   const [username, setUsername] = useState<string>('digran')
   const [email, setEmail] = useState<string>('digran@gmail.com')
   const [password, setPassword] = useState<string>('12345678')
-  const users = userUtil()
+  const users = useUtil()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.SyntheticEvent) => {

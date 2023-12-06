@@ -6,7 +6,9 @@ export interface Note {
   userId?: number //deleted after backend finish
 }
 
-export type NoteView = Omit<Note, 'userId'>
+export interface NoteState extends Note {
+  view: Boolean
+}
 
 export type NoteForm = Omit<Note, 'id'>
 

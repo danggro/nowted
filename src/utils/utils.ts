@@ -1,8 +1,5 @@
-import { useNavigate } from 'react-router'
 import * as palette from '../assets/Variables'
-import auth from '../services/auth'
-import users from '../services/users'
-import { CredentialsLogin, Session, UserForm } from '../types/types'
+import { Session } from '../types/types'
 
 export const handleChange = (
   e: React.FormEvent<HTMLInputElement>,
@@ -56,49 +53,4 @@ export const getLocalSession = (): SessionWithId => {
     window.localStorage.getItem('loggedUser') as string
   )
   return session
-}
-
-export const userUtil = () => {
-  const navigate = useNavigate()
-
-  const add = async (user: UserForm) => {
-    const getUsers = await users.getAll()
-    const checkUsername = getUsers.data.find(
-      (u) => u.username === user.username
-    )
-    const checkEmail = getUsers.data.find((u) => u.email === user.email)
-    if (checkUsername) throw new Error('User not available')
-    if (checkEmail) throw new Error('Email not available')
-
-    await users.add(user)
-  }
-
-  const login = async (credentials: CredentialsLogin) => {
-    const getUsers = await users.getAll()
-    const user = getUsers.data.find((u) => u.username === credentials.username)
-    if (!user) throw new Error('User not found')
-    if (user.password !== credentials.password)
-      throw new Error('Wrong password')
-
-    const { data } = await auth.login({
-      username: user.username,
-      token: user.id,
-    })
-    window.localStorage.setItem(
-      'loggedUser',
-      JSON.stringify({ username: data.username, token: user.id, id: data.id })
-    )
-    navigate('/')
-  }
-
-  const logout = async () => {
-    const sessionLocal = getLocalSession()
-    if (sessionLocal) {
-      await auth.logout(sessionLocal.id)
-      window.localStorage.clear
-      navigate('/login')
-    }
-  }
-
-  return { add, login, logout }
 }
