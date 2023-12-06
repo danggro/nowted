@@ -33,7 +33,7 @@ const Content = styled.div`
   width: 100%;
 `
 const NotePage = () => {
-  const { notes, getInitialData } = useContext(NotesContext)
+  const { notes, getInitialNotes } = useContext(NotesContext)
   const navigate = useNavigate()
   const sessionLocal = getLocalSession()
 
@@ -48,7 +48,7 @@ const NotePage = () => {
       }
     }
     getSessionDb()
-    getInitialData(sessionLocal.token)
+    getInitialNotes(sessionLocal.token)
   }, [])
 
   if (!sessionLocal || !notes) return null

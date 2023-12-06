@@ -51,5 +51,11 @@
       "id": 3
     }
   ],
-  "login": []
+  "login": [
+    {
+      "username": "danggro",
+      "token": "1",
+      "id": 1
+    }
+  ]
 }

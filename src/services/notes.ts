@@ -2,8 +2,10 @@ import axios from 'axios'
 import { baseUrl } from '../utils/contants'
 import { Note, NoteForm } from '../types/types'
 
-const get = async (id: number) => {
-  const response = await axios.get<Note[]>(`${baseUrl}/notes?userId_like=${id}`)
+const get = async (userId: number) => {
+  const response = await axios.get<Note[]>(
+    `${baseUrl}/notes?userId_like=${userId}`
+  )
   return response
 }
 
@@ -12,4 +14,9 @@ const add = async (note: NoteForm) => {
   return response
 }
 
-export default { get, add }
+const deleteNote = async (id: number) => {
+  const response = await axios.delete(`${baseUrl}/notes/${id}`)
+  return response
+}
+
+export default { get, add, deleteNote }

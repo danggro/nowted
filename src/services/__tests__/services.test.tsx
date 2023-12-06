@@ -41,7 +41,7 @@ describe('User', () => {
 
 describe.only('Notes service should', () => {
   let responseAdd: AxiosResponse<Note, any>
-
+  let responseGet: AxiosResponse<Note[], any>
   it('create a new note', async () => {
     responseAdd = await notes.add({
       title: 'this is title',
@@ -53,12 +53,17 @@ describe.only('Notes service should', () => {
   })
 
   it('get notes according to userId', async () => {
-    const response = await notes.get(responseAdd.data.userId)
-    expect(response.status).toEqual(200)
-    expect(response.data.length).toEqual(1)
-    expect(response.data[0].title).toEqual('this is title')
+    responseGet = await notes.get(responseAdd.data.userId)
+    expect(responseGet.status).toEqual(200)
+    expect(responseGet.data.length).toEqual(1)
+    expect(responseGet.data[0].title).toEqual('this is title')
   })
   // it.todo('get specific note accordint to id', )
   it.todo('update specific note')
-  it.todo('delete specific note')
+  it('delete specific note', async () => {
+    const response = await notes.deleteNote(5)
+    const responseGetAll = await axios.get(`${baseUrl}/notes`)
+    expect(response.status).toEqual(200)
+    expect(responseGetAll.data.length).toEqual(4)
+  })
 })

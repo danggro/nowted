@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import SVGDate from './SVGDate'
 import * as palette from '../../assets/Variables'
 import NoteNoView from './NoteNoView'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { NoteContext } from '../../context/NoteContext'
+import SVGThreeDot from './SVGThreeDot'
+import ThreeDotPopup from './ThreeDotPopup'
 
 const Container = styled.div`
   width: 100%;
@@ -13,6 +15,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 30px;
   padding: 50px;
+  position: relative;
 `
 
 const Input = styled.input`
@@ -44,8 +47,23 @@ const InputContent = styled.textarea`
   line-height: 1.75;
 `
 
+const ThreeDotContainer = styled.div`
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 150px;
+  border: 1px solid ${palette.TEXT_SECONDARY};
+  color: ${palette.TEXT_SECONDARY};
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: absolute;
+  right: 50px;
+`
+
 const NoteView = () => {
   const { note } = useContext(NoteContext)
+  const [popup, setPopup] = useState<Boolean>(false)
 
   if (!note.title) {
     return <NoteNoView />
@@ -53,6 +71,10 @@ const NoteView = () => {
 
   return (
     <Container>
+      {popup ? <ThreeDotPopup /> : null}
+      <ThreeDotContainer onClick={() => setPopup(!popup)}>
+        <SVGThreeDot />
+      </ThreeDotContainer>
       <InputTitle
         type="text"
         id="title"
