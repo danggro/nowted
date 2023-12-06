@@ -1,9 +1,9 @@
 export interface Note {
-  id: number
+  id?: number
   title: string
   date: string
   content: string
-  userId: number //deleted after backend finish
+  userId?: number //deleted after backend finish
 }
 
 export type NoteView = Omit<Note, 'userId'>

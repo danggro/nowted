@@ -1,16 +1,10 @@
-import {
-  ChildContextProvider,
-  ReactNode,
-  createContext,
-  useReducer,
-} from 'react'
+import { ReactNode, createContext, useReducer } from 'react'
 import { Note } from '../types/types'
 import notesService from '../services/notes'
 
 enum actions {
   ADD = 'ADD',
   INITIAL = 'INITIAL',
-  GET_ID = 'GET_ID',
   DELETE = 'DELETE',
   UPDATE = 'UPDATE',
 }
@@ -34,6 +28,7 @@ const reducer = (state: Note[], action: { type: actions; payload: any }) => {
 interface DefaultValue {
   notes: Note[]
   getInitialNotes: (userId: number) => void
+  addNote: (note: Note) => Promise<Note>
   deleteNote: (id: number) => void
   updateNote: (note: Note) => void
 }
@@ -47,6 +42,12 @@ export const NotesContextProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: actions.INITIAL, payload: data })
   }
 
+  const addNote = async (note: Note): Promise<Note> => {
+    const { data } = await notesService.add(note)
+    dispatch({ type: actions.ADD, payload: data })
+    return data
+  }
+
   const deleteNote = async (id: number) => {
     await notesService.deleteNote(id)
     dispatch({ type: actions.DELETE, payload: id })
@@ -58,6 +59,7 @@ export const NotesContextProvider = ({ children }: { children: ReactNode }) => {
   const value = {
     notes: state,
     getInitialNotes,
+    addNote,
     deleteNote,
     updateNote,
   }

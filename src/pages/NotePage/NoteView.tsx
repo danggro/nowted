@@ -4,11 +4,10 @@ import * as palette from '../../assets/Variables'
 import NoteNoView from './NoteNoView'
 import { useContext, useEffect, useState } from 'react'
 import { NoteContext } from '../../context/NoteContext'
-import ThreeDotPopup from './ThreeDotPopup'
 import notesService from '../../services/notes'
 import { NotesContext } from '../../context/NotesContext'
-import useComponentVisible from '../../hooks/hooks'
 import ThreeDotButton from './ThreeDotButton'
+import { getLocalSession } from '../../utils/utils'
 
 const Container = styled.div`
   width: 100%;
@@ -50,16 +49,22 @@ const InputContent = styled.textarea`
 `
 
 const NoteView = () => {
-  const { note } = useContext(NoteContext)
-  const { updateNote } = useContext(NotesContext)
+  const { note, setNote } = useContext(NoteContext)
+  const { updateNote, addNote } = useContext(NotesContext)
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
-
+  const localSession = getLocalSession()
   useEffect(() => {
-    if (note.title) setTitle(note.title)
-    if (note.date) setDate(note.date)
-    if (note.content) setContent(note.content)
+    if (
+      note.title !== undefined &&
+      note.date !== undefined &&
+      note.content !== undefined
+    ) {
+      setTitle(note.title)
+      setDate(note.date)
+      setContent(note.content)
+    }
   }, [note])
 
   const handleUpdateNoteAndNotes = async () => {
@@ -74,7 +79,27 @@ const NoteView = () => {
     updateNote(data)
   }
 
-  if (!note.title) {
+  const handleNewNote = async () => {
+    const newNote = {
+      title,
+      date,
+      content,
+      userId: localSession.token,
+    }
+    const data = await addNote(newNote)
+    setNote(data)
+  }
+
+  const handleOnBlur = () => {
+    if (note.id) {
+      handleUpdateNoteAndNotes()
+    } else {
+      console.log('howmany')
+      handleNewNote()
+    }
+  }
+
+  if (note.title === undefined) {
     return <NoteNoView />
   }
 
@@ -85,10 +110,10 @@ const NoteView = () => {
         type="text"
         id="title"
         name="title"
-        placeholder={note.title}
+        placeholder="Title"
         value={title}
         onChange={({ target }) => setTitle(target.value)}
-        onBlur={() => handleUpdateNoteAndNotes()}
+        onBlur={() => handleOnBlur()}
       />
       <InputDate>
         <SVGDate />
@@ -97,19 +122,19 @@ const NoteView = () => {
           type="text"
           id="date"
           name="date"
-          placeholder={note.date}
+          placeholder="dd/mm/yyyy"
           value={date}
           onChange={({ target }) => setDate(target.value)}
-          onBlur={() => handleUpdateNoteAndNotes()}
+          onBlur={() => handleOnBlur()}
         />
       </InputDate>
       <InputContent
         id="content"
         name="content"
-        placeholder={note.content}
+        placeholder="Write in"
         value={content}
         onChange={({ target }) => setContent(target.value)}
-        onBlur={() => handleUpdateNoteAndNotes()}
+        onBlur={() => handleOnBlur()}
       />
     </Container>
   )

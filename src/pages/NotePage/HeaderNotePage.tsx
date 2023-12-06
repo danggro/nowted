@@ -5,6 +5,8 @@ import SVGAdd from './SVG/SVGAdd'
 import auth from '../../services/auth'
 import { getLocalSession } from '../../utils/utils'
 import { useNavigate } from 'react-router'
+import { useContext } from 'react'
+import { NoteContext } from '../../context/NoteContext'
 
 const Header = styled.header`
   padding: 20px;
@@ -38,7 +40,7 @@ const Button = styled.button`
 
 const HeaderNotePage = () => {
   const navigate = useNavigate()
-
+  const { note, setNote } = useContext(NoteContext)
   const handleLogout = async () => {
     const sessionLocal = getLocalSession()
     if (sessionLocal) {
@@ -46,6 +48,10 @@ const HeaderNotePage = () => {
       window.localStorage.clear
       navigate('/login')
     }
+  }
+
+  const handleNewNote = async () => {
+    setNote({ title: '', date: '', content: '' })
   }
 
   return (
@@ -58,7 +64,7 @@ const HeaderNotePage = () => {
         />
         <Button onClick={handleLogout}>Logout</Button>
       </div>
-      <Button>
+      <Button onClick={handleNewNote}>
         <SVGAdd />
         <span>New Note</span>
       </Button>

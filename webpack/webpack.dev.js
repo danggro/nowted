@@ -10,10 +10,9 @@ module.exports = {
   },
   resolve: {
     fallback: {
-      path: 'path-browserify',
+      path: false,
       os: false,
       crypto: false,
-      url: 'url',
     },
   },
   output: {

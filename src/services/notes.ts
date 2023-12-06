@@ -10,7 +10,7 @@ const get = async (userId: number) => {
 }
 
 const add = async (note: NoteForm) => {
-  const response = await axios.post(`${baseUrl}/notes`, note)
+  const response = await axios.post<Note>(`${baseUrl}/notes`, note)
   return response
 }
 
