@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import * as palette from '../../../../assets/Variables'
 import SVGDate from '../../SVG/SVGDate'
-import { useEffect, useState } from 'react'
-import InputDay from './InputDay'
-import InputMonth from './InputMonth'
-import InputYear from './InputYear'
+import { useContext, useEffect, useState } from 'react'
+import { NoteContext } from '../../../../context/NoteContext'
+import Input from './Input'
+import { handleInputDate } from '../../../../utils/utils'
 
 const InputDateContainer = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ export const InputDateComponent = styled.input`
 interface Props {
   date: string
   setDate: React.Dispatch<React.SetStateAction<string>>
-  onBlur: (e: React.FocusEvent) => void
+  onBlur: () => void
 }
 
 const InputDate = (props: Props) => {
@@ -60,24 +60,41 @@ const InputDate = (props: Props) => {
       setMonth('')
       setYear('')
     }
+    console.log(date)
   }, [date])
 
-  const handleBlurYear = (e: React.FocusEvent) => {
-    if (!date && !month && !year) return null
-    onBlur(e)
-    setDate(`${day}/${month}/${year}`)
+  const handleOnBlur = async () => {
+    if (!date || !month || !year) return null
+    onBlur()
   }
 
   return (
-    <InputDateContainer>
+    <InputDateContainer id="date">
       <SVGDate />
       <span>Date</span>
       <div>
-        <InputDay day={day} setDay={setDay} />
+        <Input
+          value={day}
+          name="day"
+          onBlur={handleOnBlur}
+          onChange={(e) => handleInputDate(e, 31, setDate)}
+        />
         <span>/</span>
-        <InputMonth month={month} setMonth={setMonth} />
+        <Input
+          value={month}
+          name="month"
+          onBlur={handleOnBlur}
+          onChange={(e) => handleInputDate(e, 12, setDate)}
+        />
         <span>/</span>
-        <InputYear year={year} setYear={setYear} onBlur={handleBlurYear} />
+        <Input
+          value={year}
+          name="year"
+          onBlur={handleOnBlur}
+          onChange={(e) =>
+            handleInputDate(e, new Date().getFullYear(), setDate)
+          }
+        />
       </div>
     </InputDateContainer>
   )

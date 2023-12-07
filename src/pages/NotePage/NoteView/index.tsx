@@ -5,7 +5,11 @@ import { useContext, useEffect, useState } from 'react'
 import { NoteContext } from '../../../context/NoteContext'
 import { NotesContext } from '../../../context/NotesContext'
 import ThreeDotButton from './ThreeDotButton'
-import { getLocalSession } from '../../../utils/utils'
+import {
+  checkAndComplianceDate,
+  getLocalSession,
+  styleInputDate,
+} from '../../../utils/utils'
 import { Note } from '../../../types/types'
 import InputDate from './InputDate'
 
@@ -85,27 +89,24 @@ const NoteView = () => {
     setNote({ ...data, view: true })
   }
 
-  const handleOnBlur = (e: React.FocusEvent) => {
-    const titleElement = document.getElementById('title')?.parentElement
-    if (!title) return titleElement?.style.setProperty('--opacityErrNote', '1')
-    titleElement?.style.setProperty('--opacityErrNote', '0')
+  const handleOnBlur = () => {
+    const titleElement = document.getElementById('title')
+      ?.parentElement as HTMLDivElement
 
-    const day = String(new Date().getDate())
-    const month = String(new Date().getMonth())
-    const year = String(new Date().getFullYear())
+    if (!title) return styleInputDate(titleElement).invalid()
+    styleInputDate(titleElement).valid()
 
-    const addZeroDate = (date: string): string => {
-      return date.length === 1 ? '0' + date : date
-    }
+    const dateElement = document.getElementById('date') as HTMLDivElement
+    const finalDate = checkAndComplianceDate(date)
+    if (!finalDate) return styleInputDate(dateElement).invalid()
+    styleInputDate(dateElement).valid()
 
-    const defaultDate = `${addZeroDate(day)}/${addZeroDate(month)}/${year}`
     const baseNote = {
       title,
-      date: date ? date : defaultDate,
+      date: finalDate,
       content,
       userId: localSession.token,
     }
-
     if (note.id) {
       handleUpdateNoteAndNotes(baseNote)
     } else {
