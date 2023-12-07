@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import * as palette from '../../../assets/Variables'
 import NoteNoView from './NoteNoView'
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { NoteContext } from '../../../context/NoteContext'
 import { NotesContext } from '../../../context/NotesContext'
 import ThreeDotButton from './ThreeDotButton'
@@ -17,21 +17,39 @@ const Container = styled.div`
   gap: 30px;
   padding: 50px;
   position: relative;
+  & > div:first-child {
+    position: relative;
+    &::after {
+      content: 'Title cannot be empty';
+      color: ${palette.RED};
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      opacity: var(--opacityErrNote, 0);
+    }
+  }
 `
-
-const Input = styled.input`
-  color: ${palette.WHITE};
-`
-
-const InputTitle = styled(Input)`
+const InputTitle = styled.input`
   font-size: 2rem;
   font-weight: 600;
+  width: 95%;
+  border-bottom: 2px solid transparent;
+  &:focus {
+    border-bottom: 2px solid ${palette.BLACK_TERTIARY};
+  }
 `
 
 const InputContent = styled.textarea`
   width: 100%;
   height: 100%;
   line-height: 1.75;
+  padding-left: 5px;
+  margin-left: -5px;
+  border-left: 2px solid transparent;
+  &:focus {
+    border-left: 2px solid ${palette.BLACK_TERTIARY};
+    background-color: ${palette.BLACK_SECONDARY};
+  }
 `
 
 const NoteView = () => {
@@ -41,6 +59,7 @@ const NoteView = () => {
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
   const localSession = getLocalSession()
+
   useEffect(() => {
     if (
       note.title !== undefined &&
@@ -66,16 +85,27 @@ const NoteView = () => {
     setNote({ ...data, view: true })
   }
 
-  const handleOnBlur = () => {
-    if (!title) throw new Error('Tittle cannot be blank')
-    const dateNow = new Date().toLocaleDateString().split('/')
-    const defaultDate = `${dateNow[1]}/${dateNow[0]}/${dateNow[2]}`
+  const handleOnBlur = (e: React.FocusEvent) => {
+    const titleElement = document.getElementById('title')?.parentElement
+    if (!title) return titleElement?.style.setProperty('--opacityErrNote', '1')
+    titleElement?.style.setProperty('--opacityErrNote', '0')
+
+    const day = String(new Date().getDate())
+    const month = String(new Date().getMonth())
+    const year = String(new Date().getFullYear())
+
+    const addZeroDate = (date: string): string => {
+      return date.length === 1 ? '0' + date : date
+    }
+
+    const defaultDate = `${addZeroDate(day)}/${addZeroDate(month)}/${year}`
     const baseNote = {
       title,
       date: date ? date : defaultDate,
       content,
       userId: localSession.token,
     }
+
     if (note.id) {
       handleUpdateNoteAndNotes(baseNote)
     } else {
@@ -89,16 +119,17 @@ const NoteView = () => {
 
   return (
     <Container>
-      {note.title && <ThreeDotButton />}
-      <InputTitle
-        type="text"
-        id="title"
-        name="title"
-        placeholder="Title"
-        value={title}
-        onChange={({ target }) => setTitle(target.value)}
-        onBlur={handleOnBlur}
-      />
+      <div>
+        <InputTitle
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Title"
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
+          onBlur={handleOnBlur}
+        />
+      </div>
       <InputDate date={date} setDate={setDate} onBlur={handleOnBlur} />
       <InputContent
         id="content"
@@ -108,6 +139,7 @@ const NoteView = () => {
         onChange={({ target }) => setContent(target.value)}
         onBlur={handleOnBlur}
       />
+      {note.title && <ThreeDotButton />}
     </Container>
   )
 }

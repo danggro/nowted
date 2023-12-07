@@ -1,7 +1,7 @@
 import * as palette from '../assets/Variables'
 import { Session } from '../types/types'
 
-export const handleChange = (
+export const handleInputAuth = (
   e: React.FormEvent<HTMLInputElement>,
   setState: React.Dispatch<React.SetStateAction<string>>
 ) => {
@@ -18,20 +18,20 @@ export const handleChange = (
       )
     if (element.validity.typeMismatch)
       element?.parentElement?.setAttribute('data-errmsg', 'Email not valid')
-    inValidStyle(element)
+    inValidStyleInputAuth(element)
   } else {
-    validStyle(element)
+    validStyleInputAuth(element)
   }
 }
 
-const inValidStyle = (element: HTMLInputElement) => {
+const inValidStyleInputAuth = (element: HTMLInputElement) => {
   element?.style.setProperty('border-color', palette.RED)
   element?.style.setProperty('--placeholderColor', palette.RED)
   element?.style.setProperty('color', palette.RED)
   element?.parentElement?.style.setProperty('--opacityErr', '1')
 }
 
-const validStyle = (element: HTMLInputElement) => {
+const validStyleInputAuth = (element: HTMLInputElement) => {
   element?.parentElement?.setAttribute('data-errmsg', '')
   element?.style.setProperty('border-color', palette.WHITE)
   element?.style.setProperty('--placeholderColor', palette.WHITE)
@@ -39,8 +39,11 @@ const validStyle = (element: HTMLInputElement) => {
   element?.parentElement?.style.setProperty('--opacityErr', '0')
 }
 
-export const setErrorInput = (message: string, element: HTMLInputElement) => {
-  inValidStyle(element)
+export const setErrorInputAuth = (
+  message: string,
+  element: HTMLInputElement
+) => {
+  inValidStyleInputAuth(element)
   element?.parentElement?.setAttribute('data-errmsg', message)
 }
 
@@ -53,4 +56,40 @@ export const getLocalSession = (): SessionWithId => {
     window.localStorage.getItem('loggedUser') as string
   )
   return session
+}
+
+export const preventPressNumber = (e: React.KeyboardEvent) => {
+  if (
+    isNaN(Number(e.key)) &&
+    e.key !== 'Backspace' &&
+    e.key !== 'ArrowLeft' &&
+    e.key !== 'ArrowRight'
+  ) {
+    e.preventDefault()
+    return false
+  }
+}
+
+export const handleInputDate = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setState: React.Dispatch<React.SetStateAction<string>>,
+  condition: number
+) => {
+  let value = e.target.value
+  const parentElement = e.target.parentElement
+  const nextInput = e.target.nextSibling?.nextSibling as HTMLInputElement
+
+  if (value.length >= e.target.maxLength) {
+    if (e.target.id !== 'year') nextInput.focus()
+    value = value.slice(0, e.target.maxLength)
+  }
+
+  if (value.length === e.target.maxLength) {
+    if (Number(value) > condition || Number(value) === 0) {
+      parentElement?.style.setProperty('--opacityErrNote', '1')
+    } else {
+      parentElement?.style.setProperty('--opacityErrNote', '0')
+    }
+  }
+  setState(value)
 }

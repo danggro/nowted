@@ -6,7 +6,11 @@ import MainAuth from '../../components/auth/MainAuth'
 import AnotherAuth from '../../components/auth/AnotherAuth'
 import React, { useEffect, useState } from 'react'
 import InputAuth from '../../components/auth/InputAuth'
-import { getLocalSession, handleChange, setErrorInput } from '../../utils/utils'
+import {
+  getLocalSession,
+  handleInputAuth,
+  setErrorInputAuth,
+} from '../../utils/utils'
 import { useNavigate } from 'react-router'
 import { useUtil } from '../../hooks/hooks'
 
@@ -32,10 +36,10 @@ const Login = () => {
     } catch (err: unknown) {
       const error = err as Error
       if (error.message === 'User not found') {
-        setErrorInput(error.message, elementUsername)
+        setErrorInputAuth(error.message, elementUsername)
       }
       if (error.message === 'Wrong password') {
-        setErrorInput(error.message, elementPassword)
+        setErrorInputAuth(error.message, elementPassword)
       }
     }
   }
@@ -52,7 +56,7 @@ const Login = () => {
             placeholder="Username"
             name="username"
             value={username}
-            onChange={(e) => handleChange(e, setUsername)}
+            onChange={(e) => handleInputAuth(e, setUsername)}
           />
           <InputAuth
             type="password"
@@ -60,7 +64,7 @@ const Login = () => {
             placeholder="Password"
             name="password"
             value={password}
-            onChange={(e) => handleChange(e, setPassword)}
+            onChange={(e) => handleInputAuth(e, setPassword)}
             minlength={8}
           />
           <ButtonAuth page="login">Login</ButtonAuth>

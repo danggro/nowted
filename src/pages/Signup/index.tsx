@@ -6,7 +6,7 @@ import MainAuth from '../../components/auth/MainAuth'
 import AnotherAuth from '../../components/auth/AnotherAuth'
 import { useState } from 'react'
 import InputAuth from '../../components/auth/InputAuth'
-import { handleChange, setErrorInput } from '../../utils/utils'
+import { handleInputAuth, setErrorInputAuth } from '../../utils/utils'
 import { useNavigate } from 'react-router'
 import { useUtil } from '../../hooks/hooks'
 
@@ -30,9 +30,9 @@ const Signup = () => {
     } catch (err: unknown) {
       const error = err as Error
       if (error.message === 'User not available')
-        return setErrorInput(error.message, elementUsername)
+        return setErrorInputAuth(error.message, elementUsername)
       if (error.message === 'Email not available')
-        return setErrorInput(error.message, elementEmail)
+        return setErrorInputAuth(error.message, elementEmail)
     }
   }
 
@@ -47,7 +47,7 @@ const Signup = () => {
             placeholder="Username"
             name="username"
             value={username}
-            onChange={(e) => handleChange(e, setUsername)}
+            onChange={(e) => handleInputAuth(e, setUsername)}
           />
           <InputAuth
             type="email"
@@ -55,7 +55,7 @@ const Signup = () => {
             placeholder="Email"
             name="email"
             value={email}
-            onChange={(e) => handleChange(e, setEmail)}
+            onChange={(e) => handleInputAuth(e, setEmail)}
           />
           <InputAuth
             type="password"
@@ -64,7 +64,7 @@ const Signup = () => {
             name="password"
             value={password}
             minlength={8}
-            onChange={(e) => handleChange(e, setPassword)}
+            onChange={(e) => handleInputAuth(e, setPassword)}
           />
           <ButtonAuth page="signup">Signup</ButtonAuth>
           <AnotherAuth

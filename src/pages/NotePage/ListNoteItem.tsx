@@ -7,11 +7,9 @@ import { NoteContext } from '../../context/NoteContext'
 
 const NoteStyle = styled.div`
   display: grid;
-  grid-template:
-    repeat(2, 1fr) / fit-content,
-    1fr,
-    1fr;
-  gap: 10px;
+  grid-template: repeat(2, 1fr) / 75px 1fr;
+  row-gap: 5px;
+  column-gap: 10px;
   border-radius: 3px;
   padding: 20px;
   background-color: ${palette.BLACK_SECONDARY};
@@ -21,16 +19,17 @@ const NoteStyle = styled.div`
     background-color: ${palette.BLACK_TERTIARY};
   }
   h2 {
-    grid-area: 1/1/2/4;
+    grid-area: 1/1/2/3;
     font-size: 1.125rem;
     font-weight: 600;
   }
-  span:nth-child(2) {
+  span {
     grid-area: 2/1/3/2;
+    width: fit-content;
     color: ${palette.TEXT_TERTIARY};
   }
   p {
-    grid-area: 2/2/3/4;
+    grid-area: 2/2/3/3;
     color: ${palette.TEXT_SECONDARY};
     display: -webkit-box;
     -webkit-line-clamp: 1;
