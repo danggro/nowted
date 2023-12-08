@@ -73,7 +73,7 @@ export const preventPressNumber = (e: React.KeyboardEvent) => {
 export const handleInputDate = (
   e: React.ChangeEvent<HTMLInputElement>,
   condition: number,
-  setDate: React.Dispatch<React.SetStateAction<string>>
+  setState: React.Dispatch<React.SetStateAction<string>>
 ) => {
   let value = e.target.value
   const parentElement = e.target.parentElement as HTMLDivElement
@@ -83,16 +83,7 @@ export const handleInputDate = (
     value = value.slice(0, e.target.maxLength)
   }
 
-  setDate((prevState) => {
-    const date = prevState.split('/')
-    if (e.target.id === 'day') {
-      return date.map((d, i) => (i === 0 ? value : d)).join('/')
-    }
-    if (e.target.id === 'month') {
-      return date.map((d, i) => (i === 1 ? value : d)).join('/')
-    }
-    return date.map((d, i) => (i === 2 ? value : d)).join('/')
-  })
+  setState(value)
 
   if (Number(value) > condition || Number(value) === 0) {
     return styleInputDate(parentElement).invalid()
@@ -103,6 +94,7 @@ export const handleInputDate = (
     nextInput.focus()
   }
 }
+
 const getDefaultDate = (): string => {
   const day = String(new Date().getDate())
   const month = String(new Date().getMonth())
@@ -114,24 +106,31 @@ const getDefaultDate = (): string => {
 
   return `${addZeroDate(day)}/${addZeroDate(month)}/${year}`
 }
-export const checkAndComplianceDate = (date: string): string | undefined => {
-  if (!date) return getDefaultDate()
+export const checkDate = (date: string): Boolean => {
   const dateSplit = date.split('/')
   let day = dateSplit[0]
   let month = dateSplit[1]
   let year = dateSplit[2]
+  if (!Number(day) || !Number(month) || !Number(year)) return false
+  if (Number(day) > 31) return false
+  if (Number(month) > 12) return false
+  if (Number(year) > new Date().getFullYear()) return false
+  return true
+}
+
+export const complianceDate = (date: string): string => {
+  if (!date) return getDefaultDate()
+  const dateSplit = date.split('/')
+  let day = dateSplit[0]
+  let month = dateSplit[1]
   if (day.length === 1) day = `0${day}`
   if (month.length === 1) month = `0${month}`
-  if (!Number(day) || !Number(month) || !Number(year)) return undefined
-  if (Number(day) > 31) return undefined
-  if (Number(month) > 12) return undefined
-  if (Number(year) > new Date().getFullYear()) return undefined
   return `${day}/${month}/${dateSplit[2]}`
 }
 
 export const styleInputDate = (element: HTMLDivElement) => {
   const style = (opacity: number) => {
-    element.style.setProperty('--opacityErrNote', `${opacity}`)
+    element?.style.setProperty('--opacityErrNote', `${opacity}`)
   }
   const invalid = () => style(1)
   const valid = () => style(0)

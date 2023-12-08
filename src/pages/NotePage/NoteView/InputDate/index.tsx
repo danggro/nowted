@@ -40,11 +40,10 @@ export const InputDateComponent = styled.input`
 interface Props {
   date: string
   setDate: React.Dispatch<React.SetStateAction<string>>
-  onBlur: () => void
 }
 
 const InputDate = (props: Props) => {
-  const { date, setDate, onBlur } = props
+  const { date, setDate } = props
   const [day, setDay] = useState<string>('')
   const [month, setMonth] = useState<string>('')
   const [year, setYear] = useState<string>('')
@@ -60,13 +59,11 @@ const InputDate = (props: Props) => {
       setMonth('')
       setYear('')
     }
-    console.log(date)
   }, [date])
 
-  const handleOnBlur = async () => {
-    if (!date || !month || !year) return null
-    onBlur()
-  }
+  useEffect(() => {
+    setDate(`${day}/${month}/${year}`)
+  }, [day, month, year])
 
   return (
     <InputDateContainer id="date">
@@ -76,23 +73,20 @@ const InputDate = (props: Props) => {
         <Input
           value={day}
           name="day"
-          onBlur={handleOnBlur}
-          onChange={(e) => handleInputDate(e, 31, setDate)}
+          onChange={(e) => handleInputDate(e, 31, setDay)}
         />
         <span>/</span>
         <Input
           value={month}
           name="month"
-          onBlur={handleOnBlur}
-          onChange={(e) => handleInputDate(e, 12, setDate)}
+          onChange={(e) => handleInputDate(e, 12, setMonth)}
         />
         <span>/</span>
         <Input
           value={year}
           name="year"
-          onBlur={handleOnBlur}
           onChange={(e) =>
-            handleInputDate(e, new Date().getFullYear(), setDate)
+            handleInputDate(e, new Date().getFullYear(), setYear)
           }
         />
       </div>

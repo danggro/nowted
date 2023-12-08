@@ -6,7 +6,8 @@ import { NoteContext } from '../../../context/NoteContext'
 import { NotesContext } from '../../../context/NotesContext'
 import ThreeDotButton from './ThreeDotButton'
 import {
-  checkAndComplianceDate,
+  checkDate,
+  complianceDate,
   getLocalSession,
   styleInputDate,
 } from '../../../utils/utils'
@@ -89,30 +90,39 @@ const NoteView = () => {
     setNote({ ...data, view: true })
   }
 
-  const handleOnBlur = () => {
-    const titleElement = document.getElementById('title')
-      ?.parentElement as HTMLDivElement
-
-    if (!title) return styleInputDate(titleElement).invalid()
-    styleInputDate(titleElement).valid()
-
-    const dateElement = document.getElementById('date') as HTMLDivElement
-    const finalDate = checkAndComplianceDate(date)
-    if (!finalDate) return styleInputDate(dateElement).invalid()
-    styleInputDate(dateElement).valid()
-
+  useEffect(() => {
     const baseNote = {
       title,
-      date: finalDate,
+      date: complianceDate(date),
       content,
       userId: localSession.token,
     }
-    if (note.id) {
-      handleUpdateNoteAndNotes(baseNote)
-    } else {
-      handleNewNote(baseNote)
-    }
-  }
+
+    let timeout = setTimeout(() => {
+      const titleElement = document.getElementById('title')
+        ?.parentElement as HTMLDivElement
+      if (!title) return styleInputDate(titleElement).invalid()
+      styleInputDate(titleElement).valid()
+
+      const dateElement = document.getElementById('date') as HTMLDivElement
+      const dateChecked = checkDate(date)
+      if (!dateChecked) return styleInputDate(dateElement).invalid()
+      styleInputDate(dateElement).valid()
+
+      if (
+        note.title === title &&
+        note.date === date &&
+        note.content === content
+      )
+        return null
+      if (note.id) {
+        handleUpdateNoteAndNotes(baseNote)
+      } else {
+        handleNewNote(baseNote)
+      }
+    }, 5000)
+    return () => clearTimeout(timeout)
+  }, [title, date, content])
 
   if (!note.view) {
     return <NoteNoView />
@@ -128,17 +138,15 @@ const NoteView = () => {
           placeholder="Title"
           value={title}
           onChange={({ target }) => setTitle(target.value)}
-          onBlur={handleOnBlur}
         />
       </div>
-      <InputDate date={date} setDate={setDate} onBlur={handleOnBlur} />
+      <InputDate date={date} setDate={setDate} />
       <InputContent
         id="content"
         name="content"
         placeholder="Write in"
         value={content}
         onChange={({ target }) => setContent(target.value)}
-        onBlur={handleOnBlur}
       />
       {note.title && <ThreeDotButton />}
     </Container>

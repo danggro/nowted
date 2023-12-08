@@ -1,8 +1,8 @@
 {
   "notes": [
     {
-      "title": "My Goals for the Netx Year updated",
-      "date": "12/1/2022",
+      "title": "My Goals for the Netx Year updated new asli",
+      "date": "12/01/2022",
       "content": "As the year comes to as soon, I wanna do what actually make me happy",
       "userId": 1,
       "id": 1
@@ -29,18 +29,18 @@
       "userId": 2
     },
     {
-      "title": "This is new note from userId 3",
-      "date": "",
-      "content": "",
+      "title": "This is new note from userId 3 asjlk alskdj lkasdj",
+      "date": "12/02/2021",
+      "content": "asdqwe123 ",
       "userId": 3,
       "id": 5
     },
     {
-      "title": "asd",
-      "date": "07/11/2023",
+      "title": "asdassd",
+      "date": "12/02/2023",
       "content": "",
       "userId": 1,
-      "id": 6
+      "id": 7
     }
   ],
   "users": [
@@ -65,11 +65,5 @@
       "id": 3
     }
   ],
-  "login": [
-    {
-      "username": "danggro",
-      "token": 1,
-      "id": 1
-    }
-  ]
+  "login": []
 }

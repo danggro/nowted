@@ -7,7 +7,7 @@ import { NoteContext } from '../../context/NoteContext'
 
 const NoteStyle = styled.div`
   display: grid;
-  grid-template: repeat(2, 1fr) / 75px 1fr;
+  grid-template: 1fr 25px / 75px 1fr;
   row-gap: 5px;
   column-gap: 10px;
   border-radius: 3px;
@@ -25,7 +25,6 @@ const NoteStyle = styled.div`
   }
   span {
     grid-area: 2/1/3/2;
-    width: fit-content;
     color: ${palette.TEXT_TERTIARY};
   }
   p {
