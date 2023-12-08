@@ -1,14 +1,14 @@
-import ButtonAuth from '../../components/auth/ButtonAuth'
-import ContainerAuth from '../../components/auth/ContainerAuth'
-import FormAuth from '../../components/auth/FormAuth'
-import TitleAuth from '../../components/auth/TitleAuth'
-import MainAuth from '../../components/auth/MainAuth'
-import AnotherAuth from '../../components/auth/AnotherAuth'
+import ButtonAuth from 'components/auth/ButtonAuth'
+import ContainerAuth from 'components/auth/ContainerAuth'
+import FormAuth from 'components/auth/FormAuth'
+import TitleAuth from 'components/auth/TitleAuth'
+import MainAuth from 'components/auth/MainAuth'
+import AnotherAuth from 'components/auth/AnotherAuth'
 import { useState } from 'react'
-import InputAuth from '../../components/auth/InputAuth'
-import { handleInputAuth, setErrorInputAuth } from '../../utils/utils'
+import InputAuth from 'components/auth/InputAuth'
+import { handleInputAuth, setErrorInputAuth } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useUtil } from '../../hooks/hooks'
+import { useUtil } from 'hooks/hooks'
 
 const Signup = () => {
   const [username, setUsername] = useState<string>('digran')

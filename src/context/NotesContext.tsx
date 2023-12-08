@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useReducer } from 'react'
-import { Note } from '../types/types'
-import notesService from '../services/notes'
+import { Note } from 'types/types'
+import notesService from 'services/notes'
 
 enum actions {
   ADD = 'ADD',

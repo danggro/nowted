@@ -2,13 +2,13 @@ import styled from 'styled-components'
 import HeaderNotePage from './HeaderNotePage'
 import ListNote from './ListNote'
 import { useContext, useEffect } from 'react'
-import * as palette from '../../assets/Variables'
+import * as palette from 'assets/Variables'
 import NoteView from './NoteView'
 import { useNavigate } from 'react-router'
-import auth from '../../services/auth'
-import { NotesContext } from '../../context/NotesContext'
-import { getLocalSession } from '../../utils/utils'
-import NoteContextProvider from '../../context/NoteContext'
+import auth from 'services/auth'
+import { NotesContext } from 'context/NotesContext'
+import { getLocalSession } from 'utils/utils'
+import NoteContextProvider from 'context/NoteContext'
 
 const Container = styled.div`
   width: 100%;

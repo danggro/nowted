@@ -2,8 +2,8 @@ import axios, { AxiosResponse } from 'axios'
 import auth from '../auth'
 import users from '../users'
 import notes from '../notes'
-import { baseUrl } from '../../utils/contants'
-import { Note } from '../../types/types'
+import { baseUrl } from 'utils/contants'
+import { Note } from 'types/types'
 
 describe('Authorization', () => {
   it('service login should get response data and status 201', async () => {

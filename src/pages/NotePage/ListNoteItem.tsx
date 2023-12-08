@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { Note } from '../../types/types'
-import * as palette from '../../assets/Variables'
-import { getLocalSession } from '../../utils/utils'
+import { Note } from 'types/types'
+import * as palette from 'assets/Variables'
+import { getLocalSession } from 'utils/utils'
 import { useContext } from 'react'
-import { NoteContext } from '../../context/NoteContext'
+import { NoteContext } from 'context/NoteContext'
 
 const NoteStyle = styled.div`
   display: grid;

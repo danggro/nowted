@@ -1,6 +1,6 @@
-import { CredentialsLogin, Session, User } from '../types/types'
+import { CredentialsLogin, Session, User } from 'types/types'
 import axios from 'axios'
-import { baseUrl } from '../utils/contants'
+import { baseUrl } from 'utils/contants'
 
 interface ResponseSession extends Session {
   id: number

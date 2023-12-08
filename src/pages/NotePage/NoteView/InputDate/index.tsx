@@ -1,10 +1,9 @@
 import styled from 'styled-components'
-import * as palette from '../../../../assets/Variables'
+import * as palette from 'assets/Variables'
 import SVGDate from '../../SVG/SVGDate'
-import { useContext, useEffect, useState } from 'react'
-import { NoteContext } from '../../../../context/NoteContext'
+import { useEffect, useState } from 'react'
 import Input from './Input'
-import { handleInputDate } from '../../../../utils/utils'
+import { handleInputDate } from 'utils/utils'
 
 const InputDateContainer = styled.div`
   display: flex;

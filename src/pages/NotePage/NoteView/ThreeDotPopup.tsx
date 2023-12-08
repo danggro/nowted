@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import SVGDelete from '../SVG/SVGDelete'
-import * as palette from '../../../assets/Variables'
+import * as palette from 'assets/Variables'
 import { useContext } from 'react'
-import { NoteContext } from '../../../context/NoteContext'
-import { NotesContext } from '../../../context/NotesContext'
+import { NoteContext } from 'context/NoteContext'
+import { NotesContext } from 'context/NotesContext'
 const Container = styled.div`
   display: flex;
   width: 200px;

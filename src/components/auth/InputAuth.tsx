@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import * as palette from '../../assets/Variables'
+import * as palette from 'assets/Variables'
 
 const Input = styled.input`
   border-radius: 12px;

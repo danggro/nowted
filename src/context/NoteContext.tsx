@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useReducer } from 'react'
-import { NoteState } from '../types/types'
+import { NoteState } from 'types/types'
 
 enum actions {
   SET = 'SET',

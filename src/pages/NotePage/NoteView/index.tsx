@@ -1,17 +1,17 @@
 import styled from 'styled-components'
-import * as palette from '../../../assets/Variables'
+import * as palette from 'assets/Variables'
 import NoteNoView from './NoteNoView'
 import { useContext, useEffect, useState } from 'react'
-import { NoteContext } from '../../../context/NoteContext'
-import { NotesContext } from '../../../context/NotesContext'
+import { NoteContext } from 'context/NoteContext'
+import { NotesContext } from 'context/NotesContext'
 import ThreeDotButton from './ThreeDotButton'
 import {
   checkDate,
   complianceDate,
   getLocalSession,
   styleInputDate,
-} from '../../../utils/utils'
-import { Note } from '../../../types/types'
+} from 'utils/utils'
+import { Note } from 'types/types'
 import InputDate from './InputDate'
 import NotifSaved from './NotifSaved'
 

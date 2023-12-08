@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-named-as-default
 import styled from 'styled-components'
-import * as palette from '../../assets/Variables'
+import * as palette from 'assets/Variables'
 
 const Button = styled.button`
   text-align: center;

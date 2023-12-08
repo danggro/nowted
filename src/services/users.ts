@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { User, UserForm } from '../types/types'
-import { baseUrl } from '../utils/contants'
+import { User, UserForm } from 'types/types'
+import { baseUrl } from 'utils/contants'
 
 const getAll = async () => {
   const response = await axios.get<User[]>(`${baseUrl}/users`)

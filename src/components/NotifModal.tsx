@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import * as palette from '../assets/Variables'
+import * as palette from 'assets/Variables'
 const Container = styled.div`
   position: absolute;
   top: 20px;

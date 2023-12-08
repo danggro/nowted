@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import * as palette from '../../assets/Variables'
+import * as palette from 'assets/Variables'
 
 const Span = styled.span<{ page: string }>`
   text-align: center;

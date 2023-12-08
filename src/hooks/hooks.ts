@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
-import { CredentialsLogin, UserForm } from '../types/types'
-import users from '../services/users'
-import auth from '../services/auth'
-import { getLocalSession } from '../utils/utils'
+import { CredentialsLogin, UserForm } from 'types/types'
+import users from 'services/users'
+import auth from 'services/auth'
+import { getLocalSession } from 'utils/utils'
 
 export default function useComponentVisible(initial: Boolean) {
   const [open, setOpen] = useState<Boolean>(initial)

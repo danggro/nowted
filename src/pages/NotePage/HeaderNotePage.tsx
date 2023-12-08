@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import logoSrc from '../../assets/logo.png'
-import * as palette from '../../assets/Variables'
+import logoSrc from 'assets/logo.png'
+import * as palette from 'assets/Variables'
 import SVGAdd from './SVG/SVGAdd'
-import auth from '../../services/auth'
-import { getLocalSession } from '../../utils/utils'
+import auth from 'services/auth'
+import { getLocalSession } from 'utils/utils'
 import { useNavigate } from 'react-router'
 import { useContext } from 'react'
-import { NoteContext } from '../../context/NoteContext'
+import { NoteContext } from 'context/NoteContext'
 
 const Header = styled.header`
   padding: 20px;

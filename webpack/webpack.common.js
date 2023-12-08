@@ -6,6 +6,7 @@ const Dotenv = require('dotenv-webpack')
 module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.tsx'),
   resolve: {
+    modules: [path.resolve(__dirname, '..', 'src'), 'node_modules'],
     extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
@@ -37,6 +38,7 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', './src/index.html'),

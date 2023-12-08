@@ -1,4 +1,4 @@
-import { Note } from '../../types/types'
+import { Note } from 'types/types'
 import ListNoteItem from './ListNoteItem'
 import styled from 'styled-components'
 

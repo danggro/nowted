@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { baseUrl } from '../utils/contants'
-import { Note, NoteForm } from '../types/types'
+import { baseUrl } from 'utils/contants'
+import { Note, NoteForm } from 'types/types'
 
 const get = async (userId: number) => {
   const response = await axios.get<Note[]>(

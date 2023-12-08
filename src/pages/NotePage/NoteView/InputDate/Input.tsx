@@ -1,5 +1,5 @@
 import { InputDateComponent } from '.'
-import { preventPressNumber } from '../../../../utils/utils'
+import { preventPressNumber } from 'utils/utils'
 
 interface Props {
   value: string
