@@ -15,16 +15,16 @@
       "id": 2
     },
     {
-      "id": 3,
       "title": "Noon aline",
-      "date": "112233",
-      "content": "Noona Noona comeback here i will hold ur hand",
-      "userId": 2
+      "date": "12/02/2021",
+      "content": "      Noona Noona comeback here i will hold ur hand\nasdasdas",
+      "userId": 2,
+      "id": 3
     },
     {
       "id": 4,
       "title": "Day by day",
-      "date": "112233",
+      "date": "12/02/2021",
       "content": "Is it hard? is it hurt?",
       "userId": 2
     },
@@ -36,11 +36,11 @@
       "id": 5
     },
     {
-      "title": "asdassd",
-      "date": "12/02/2023",
+      "title": "asd",
+      "date": "08/11/2023",
       "content": "",
       "userId": 1,
-      "id": 7
+      "id": 6
     }
   ],
   "users": [
@@ -65,5 +65,11 @@
       "id": 3
     }
   ],
-  "login": []
+  "login": [
+    {
+      "username": "danggro",
+      "token": 1,
+      "id": 1
+    }
+  ]
 }

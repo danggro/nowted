@@ -106,7 +106,9 @@ const getDefaultDate = (): string => {
 
   return `${addZeroDate(day)}/${addZeroDate(month)}/${year}`
 }
+
 export const checkDate = (date: string): Boolean => {
+  if (date === '') return true
   const dateSplit = date.split('/')
   let day = dateSplit[0]
   let month = dateSplit[1]

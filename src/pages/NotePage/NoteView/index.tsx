@@ -13,6 +13,7 @@ import {
 } from '../../../utils/utils'
 import { Note } from '../../../types/types'
 import InputDate from './InputDate'
+import NotifSaved from './NotifSaved'
 
 const Container = styled.div`
   width: 100%;
@@ -63,6 +64,8 @@ const NoteView = () => {
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
+  const [noteSaved, setNoteSaved] = useState<Boolean>(false)
+
   const localSession = getLocalSession()
 
   useEffect(() => {
@@ -120,6 +123,8 @@ const NoteView = () => {
       } else {
         handleNewNote(baseNote)
       }
+      setNoteSaved(true)
+      setTimeout(() => setNoteSaved(false), 2500)
     }, 5000)
     return () => clearTimeout(timeout)
   }, [title, date, content])
@@ -127,7 +132,6 @@ const NoteView = () => {
   if (!note.view) {
     return <NoteNoView />
   }
-
   return (
     <Container>
       <div>
@@ -149,6 +153,7 @@ const NoteView = () => {
         onChange={({ target }) => setContent(target.value)}
       />
       {note.title && <ThreeDotButton />}
+      <NotifSaved noteSaved={noteSaved} />
     </Container>
   )
 }
