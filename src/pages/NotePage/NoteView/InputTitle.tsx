@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import { styleInputError } from 'utils/utils'
+import { useEffect } from 'react'
 
 const Input = styled.input`
   font-size: 2rem;
@@ -27,6 +28,12 @@ interface Props {
 }
 
 const InputTitle = (props: Props) => {
+  useEffect(() => {
+    const errorElement = document.getElementById('title')
+      ?.nextElementSibling as HTMLSpanElement
+    styleInputError(errorElement).valid()
+  }, [props.value])
+
   return (
     <div style={{ position: 'relative' }}>
       <Input

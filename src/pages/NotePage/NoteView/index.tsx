@@ -70,6 +70,9 @@ const NoteView = () => {
     }
 
     let timeout = setTimeout(() => {
+      console.log(note.date)
+      console.log(date)
+
       if (
         note.title === title &&
         note.date === date &&

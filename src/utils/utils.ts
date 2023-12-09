@@ -128,7 +128,7 @@ export const checkDate = (date: string): Boolean => {
 }
 
 export const complianceDate = (date: string): string => {
-  if (!date) return getDefaultDate()
+  if (!date || date === '//') return getDefaultDate()
   const dateSplit = date.split('/')
   let day = dateSplit[0]
   let month = dateSplit[1]

@@ -3,7 +3,7 @@ import * as palette from 'assets/Variables'
 import SVGDate from '../../SVG/SVGDate'
 import { useEffect, useState } from 'react'
 import Input from './Input'
-import { handleInputDate } from 'utils/utils'
+import { handleInputDate, styleInputError } from 'utils/utils'
 
 const InputDateContainer = styled.div`
   display: flex;
@@ -59,10 +59,16 @@ const InputDate = (props: Props) => {
       setMonth('')
       setYear('')
     }
+    const errorElement = document.getElementById('date')
+      ?.lastElementChild as HTMLSpanElement
+    styleInputError(errorElement).valid()
   }, [date])
 
   useEffect(() => {
-    setDate(`${day}/${month}/${year}`)
+    setDate(() => {
+      if (!day || !month || !year) return ''
+      return `${day}/${month}/${year}`
+    })
   }, [day, month, year])
 
   return (

@@ -36,7 +36,6 @@ const NotePage = () => {
   const { notes, getInitialNotes } = useContext(NotesContext)
   const navigate = useNavigate()
   const sessionLocal = getLocalSession()
-
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
     const getSessionDb = async () => {
