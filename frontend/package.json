@@ -19,7 +19,6 @@
     "cy:run": "cypress run"
   },
   "keywords": [
-    "tmeplate",
     "react",
     "typescript"
   ],
