@@ -15,7 +15,7 @@ describe('Authorization', () => {
     expect(response.status).toEqual(201)
     expect(response.data).toEqual({
       username: 'danggro',
-      token: '1',
+      token: 1,
       id: 1,
     })
   })
@@ -35,11 +35,20 @@ describe('User', () => {
     expect(response.data.length).toBeGreaterThanOrEqual(0)
     expect(response.status).toEqual(200)
   })
-  it.todo('service should get specific username detail')
-  it.todo('service should add username from signup page')
+  it('service should add username from signup page', async () => {
+    const responseAdd = await users.add({
+      username: 'digran',
+      email: 'digran@gmail.com',
+      password: '12345678',
+    })
+    const responseGet = await users.getAll()
+
+    expect(responseAdd.status).toEqual(201)
+    expect(responseGet.data.length).toBeGreaterThanOrEqual(1)
+  })
 })
 
-describe.only('Notes service should', () => {
+describe('Notes service should', () => {
   let responseAdd: AxiosResponse<Note, any>
   let responseGet: AxiosResponse<Note[], any>
   it('create a new note', async () => {
@@ -54,29 +63,32 @@ describe.only('Notes service should', () => {
   })
 
   it('get notes according to userId', async () => {
-    responseGet = await notes.get(responseAdd.data.userId)
+    responseGet = await notes.get(responseAdd.data.userId as number)
     expect(responseGet.status).toEqual(200)
-    expect(responseGet.data.length).toEqual(1)
+    expect(responseGet.data.length).toBeGreaterThanOrEqual(1)
     expect(responseGet.data[0].title).toEqual('this is title')
   })
-  // it.todo('get specific note accordint to id', )
+
   it('update specific note', async () => {
     const updatedNote = {
-      id: 5,
+      id: 1,
       title: 'this is title updated',
       date: '11122023',
       content: 'this is content updated',
       userId: 3,
     }
+    console.log(baseUrl)
+
     const response = await notes.update(updatedNote)
     const responseGet = await axios.get(`${baseUrl}/notes/${response.data.id}`)
     expect(response.status).toEqual(200)
     expect(responseGet.data.title).toEqual('this is title updated')
   })
+
   it('delete specific note', async () => {
-    const response = await notes.deleteNote(5)
+    const response = await notes.deleteNote(1)
     const responseGetAll = await axios.get(`${baseUrl}/notes`)
     expect(response.status).toEqual(200)
-    expect(responseGetAll.data.length).toEqual(4)
+    expect(responseGetAll.data.length).toEqual(0)
   })
 })

@@ -5,30 +5,31 @@ export const handleInputAuth = (
   e: React.FormEvent<HTMLInputElement>,
   setState: React.Dispatch<React.SetStateAction<string>>
 ) => {
-  const element = e.currentTarget
+  const element = e.currentTarget as HTMLInputElement
+  const nextElement = e.currentTarget.nextElementSibling as HTMLSpanElement
   setState(element.value)
 
   if (!element.checkValidity()) {
     if (element.validity.tooShort)
-      element?.parentElement?.setAttribute('data-errmsg', 'Minimum 8 character')
-    if (element.validity.valueMissing)
-      element?.parentElement?.setAttribute(
-        'data-errmsg',
-        'Please fill this input form'
-      )
+      nextElement.textContent = 'Minimum 8 character'
+
     if (element.validity.typeMismatch)
-      element?.parentElement?.setAttribute('data-errmsg', 'Email not valid')
-    inValidStyleInputAuth(element)
-  } else {
-    validStyleInputAuth(element)
+      nextElement.textContent = 'Email not valid'
+    return inValidStyleInputAuth(element)
   }
+  if (!element.value) {
+    nextElement.textContent = 'Please fill this input form'
+    return inValidStyleInputAuth(element)
+  }
+  validStyleInputAuth(element)
 }
 
 const inValidStyleInputAuth = (element: HTMLInputElement) => {
   element?.style.setProperty('border-color', palette.RED)
   element?.style.setProperty('--placeholderColor', palette.RED)
   element?.style.setProperty('color', palette.RED)
-  element?.parentElement?.style.setProperty('--opacityErr', '1')
+  const nextElement = element.nextElementSibling as HTMLSpanElement
+  nextElement.style.setProperty('--opacityErr', '1')
 }
 
 const validStyleInputAuth = (element: HTMLInputElement) => {
@@ -36,7 +37,8 @@ const validStyleInputAuth = (element: HTMLInputElement) => {
   element?.style.setProperty('border-color', palette.WHITE)
   element?.style.setProperty('--placeholderColor', palette.WHITE)
   element?.style.setProperty('color', palette.WHITE)
-  element?.parentElement?.style.setProperty('--opacityErr', '0')
+  const nextElement = element.nextElementSibling as HTMLSpanElement
+  nextElement.style.setProperty('--opacityErr', '0')
 }
 
 export const setErrorInputAuth = (
@@ -44,7 +46,8 @@ export const setErrorInputAuth = (
   element: HTMLInputElement
 ) => {
   inValidStyleInputAuth(element)
-  element?.parentElement?.setAttribute('data-errmsg', message)
+  const nextElement = element.nextElementSibling as HTMLSpanElement
+  nextElement.textContent = message
 }
 
 interface SessionWithId extends Session {
@@ -76,7 +79,8 @@ export const handleInputDate = (
   setState: React.Dispatch<React.SetStateAction<string>>
 ) => {
   let value = e.target.value
-  const parentElement = e.target.parentElement as HTMLDivElement
+  const errorElement = e.target.parentElement?.parentElement
+    ?.lastChild as HTMLSpanElement
   const nextInput = e.target.nextSibling?.nextSibling as HTMLInputElement
 
   if (value.length > e.target.maxLength) {
@@ -86,12 +90,15 @@ export const handleInputDate = (
   setState(value)
 
   if (Number(value) > condition || Number(value) === 0) {
-    return styleInputDate(parentElement).invalid()
-  }
-  styleInputDate(parentElement).valid()
+    console.log(errorElement)
 
-  if (value.length === e.target.maxLength && e.target.id !== 'year') {
-    nextInput.focus()
+    styleInputError(errorElement).invalid('Date not valid')
+  } else {
+    styleInputError(errorElement).valid()
+
+    if (value.length === e.target.maxLength && e.target.id !== 'year') {
+      nextInput.focus()
+    }
   }
 }
 
@@ -130,11 +137,17 @@ export const complianceDate = (date: string): string => {
   return `${day}/${month}/${dateSplit[2]}`
 }
 
-export const styleInputDate = (element: HTMLDivElement) => {
+export const styleInputError = (element: HTMLSpanElement) => {
   const style = (opacity: number) => {
     element?.style.setProperty('--opacityErrNote', `${opacity}`)
   }
-  const invalid = () => style(1)
-  const valid = () => style(0)
+  const invalid = (message: string) => {
+    style(1)
+    element.textContent = message
+  }
+  const valid = () => {
+    style(0)
+    element.textContent = ''
+  }
   return { valid, invalid }
 }

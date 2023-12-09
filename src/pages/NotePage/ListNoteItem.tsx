@@ -46,6 +46,7 @@ const ListNoteItem = ({ id, title, date, content }: Note) => {
       onClick={() => {
         setNote({ id, title, date, content, userId: session.token, view: true })
       }}
+      className="test-note"
     >
       <h2>{title}</h2>
       <span>{date}</span>

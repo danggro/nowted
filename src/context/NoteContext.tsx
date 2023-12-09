@@ -23,7 +23,12 @@ interface DefaultValue {
 export const NoteContext = createContext<DefaultValue>({} as DefaultValue)
 
 export const NoteContextProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(reducer, {} as NoteState)
+  const [state, dispatch] = useReducer(reducer, {
+    title: '',
+    date: '',
+    content: '',
+    view: false,
+  })
 
   const value = {
     note: state,

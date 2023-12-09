@@ -1,0 +1,69 @@
+{
+  "notes": [
+    {
+      "title": "Relfection on the Month of June ",
+      "date": "21/06/2022",
+      "content": "It's hard to believe that June is already over! Looking back on the month, there were a few highlights that stand out to me. One of the best things that happened was getting promoted at work. I've been working really hard and it's great to see that effort recognized. It's also exciting to have more responsibility and the opportunity to contribute to the company in a bigger way. I'm looking forward to taking on new challenges and learning as much as I can in my new role.",
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "title": "Noon aline",
+      "date": "12/02/2021",
+      "content": "      Noona Noona comeback here i will hold ur hand\nasdasdas",
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "title": "Day by day",
+      "date": "12/02/2021",
+      "content": "Is it hard? is it hurt?",
+      "userId": 2
+    },
+    {
+      "title": "this is title",
+      "date": "11122023",
+      "content": "this is content",
+      "userId": 3,
+      "id": 7
+    },
+    {
+      "title": "this is title",
+      "date": "11122023",
+      "content": "this is content",
+      "userId": 3,
+      "id": 8
+    },
+    {
+      "title": "this is title",
+      "date": "11122023",
+      "content": "this is content",
+      "userId": 3,
+      "id": 9
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "danggro",
+      "email": "danggro@gmail.com",
+      "created_at": "date",
+      "password": "12345678"
+    },
+    {
+      "id": 2,
+      "username": "bambang",
+      "email": "bambang@gmail.com",
+      "created_at": "date",
+      "password": "12345678"
+    },
+    {
+      "username": "digran",
+      "email": "digran@gmail.com",
+      "password": "12345678",
+      "id": 3
+    }
+  ],
+  "login": []
+}

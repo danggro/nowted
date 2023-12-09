@@ -8,13 +8,13 @@ import { useState } from 'react'
 import InputAuth from 'components/auth/InputAuth'
 import { handleInputAuth, setErrorInputAuth } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useUtil } from 'hooks/hooks'
+import { useUser } from 'hooks/hooks'
 
 const Signup = () => {
-  const [username, setUsername] = useState<string>('digran')
-  const [email, setEmail] = useState<string>('digran@gmail.com')
-  const [password, setPassword] = useState<string>('12345678')
-  const users = useUtil()
+  const [username, setUsername] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const users = useUser()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -23,6 +23,7 @@ const Signup = () => {
     const form = e.currentTarget.children
     const elementUsername = form[0].childNodes[0] as HTMLInputElement
     const elementEmail = form[1].childNodes[0] as HTMLInputElement
+    const elementPassword = form[2].childNodes[0] as HTMLInputElement
 
     try {
       await users.add({ username, email, password })
@@ -33,6 +34,14 @@ const Signup = () => {
         return setErrorInputAuth(error.message, elementUsername)
       if (error.message === 'Email not available')
         return setErrorInputAuth(error.message, elementEmail)
+      if (error.message === 'Username is missing')
+        return setErrorInputAuth(error.message, elementUsername)
+      if (error.message === 'Email is missing')
+        return setErrorInputAuth(error.message, elementEmail)
+      if (error.message === 'Password is missing')
+        return setErrorInputAuth(error.message, elementPassword)
+      if (error.message === 'Minimum 8 character')
+        return setErrorInputAuth(error.message, elementPassword)
     }
   }
 

@@ -10,19 +10,12 @@ const InputDateContainer = styled.div`
   align-items: center;
   color: ${palette.TEXT_SECONDARY};
   position: relative;
-  & > div::after {
-    content: 'Value not valid';
-    color: ${palette.RED};
-    position: absolute;
-    bottom: -25px;
-    left: 127px;
-    opacity: var(--opacityErrNote, 0);
-  }
   & > span {
     margin-left: 20px;
     margin-right: 60px;
   }
 `
+
 export const InputDateComponent = styled.input`
   width: 30px;
   padding: 0 2px;
@@ -35,6 +28,14 @@ export const InputDateComponent = styled.input`
     color: ${palette.TEXT_SECONDARY} !important;
     opacity: 1;
   }
+`
+const ErrorElement = styled.span`
+  display: block;
+  color: ${palette.RED};
+  position: absolute;
+  bottom: -25px;
+  left: 127px;
+  opacity: var(--opacityErrNote, 0);
 `
 interface Props {
   date: string
@@ -89,6 +90,7 @@ const InputDate = (props: Props) => {
           }
         />
       </div>
+      <ErrorElement></ErrorElement>
     </InputDateContainer>
   )
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
-import { CredentialsLogin, UserForm } from 'types/types'
+import { CredentialsLogin, User, UserForm } from 'types/types'
 import users from 'services/users'
 import auth from 'services/auth'
 import { getLocalSession } from 'utils/utils'
@@ -29,7 +29,7 @@ export default function useComponentVisible(initial: Boolean) {
   return { ref, open, setOpen }
 }
 
-export const useUtil = () => {
+export const useUser = () => {
   const navigate = useNavigate()
 
   const add = async (user: UserForm) => {
@@ -38,6 +38,10 @@ export const useUtil = () => {
       (u) => u.username === user.username
     )
     const checkEmail = getUsers.data.find((u) => u.email === user.email)
+    if (!user.username) throw new Error('Username is missing')
+    if (!user.email) throw new Error('Email is missing')
+    if (!user.password) throw new Error('Password is missing')
+    if (user.password.length < 8) throw new Error('Minimum 8 character')
     if (checkUsername) throw new Error('User not available')
     if (checkEmail) throw new Error('Email not available')
 
@@ -46,7 +50,12 @@ export const useUtil = () => {
 
   const login = async (credentials: CredentialsLogin) => {
     const getUsers = await users.getAll()
-    const user = getUsers.data.find((u) => u.username === credentials.username)
+    const user = getUsers.data.find(
+      (u) => u.username === credentials.username
+    ) as User
+    if (!credentials.username) throw new Error('Username is missing')
+    if (!credentials.password) throw new Error('Password is missing')
+
     if (!user) throw new Error('User not found')
     if (user.password !== credentials.password)
       throw new Error('Wrong password')

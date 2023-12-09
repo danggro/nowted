@@ -1,5 +1,5 @@
-import { CredentialsLogin, Session, User } from 'types/types'
 import axios from 'axios'
+import { Session } from 'types/types'
 import { baseUrl } from 'utils/contants'
 
 interface ResponseSession extends Session {
@@ -15,8 +15,6 @@ const login = async (object: Session) => {
 }
 
 const logout = async (id: string) => {
-  // const response = await axios.delete(`${baseUrl}/login?token_like=${token}`)
-
   const response = await axios.delete(`${baseUrl}/login/${id}`)
   return response
 }

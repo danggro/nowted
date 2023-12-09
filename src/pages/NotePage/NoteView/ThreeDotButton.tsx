@@ -27,6 +27,7 @@ const ThreeDotButton = () => {
       onClick={() => {
         setOpen(!open)
       }}
+      id="3dot"
     >
       {open ? <ThreeDotPopup /> : null}
       <SVGThreeDot />

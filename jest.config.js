@@ -16,6 +16,7 @@ module.exports = {
   setupFilesAfterEnv: ['./tests/setupTests.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   modulePaths: ['<rootDir>'],
+  moduleDirectories: ['src', 'node_modules'],
   testEnvironment: 'jsdom',
   verbose: true,
   transform: {

@@ -15,17 +15,18 @@ const Input = styled.input`
 
 const Container = styled.div`
   position: relative;
-  &::after {
-    content: attr(data-errmsg);
-    color: ${palette.RED};
-    font-size: 0.9rem;
-    display: block;
-    opacity: var(--opacityErr, 1);
-    position: absolute;
-    bottom: -25px;
-    left: 15px;
-  }
 `
+
+const ErrorElement = styled.span`
+  color: ${palette.RED};
+  font-size: 0.9rem;
+  display: block;
+  opacity: var(--opacityErr, 0);
+  position: absolute;
+  bottom: -25px;
+  left: 15px;
+`
+
 interface Props {
   type: string
   placeholder: string
@@ -39,7 +40,7 @@ interface Props {
 const InputAuth = (props: Props) => {
   const { type, placeholder, id, name, value, onChange, minlength } = props
   return (
-    <Container data-errmsg="" className="contInput">
+    <Container className="contInput">
       <Input
         type={type}
         placeholder={placeholder}
@@ -48,8 +49,8 @@ const InputAuth = (props: Props) => {
         value={value}
         onChange={onChange}
         minLength={minlength}
-        required
       />
+      <ErrorElement>error</ErrorElement>
     </Container>
   )
 }

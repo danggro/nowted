@@ -12,13 +12,13 @@ import {
   setErrorInputAuth,
 } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useUtil } from 'hooks/hooks'
+import { useUser } from 'hooks/hooks'
 
 const Login = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
-  const users = useUtil()
+  const users = useUser()
   const sessionLocal = getLocalSession()
 
   useEffect(() => {
@@ -32,15 +32,17 @@ const Login = () => {
     const elementPassword = form[1].childNodes[0] as HTMLInputElement
 
     try {
-      users.login({ username, password })
+      await users.login({ username, password })
     } catch (err: unknown) {
       const error = err as Error
-      if (error.message === 'User not found') {
+      if (error.message === 'User not found')
         setErrorInputAuth(error.message, elementUsername)
-      }
-      if (error.message === 'Wrong password') {
+      if (error.message === 'Wrong password')
         setErrorInputAuth(error.message, elementPassword)
-      }
+      if (error.message === 'Username is missing')
+        return setErrorInputAuth(error.message, elementUsername)
+      if (error.message === 'Password is missing')
+        return setErrorInputAuth(error.message, elementPassword)
     }
   }
   if (sessionLocal) return null
