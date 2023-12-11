@@ -2,7 +2,7 @@ export interface User {
   id: number
   username: string
   email: string
-  passwordHash: string
+  password: string
 }
 
 export type UserForm = Omit<User, 'id'>

@@ -28,7 +28,7 @@ const parseUser = (object: unknown): UserForm => {
   return {
     username: parseUsername(object.username, 'username'),
     email: parseEmail(object.email, 'email'),
-    passwordHash: parsePassword(object.password, 'password'),
+    password: parsePassword(object.password, 'password'),
   }
 }
 

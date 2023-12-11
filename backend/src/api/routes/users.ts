@@ -17,9 +17,13 @@ route.get('/', async (_req, res) => {
 
 route.post('/', async (req, res) => {
   const saltRounds = 10
-  const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
-  const user = await User.create({ ...req.body, passwordHash })
-
+  let passwordHash
+  if (req.body.password === '') {
+    passwordHash = ''
+  } else {
+    passwordHash = await bcrypt.hash(req.body.password, saltRounds)
+  }
+  const user = await User.create({ ...req.body, password: passwordHash })
   res.status(201).json({ username: user.username, email: user.email })
 })
 

@@ -6,7 +6,7 @@ class User extends Model<UserType, UserForm> {
   declare id: number
   declare username: string
   declare email: string
-  declare passwordHash: string
+  declare password: string
 }
 
 User.init(
@@ -20,15 +20,24 @@ User.init(
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
-    passwordHash: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
   {
