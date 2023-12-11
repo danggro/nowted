@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "title": "This is titel 2",
+    "date": "22/12/2023",
+    "content": "This is content 2",
+    "userId": 1
+}

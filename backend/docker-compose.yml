@@ -1,20 +1,7 @@
 version: '3.8'
 
 services:
-  server:
-    image: backend-image
-    build:
-      context: .
-      dockerfile: dev.Dockerfile
-    environment:
-      DATABASE_URL: postgres://postgres:secret@db:5432/postgres
-    volumes:
-      - ./:/usr/src/app
-    ports:
-      - 3001:3001
-    container_name: backend-dev
-
-  db: 
+  postgres_db: 
     image: postgres
     container_name: postgres
     # restart: always
@@ -25,3 +12,30 @@ services:
       # - /volumes/postgres:/var/lib/postgresql/data 
     ports:
       - 5432:5432
+
+  redis_db:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    tty: true
+    command: ['redis-server', '--appendonly', 'yes'] # Overwrite the CMD
+    # volumes: # Declare the volume
+    #   - ./redis_data:/data
+
+  server:
+    image: backend-image
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    environment:
+      DATABASE_URL: postgres://postgres:secret@postgres_db:5432/postgres
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 3001:3001
+    container_name: backend-dev
+    depends_on:
+      - postgres_db
+      - redis_db

@@ -4,7 +4,4 @@ import User from './user'
 User.hasMany(Note)
 Note.belongsTo(User)
 
-export default {
-  Note,
-  User,
-}
+export { Note, User }

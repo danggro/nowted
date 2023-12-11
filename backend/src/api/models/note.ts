@@ -24,7 +24,8 @@ Note.init(
   {
     sequelize,
     underscored: true,
-    modelName: 'blog',
+    timestamps: false,
+    modelName: 'note',
   }
 )
 

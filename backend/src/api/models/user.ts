@@ -1,7 +1,13 @@
 import { Model, DataTypes } from 'sequelize'
 import { sequelize } from '../../config/db'
+import { UserForm, User as UserType } from '../../types/types'
 
-class User extends Model {}
+class User extends Model<UserType, UserForm> {
+  declare id: number
+  declare username: string
+  declare email: string
+  declare passwordHash: string
+}
 
 User.init(
   {

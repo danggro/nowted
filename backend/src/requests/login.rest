@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "digran",
+    "password": "secret"
+}
+
+###
+GET http://localhost:3001/api/auth/session/1
+Content-Type: application/json
+
+###
+DELETE http://localhost:3001/api/auth/logout/2
+Content-Type: application/json

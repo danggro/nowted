@@ -18,7 +18,7 @@ export const up: Migration = async ({ context: sequelize }) => {
       unique: true,
       allowNull: false,
     },
-    passwordHash: {
+    password_hash: {
       type: DataTypes.STRING,
       allowNull: false,
     },

@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize'
-import env from '../config/config'
+import { DATABASE_URL } from '../config/config'
 import { Umzug, SequelizeStorage } from 'umzug'
 
-const sequelize = new Sequelize(env.DATABASE_URL)
+const sequelize = new Sequelize(DATABASE_URL as string)
 
 const umzug = new Umzug({
   migrations: {
