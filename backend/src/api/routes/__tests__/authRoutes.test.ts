@@ -3,12 +3,13 @@ import app from '../../../app'
 import { clientRedis } from '../../../config/redis'
 import { addUser, getUser, login } from '../../../utils/test-helper'
 import { getSession } from '../../../utils/utils'
-import { User } from '../../models'
+import { Note, User } from '../../models'
 
 const api = supertest(app)
 
 describe('Auth', () => {
   beforeEach(async () => {
+    await Note.destroy({ where: {} })
     await User.destroy({ where: {} })
     await addUser()
     await clientRedis.connect()
@@ -45,8 +46,6 @@ describe('Auth', () => {
 
   it('success logout', async () => {
     const resLogin = await login()
-    console.log(resLogin)
-
     await api
       .delete('/api/auth/logout')
       .set('Authorization', `Bearer ${resLogin.token}`)

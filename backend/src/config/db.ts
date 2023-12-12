@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 import { DATABASE_URL } from '../config/config'
 import { Umzug, SequelizeStorage } from 'umzug'
 
-const sequelize = new Sequelize(DATABASE_URL as string)
+const sequelize = new Sequelize(DATABASE_URL as string, { logging: false })
 
 const umzug = new Umzug({
   migrations: {

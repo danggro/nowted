@@ -9,9 +9,9 @@
     "build": "npm run lint && npm run format && npm run test && tsc --project tsconfig.build.json",
     "lint": "eslint --fix src",
     "format": "npx prettier --write src",
-    "test": "jest",
+    "test": "jest --runInBand",
     "test:watch": "jest --watch-all",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage --runInBand"
   },
   "keywords": [],
   "author": "",

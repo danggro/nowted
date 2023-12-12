@@ -20,7 +20,7 @@ export interface Note {
   title: string
   date: string
   content: string
-  userId: string
+  userId: number
 }
 
 export type NoteForm = Omit<Note, 'id' | 'userId'>

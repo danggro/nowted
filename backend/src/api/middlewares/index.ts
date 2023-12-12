@@ -42,19 +42,26 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  const err = e as ValidationError
-  const error = err.errors[0]
+  // console.log(e)
+  const { errors } = e as ValidationError
 
-  if (error.validatorName === 'notEmpty' || error.validatorName === null) {
-    if (error.path === 'username')
-      res.status(400).send({ error: `${error.path} empty` })
-    if (error.path === 'email')
-      res.status(400).send({ error: `${error.path} empty` })
-    if (error.path === 'password')
-      res.status(400).send({ error: `${error.path} empty` })
+  if (
+    errors[0].validatorName === 'notEmpty' ||
+    errors[0].validatorName === null
+  ) {
+    if (errors[0].path === 'username')
+      res.status(400).send({ error: `${errors[0].path} empty` })
+    if (errors[0].path === 'email')
+      res.status(400).send({ error: `${errors[0].path} empty` })
+    if (errors[0].path === 'password')
+      res.status(400).send({ error: `${errors[0].path} empty` })
+    if (errors[0].path === 'title')
+      res.status(400).send({ error: `${errors[0].path} empty` })
+    if (errors[0].path === 'date')
+      res.status(400).send({ error: `${errors[0].path} empty` })
   }
 
-  next(error)
+  next(e)
 }
 
 export { tokenExtractor, errorHandler }

@@ -1,6 +1,6 @@
 import supertest from 'supertest'
 import app from '../../../app'
-import { User } from '../../models'
+import { Note, User } from '../../models'
 import { addUser, getAllUsers, getUser } from '../../../utils/test-helper'
 
 const api = supertest(app)
@@ -11,6 +11,7 @@ const newUser = {
 }
 describe('User', () => {
   beforeEach(async () => {
+    await Note.destroy({ where: {} })
     await User.destroy({ where: {} })
   })
   it('should be saved if input valid', async () => {
