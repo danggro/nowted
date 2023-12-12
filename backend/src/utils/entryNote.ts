@@ -1,4 +1,4 @@
-import { NoteForm } from '../types/types'
+import { NoteForm } from '../types'
 import { isString } from './utils'
 
 const parseTitle = (value: unknown, what: string): string => {

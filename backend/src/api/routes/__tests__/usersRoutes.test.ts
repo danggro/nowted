@@ -1,7 +1,7 @@
 import supertest from 'supertest'
 import app from '../../../app'
 import { User } from '../../models'
-import { addUser } from '../../../utils/test-helper'
+import { addUser, getAllUsers, getUser } from '../../../utils/test-helper'
 
 const api = supertest(app)
 const newUser = {
@@ -9,26 +9,32 @@ const newUser = {
   email: 'digran@gmail.com',
   password: 'secret123',
 }
-
 describe('User', () => {
   beforeEach(async () => {
     await User.destroy({ where: {} })
   })
   it('should be saved if input valid', async () => {
-    const resultUser = await addUser(newUser)
+    const resultUser = await addUser()
 
-    const getUser = await api.get('/api/users')
-    expect(getUser.body).toHaveLength(1)
-    expect(resultUser.body).toEqual({
-      username: getUser.body[0].username,
-      email: getUser.body[0].email,
+    const getUser = await getAllUsers()
+    expect(getUser).toHaveLength(1)
+    expect(resultUser).toEqual({
+      username: getUser[0].username,
+      email: getUser[0].email,
+      id: getUser[0].id,
     })
   })
 
   it('route get method returned as json and any data if it there', async () => {
-    await addUser(newUser)
-    const users = await api.get('/api/users').expect(200)
-    expect(users.body.length).toBeGreaterThanOrEqual(0)
+    await addUser()
+    const users = await getAllUsers()
+    expect(users.length).toBeGreaterThanOrEqual(0)
+  })
+
+  it('route get method with id params returned data', async () => {
+    const user = await addUser()
+    const users = await getUser(user.id)
+    expect(users.username).toEqual(user.username)
   })
 
   describe('should error if input', () => {

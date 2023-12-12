@@ -1,16 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
-import { clientRedis } from '../../config/redis'
 import { ValidationError } from 'sequelize'
 
 import { SECRET } from '../../config/config'
 import jwt, { GetPublicKeyOrSecret, JwtPayload, Secret } from 'jsonwebtoken'
-
-interface CustomRequest extends Request {
-  decodedToken: JwtPayload
-}
+import { getSession } from '../../utils/utils'
 
 const tokenExtractor = async (
-  req: CustomRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -18,17 +14,22 @@ const tokenExtractor = async (
   if (!authorization || !authorization.toLowerCase().startsWith('bearer '))
     return res.status(401).json({ error: 'token missing' })
 
-  const session = await clientRedis.get(authorization.substring(7))
+  const session = await getSession(authorization.substring(7))
 
   if (session) {
     try {
-      req.decodedToken = jwt.verify(
+      const jwtResult = jwt.verify(
         authorization.substring(7),
         SECRET as Secret | GetPublicKeyOrSecret
       ) as unknown as JwtPayload
+      req.decodedToken = {
+        username: jwtResult.username,
+        userId: jwtResult.id,
+        token: session.token,
+      }
     } catch (error) {
       console.log(error)
-      return res.status(401).json({ error: 'token invalid' })
+      return res.status(401).json({ error: 'session expired' })
     }
   }
 

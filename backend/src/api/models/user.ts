@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize'
 import { sequelize } from '../../config/db'
-import { UserForm, User as UserType } from '../../types/types'
+import { UserForm, User as UserType } from '../../types'
 
 class User extends Model<UserType, UserForm> {
   declare id: number

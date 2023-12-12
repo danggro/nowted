@@ -15,6 +15,18 @@ route.get('/', async (_req, res) => {
   res.json(users)
 })
 
+route.get('/:id', async (req, res) => {
+  const { id } = req.params
+  const users = await User.findByPk(id, {
+    attributes: { exclude: ['passwordHash'] },
+    include: {
+      model: Note,
+      attributes: { exclude: ['userId'] },
+    },
+  })
+  res.json(users)
+})
+
 route.post('/', async (req, res) => {
   const saltRounds = 10
   let passwordHash
@@ -24,7 +36,9 @@ route.post('/', async (req, res) => {
     passwordHash = await bcrypt.hash(req.body.password, saltRounds)
   }
   const user = await User.create({ ...req.body, password: passwordHash })
-  res.status(201).json({ username: user.username, email: user.email })
+  res
+    .status(201)
+    .json({ id: user.id, username: user.username, email: user.email })
 })
 
 export default route

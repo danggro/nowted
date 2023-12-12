@@ -10,6 +10,7 @@ export type UserForm = Omit<User, 'id'>
 export type UserLogin = Omit<User, 'id' | 'email'>
 
 export interface Session {
+  username: string
   userId: number
   token: string
 }

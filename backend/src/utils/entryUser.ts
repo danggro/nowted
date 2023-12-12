@@ -1,4 +1,4 @@
-import { UserForm } from '../types/types'
+import { UserForm } from '../types'
 import { isString } from './utils'
 
 const parseUsername = (value: unknown, what: string): string => {

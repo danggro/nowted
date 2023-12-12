@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { clientRedis } from '../../config/redis'
-import { User } from '../../types/types'
+import { User } from '../../types'
 
 const { SECRET } = require('./config')
 const jwt = require('jsonwebtoken')

@@ -8,6 +8,7 @@ module.exports = {
   roots: ['<rootDir>/src'],
 }
 process.env = Object.assign(process.env, {
+  SECRET: 'token',
   DATABASE_URL: 'postgres://postgres:secret@postgres_db:5432/postgres',
   REDIS_URL: 'redis://redis:6379',
 })
