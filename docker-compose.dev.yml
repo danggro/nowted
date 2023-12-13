@@ -1,0 +1,57 @@
+services:
+  nowted-frontend:
+    image: nowted-frontend-image
+    container_name: nowted-frontend-dev
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./frontend/:/usr/src/app
+    environment:
+      - REACT_APP_BACKEND_URL=/api
+
+  postgres_db:
+    image: postgres
+    container_name: postgres
+    # restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      # PGDATA: /var/lib/postgresql/data/pgdata
+    # volumes:
+    # - /backend/volumes/postgres:/var/lib/postgresql/data
+    # ports:
+    #   - 5432
+
+  redis_db:
+    image: redis
+    container_name: redis
+    # ports:
+    #   - 6379
+    tty: true
+    command: ["redis-server", "--appendonly", "yes"] # Overwrite the CMD
+    # volumes: # Declare the volume
+    # - ./backend/volumes/redis/:/data
+
+  nginx-dev:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - nowted-frontend
+
+  nowted-backend:
+    image: nowted-backend-image
+    container_name: nowted-backend-dev
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./backend/:/usr/src/app
+    ports:
+      - 3001:3001
+    environment:
+      DATABASE_URL: postgres://postgres:secret@postgres:5432/postgres
+      REDIS_URL: redis://redis:6379

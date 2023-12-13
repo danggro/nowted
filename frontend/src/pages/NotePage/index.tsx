@@ -9,6 +9,7 @@ import auth from 'services/auth'
 import { NotesContext } from 'context/NotesContext'
 import { getLocalSession } from 'utils/utils'
 import NoteContextProvider from 'context/NoteContext'
+import { baseUrl } from 'utils/contants'
 
 const Container = styled.div`
   width: 100%;
@@ -33,9 +34,10 @@ const Content = styled.div`
   width: 100%;
 `
 const NotePage = () => {
-  const { notes, getInitialNotes } = useContext(NotesContext)
   const navigate = useNavigate()
+  const { notes, getInitialNotes } = useContext(NotesContext)
   const sessionLocal = getLocalSession()
+
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
     const getSessionDb = async () => {
