@@ -3,7 +3,7 @@ import app from '../../../app'
 import { clientRedis } from '../../../config/redis'
 import { addUser, getUser, login } from '../../../utils/test-helper'
 import { getSession } from '../../../utils/utils'
-import { Note, User } from '../../models'
+import { Note, User } from '../../../db/models'
 
 const api = supertest(app)
 

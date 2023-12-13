@@ -1,7 +1,7 @@
 import app from './app'
 
-import { connectToDatabase } from './config/db'
-import { PORT } from './config/config'
+import { connectToDatabase } from './db/'
+import { PORT } from './config'
 import { clientRedis } from './config/redis'
 
 const start = async () => {

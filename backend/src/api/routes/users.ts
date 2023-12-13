@@ -1,12 +1,12 @@
 import router from 'express'
-import { User, Note } from '../models'
+import { User, Note } from '../../db/models'
 import bcrypt from 'bcrypt'
 
 const route = router.Router()
 
 route.get('/', async (_req, res) => {
   const users = await User.findAll({
-    attributes: { exclude: ['passwordHash'] },
+    attributes: { exclude: ['password'] },
     include: {
       model: Note,
       attributes: { exclude: ['userId'] },

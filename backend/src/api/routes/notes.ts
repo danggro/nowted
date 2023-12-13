@@ -1,5 +1,5 @@
 import router from 'express'
-import { User, Note } from '../models'
+import { User, Note } from '../../db/models'
 import { tokenExtractor } from '../middlewares'
 import { getDefaultDate } from '../../utils/utils'
 

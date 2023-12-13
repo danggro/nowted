@@ -1,8 +1,8 @@
 import router from 'express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import { User } from '../models'
-import { SECRET } from '../../config/config'
+import { User } from '../../db/models'
+import { SECRET } from '../../config'
 import { clientRedis } from '../../config/redis'
 import { tokenExtractor } from '../middlewares'
 

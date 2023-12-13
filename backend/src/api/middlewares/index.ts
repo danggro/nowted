@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'sequelize'
 
-import { SECRET } from '../../config/config'
+import { SECRET } from '../../config'
 import jwt, { GetPublicKeyOrSecret, JwtPayload, Secret } from 'jsonwebtoken'
 import { getSession } from '../../utils/utils'
 
@@ -44,6 +44,8 @@ const errorHandler = (
 ) => {
   // console.log(e)
   const { errors } = e as ValidationError
+  const error = e as ValidationError
+  console.log(error)
 
   if (
     errors[0].validatorName === 'notEmpty' ||

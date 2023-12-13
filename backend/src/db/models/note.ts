@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize'
-import { sequelize } from '../../config/db'
+import { sequelize } from '../'
 import { checkDate } from '../../utils/utils'
 
 class Note extends Model {

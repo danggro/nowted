@@ -8,7 +8,7 @@ import {
   newNoteObject,
   updateNotes,
 } from '../../../utils/test-helper'
-import { Note, User } from '../../models'
+import { Note, User } from '../../../db/models'
 import { clientRedis } from '../../../config/redis'
 import { getDefaultDate } from '../../../utils/utils'
 const api = supertest(app)

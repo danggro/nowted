@@ -1,12 +1,12 @@
 import { Sequelize } from 'sequelize'
-import { DATABASE_URL } from '../config/config'
+import { DATABASE_URL } from '../config'
 import { Umzug, SequelizeStorage } from 'umzug'
 
 const sequelize = new Sequelize(DATABASE_URL as string, { logging: false })
 
 const umzug = new Umzug({
   migrations: {
-    glob: ['../migrations/*.ts', { cwd: __dirname }],
+    glob: ['./migrations/*.ts', { cwd: __dirname }],
   },
   storage: new SequelizeStorage({ sequelize, tableName: 'migrations' }),
   context: sequelize,
