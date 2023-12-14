@@ -35,6 +35,8 @@ const Login = () => {
       await users.login({ username, password })
     } catch (err: unknown) {
       const error = err as Error
+      console.log(error)
+
       if (error.message === 'User not found')
         setErrorInputAuth(error.message, elementUsername)
       if (error.message === 'Wrong password')

@@ -3,7 +3,7 @@ import { Session } from '../types'
 
 export const getSession = async (token: string): Promise<Session> => {
   const session = await clientRedis.get(token)
-  if (!session) throw new Error('no session in database')
+  if (!session) throw new Error('No session in database')
   return JSON.parse(session)
 }
 
@@ -21,12 +21,12 @@ export const getDefaultDate = (): string => {
 
 export const checkDate = (date: string): boolean => {
   const dateSplit = date.split('/')
-  let day = dateSplit[0]
-  let month = dateSplit[1]
-  let year = dateSplit[2]
-  if (!Number(day) || !Number(month) || !Number(year)) return false
-  if (Number(day) > 31) return false
-  if (Number(month) > 12) return false
-  if (Number(year) > new Date().getFullYear()) return false
+  let day = Number(dateSplit[0])
+  let month = Number(dateSplit[1])
+  let year = Number(dateSplit[2])
+  if (!day || !month || !year) return false
+  if (day > 31) return false
+  if (month > 12) return false
+  if (year > new Date().getFullYear()) return false
   return true
 }

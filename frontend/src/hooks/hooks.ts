@@ -57,16 +57,18 @@ export const useUser = () => {
     if (!credentials.password) throw new Error('Password is missing')
 
     if (!user) throw new Error('User not found')
-    if (user.password !== credentials.password)
-      throw new Error('Wrong password')
 
     const { data } = await auth.login({
       username: user.username,
-      token: user.id,
+      password: credentials.password,
     })
     window.localStorage.setItem(
       'loggedUser',
-      JSON.stringify({ username: data.username, token: user.id, id: data.id })
+      JSON.stringify({
+        username: data.username,
+        token: data.token,
+        userId: data.userId,
+      })
     )
     navigate('/')
   }
@@ -74,7 +76,7 @@ export const useUser = () => {
   const logout = async () => {
     const sessionLocal = getLocalSession()
     if (sessionLocal) {
-      await auth.logout(sessionLocal.id)
+      await auth.logout()
       window.localStorage.clear
       navigate('/login')
     }

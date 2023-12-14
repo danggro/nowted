@@ -29,6 +29,24 @@ describe('Auth', () => {
     })
   })
 
+  it('session just temporary', async () => {
+    const resLogin = await login()
+
+    await api
+      .get('/api/auth/session')
+      .set('Authorization', `Bearer ${resLogin.token}`)
+      .expect(200)
+
+    setTimeout(async () => {
+      await clientRedis.connect()
+      await api
+        .get('/api/auth/session')
+        .set('Authorization', `Bearer ${resLogin.token}`)
+        .expect(401)
+      await clientRedis.quit()
+    }, 5000)
+  })
+
   describe('should error if input', () => {
     it('username missing', async () => {
       await api

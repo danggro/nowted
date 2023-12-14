@@ -1,5 +1,6 @@
 describe('Signup Page', () => {
   beforeEach(function () {
+    cy.request('POST', `${Cypress.env('BACKEND_DEV')}/testing/reset`)
     cy.visit('')
     cy.get('a').contains('Signup').click()
   })
@@ -41,6 +42,11 @@ describe('Signup Page', () => {
     })
 
     it('fails if username not available', () => {
+      cy.user({
+        username: 'digran',
+        email: 'digran@gmail.com',
+        password: '12345678',
+      })
       cy.get('#username').type('digran')
       cy.get('#email').type('digran@gmail.com')
       cy.get('#password').type('12345678')
@@ -51,6 +57,11 @@ describe('Signup Page', () => {
     })
 
     it('fails if email not available', () => {
+      cy.user({
+        username: 'digran',
+        email: 'digran@gmail.com',
+        password: '12345678',
+      })
       cy.get('#username').type('bambang')
       cy.get('#email').type('digran@gmail.com')
       cy.get('#password').type('12345678')
@@ -78,7 +89,6 @@ describe('Signup Page', () => {
 
       cy.get('button').contains('Signup').click()
       cy.contains('Minimum 8 character')
-      cy.request('DELETE', `${Cypress.env('BACKEND_DEV')}/users/1`)
     })
   })
 })

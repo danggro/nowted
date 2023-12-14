@@ -13,25 +13,20 @@
 // -- This is a parent command --
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    login(credentials: { username: string; userId: number }): Chainable<any>
+    login(credentials: { username: string; password: string }): Chainable<any>
     user(user: {
       username: string
       email: string
       password: string
     }): Chainable<any>
-    note(note: {
-      title: string
-      date: string
-      content: string
-      userId: number
-    }): Chainable<any>
+    note(note: { title: string; date: string; content: string }): Chainable<any>
   }
 }
 
-Cypress.Commands.add('login', ({ username, userId }) => {
-  cy.request('POST', `${Cypress.env('BACKEND_DEV')}/login`, {
+Cypress.Commands.add('login', ({ username, password }) => {
+  cy.request('POST', `${Cypress.env('BACKEND_DEV')}/auth/login`, {
     username,
-    token: userId,
+    password,
   }).then(({ body }) => {
     localStorage.setItem('loggedUser', JSON.stringify(body))
     cy.visit('')
@@ -39,19 +34,31 @@ Cypress.Commands.add('login', ({ username, userId }) => {
 })
 
 Cypress.Commands.add('user', ({ username, email, password }) => {
-  cy.request('POST', `${Cypress.env('BACKEND_DEV')}/users`, {
-    username,
-    email,
-    password,
+  cy.request({
+    method: 'POST',
+    url: `${Cypress.env('BACKEND_DEV')}/users`,
+    body: {
+      username,
+      email,
+      password,
+    },
   })
 })
 
-Cypress.Commands.add('note', ({ title, date, content, userId }) => {
-  cy.request('POST', `${Cypress.env('BACKEND_DEV')}/notes`, {
-    title,
-    date,
-    content,
-    userId,
+Cypress.Commands.add('note', ({ title, date, content }) => {
+  cy.request({
+    method: 'POST',
+    url: `${Cypress.env('BACKEND_DEV')}/notes`,
+    body: {
+      title,
+      date,
+      content,
+    },
+    headers: {
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem('loggedUser') as string).token
+      }`,
+    },
   }).then(() => {
     cy.visit('')
   })

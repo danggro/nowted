@@ -36,11 +36,18 @@ route.post('/login', async (req, res) => {
     JSON.stringify({ userId: String(user.id), token })
   )
 
-  await clientRedis.expire(token, 3600 * 3)
+  // await clientRedis.expire(token, 3600 * 3)
+  await clientRedis.expire(token, 4) // for testing
 
   return res
     .status(200)
     .send({ token, username: user.username, userId: user.id })
+})
+
+route.get('/session', tokenExtractor, async (req, res) => {
+  if (!req.decodedToken.token) res.status(401).end()
+  await clientRedis.get(req.decodedToken.token)
+  res.status(200).send(req.decodedToken)
 })
 
 route.delete('/logout/', tokenExtractor, async (req, res) => {

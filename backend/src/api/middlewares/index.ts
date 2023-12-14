@@ -44,12 +44,13 @@ const errorHandler = (
 ) => {
   // console.log(e)
   const { errors } = e as ValidationError
-  const error = e as ValidationError
-  console.log(error)
+  const err = e as Error
 
+  if (err.message.includes('No session'))
+    res.status(401).send({ error: `${err.message}` })
   if (
-    errors[0].validatorName === 'notEmpty' ||
-    errors[0].validatorName === null
+    errors[0].validatorKey === 'notEmpty' ||
+    errors[0].validatorKey === null
   ) {
     if (errors[0].path === 'username')
       res.status(400).send({ error: `${errors[0].path} empty` })
@@ -62,7 +63,8 @@ const errorHandler = (
     if (errors[0].path === 'date')
       res.status(400).send({ error: `${errors[0].path} empty` })
   }
-
+  if (errors[0].validatorKey === 'isDateFormat')
+    res.status(400).send({ error: `${errors[0].message}` })
   next(e)
 }
 

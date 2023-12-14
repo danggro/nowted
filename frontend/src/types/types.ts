@@ -20,6 +20,7 @@ export interface CredentialsLogin {
 export interface Session {
   username: string
   token: number
+  userId: number
 }
 
 export interface User {

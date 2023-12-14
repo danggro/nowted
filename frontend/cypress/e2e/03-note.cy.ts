@@ -1,17 +1,13 @@
 describe('Note Page', () => {
   beforeEach(() => {
+    cy.request('POST', `${Cypress.env('BACKEND_DEV')}/testing/reset`)
     cy.user({
       username: 'digran',
       email: 'digran@gmail.com',
       password: '12345678',
     })
-    cy.login({ username: 'digran', userId: 1 })
+    cy.login({ username: 'digran', password: '12345678' })
     cy.visit('')
-  })
-
-  afterEach(() => {
-    cy.request('DELETE', `${Cypress.env('BACKEND_DEV')}/users/1`)
-    cy.request('DELETE', `${Cypress.env('BACKEND_DEV')}/login/1`)
   })
 
   it('button component is shown', () => {
@@ -76,9 +72,8 @@ describe('Note Page', () => {
   it('Success delete specific note', () => {
     cy.note({
       title: 'This is title',
-      date: '12/31/2023',
+      date: '12/12/2023',
       content: 'This is content',
-      userId: 1,
     })
     cy.get('.test-note').click()
     cy.get('#3dot').click()

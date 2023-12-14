@@ -5,10 +5,11 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:8080',
     defaultCommandTimeout: 5500,
+    experimentalRunAllSpecs: true,
   },
   env: {
-    BACKEND_DEV: 'http://localhost:3002/api',
+    BACKEND_DEV: 'http://localhost:8080/api',
   },
 })

@@ -1,14 +1,12 @@
 describe('Login Page', () => {
   beforeEach(() => {
-    cy.request('POST', `${Cypress.env('BACKEND_DEV')}/users/`, {
+    cy.request('POST', `${Cypress.env('BACKEND_DEV')}/testing/reset`)
+    cy.user({
       username: 'digran',
       email: 'digran@gmail.com',
       password: '12345678',
     })
     cy.visit('')
-  })
-  afterEach(() => {
-    cy.request('DELETE', `${Cypress.env('BACKEND_DEV')}/users/1`)
   })
   it('Login form is shown', () => {
     cy.get('h1').contains('Login')
@@ -24,7 +22,6 @@ describe('Login Page', () => {
       cy.get('button').contains('Login').click()
 
       cy.contains('New Note')
-      cy.request('DELETE', `${Cypress.env('BACKEND_DEV')}/login/1`)
     })
 
     it('fails if username empty', () => {

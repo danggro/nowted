@@ -1,28 +1,31 @@
 import axios from 'axios'
-import { Session } from 'types/types'
+import { CredentialsLogin, Session } from 'types/types'
 import { baseUrl } from 'utils/contants'
+import { getLocalSession } from 'utils/utils'
 
-interface ResponseSession extends Session {
-  id: number
-}
+const login = async (object: CredentialsLogin) => {
+  console.log(object)
 
-const login = async (object: Session) => {
-  const response = await axios.post<ResponseSession>(`${baseUrl}/login`, {
+  const response = await axios.post<Session>(`${baseUrl}/auth/login`, {
     username: object.username,
-    token: object.token,
+    password: object.password,
   })
   return response
 }
 
-const logout = async (id: string) => {
-  const response = await axios.delete(`${baseUrl}/login/${id}`)
+const logout = async () => {
+  const config = {
+    headers: { Authorization: `Bearer ${getLocalSession().token}` },
+  }
+  const response = await axios.delete(`${baseUrl}/auth/logout/`, config)
   return response
 }
 
-const getSession = async (username: string) => {
-  const response = await axios.get<ResponseSession[]>(
-    `${baseUrl}/login?username_like=${username}`
-  )
+const getSession = async () => {
+  const config = {
+    headers: { Authorization: `Bearer ${getLocalSession().token}` },
+  }
+  const response = await axios.get<Session>(`${baseUrl}/auth/session`, config)
   return response.data
 }
 
