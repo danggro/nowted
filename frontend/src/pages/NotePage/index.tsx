@@ -9,7 +9,6 @@ import auth from 'services/auth'
 import { NotesContext } from 'context/NotesContext'
 import { getLocalSession } from 'utils/utils'
 import NoteContextProvider from 'context/NoteContext'
-import { baseUrl } from 'utils/contants'
 
 const Container = styled.div`
   width: 100%;
@@ -39,6 +38,7 @@ const NotePage = () => {
   const sessionLocal = getLocalSession()
 
   useEffect(() => {
+    console.log(sessionLocal)
     if (!sessionLocal) return navigate('/login')
     const getSessionDb = async () => {
       const data = await auth.getSession()
@@ -47,9 +47,9 @@ const NotePage = () => {
         window.localStorage.clear()
         return navigate('/login')
       }
+      getInitialNotes()
     }
     getSessionDb()
-    getInitialNotes(sessionLocal.token)
   }, [])
 
   if (!sessionLocal || !notes) return null

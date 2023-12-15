@@ -7,7 +7,7 @@ module.exports = (envVars) => {
   const envConfig = require(`./webpack.${env}`)
   envConfig.plugins = envConfig.plugins.concat(
     new EnvironmentPlugin({
-      NODE_ENV: 'development',
+      NODE_ENV: env === 'dev' ? 'development' : 'production',
       REACT_APP_BACKEND_URL,
     })
   )

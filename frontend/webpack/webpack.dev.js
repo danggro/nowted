@@ -1,6 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
-const { EnvironmentPlugin } = require('webpack')
 
 module.exports = {
   mode: 'development',
@@ -19,9 +18,6 @@ module.exports = {
       os: false,
       crypto: false,
     },
-  },
-  output: {
-    publicPath: '/',
   },
   plugins: [new MiniCssExtractPlugin()],
 }

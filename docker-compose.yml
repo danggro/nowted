@@ -1,0 +1,49 @@
+services:
+  nowted-frontend:
+    image: nowted-frontend
+    container_name: nowted-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+  postgres_db:
+    image: postgres
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: production
+      POSTGRES_PASSWORD: secret
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./backend/volumes/postgres:/var/lib/postgresql/data
+
+  redis_db:
+    image: redis
+    container_name: redis_db
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./backend/volumes/redis/:/data
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - nowted-frontend
+      - nowted-backend
+
+  nowted-backend:
+    image: nowted-backend
+    container_name: nowted-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgres://postgres:secret@postgres_db:5432/production
+      REDIS_URL: redis://redis_db:6379
+      NODE_ENV: production
+    depends_on:
+      - postgres_db
+      - redis_db

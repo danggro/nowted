@@ -114,12 +114,12 @@ const getDefaultDate = (): string => {
   return `${addZeroDate(day)}/${addZeroDate(month)}/${year}`
 }
 
-export const checkDate = (date: string): Boolean => {
+export const checkDate = (date: string): boolean => {
   if (date === '') return true
   const dateSplit = date.split('/')
-  let day = dateSplit[0]
-  let month = dateSplit[1]
-  let year = dateSplit[2]
+  const day = dateSplit[0]
+  const month = dateSplit[1]
+  const year = dateSplit[2]
   if (!Number(day) || !Number(month) || !Number(year)) return false
   if (Number(day) > 31) return false
   if (Number(month) > 12) return false

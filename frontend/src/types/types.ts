@@ -7,7 +7,7 @@ export interface Note {
 }
 
 export interface NoteState extends Note {
-  view: Boolean
+  view: boolean
 }
 
 export type NoteForm = Omit<Note, 'id'>

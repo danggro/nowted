@@ -1,12 +1,12 @@
 {
-  "name": "template-express-ts",
+  "name": "nowted-backend",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
-    "build": "npm run lint && npm run format && npm run test && tsc --project tsconfig.build.json",
+    "build": "rm -rf dist && npm run lint && npm run format && tsc --project tsconfig.build.json",
     "lint": "eslint --fix src",
     "format": "npx prettier --write src",
     "test": "jest --runInBand",

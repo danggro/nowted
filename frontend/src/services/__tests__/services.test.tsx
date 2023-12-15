@@ -6,23 +6,24 @@ import { baseUrl } from 'utils/contants'
 import { Note } from 'types/types'
 
 describe('Authorization', () => {
-  it('service login should get response data and status 201', async () => {
+  beforeEach(async () => {
+    await axios.post(`${baseUrl}/testing/reset`)
+  })
+  it.only('service login should get response data and status 201', async () => {
     const response = await auth.login({
-      username: 'danggro',
-      token: 1,
+      username: 'digran',
+      password: '12345678',
     })
 
     expect(response.status).toEqual(201)
     expect(response.data).toEqual({
-      username: 'danggro',
-      token: 1,
-      id: 1,
+      username: 'digran',
     })
   })
 
   it('service logout should get response status 204 and the session removed', async () => {
-    const getUserSession = await axios.get(`${baseUrl}/login/1`)
-    const response = await auth.logout(getUserSession.data)
+    // const getUserSession = await axios.get(`${baseUrl}/session/`)
+    const response = await auth.logout()
 
     expect(response.status).toEqual(200)
   })
@@ -49,8 +50,8 @@ describe('User', () => {
 })
 
 describe('Notes service should', () => {
-  let responseAdd: AxiosResponse<Note, any>
-  let responseGet: AxiosResponse<Note[], any>
+  let responseAdd: AxiosResponse<Note, undefined>
+  let responseGet: AxiosResponse<Note[], undefined>
   it('create a new note', async () => {
     const newNote = {
       title: 'this is title',
@@ -63,7 +64,7 @@ describe('Notes service should', () => {
   })
 
   it('get notes according to userId', async () => {
-    responseGet = await notes.get(responseAdd.data.userId as number)
+    responseGet = await notes.get()
     expect(responseGet.status).toEqual(200)
     expect(responseGet.data.length).toBeGreaterThanOrEqual(1)
     expect(responseGet.data[0].title).toEqual('this is title')

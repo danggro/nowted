@@ -21,9 +21,9 @@ export const getDefaultDate = (): string => {
 
 export const checkDate = (date: string): boolean => {
   const dateSplit = date.split('/')
-  let day = Number(dateSplit[0])
-  let month = Number(dateSplit[1])
-  let year = Number(dateSplit[2])
+  const day = Number(dateSplit[0])
+  const month = Number(dateSplit[1])
+  const year = Number(dateSplit[2])
   if (!day || !month || !year) return false
   if (day > 31) return false
   if (month > 12) return false

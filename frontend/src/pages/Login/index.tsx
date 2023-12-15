@@ -47,6 +47,7 @@ const Login = () => {
         return setErrorInputAuth(error.message, elementPassword)
     }
   }
+
   if (sessionLocal) return null
 
   return (

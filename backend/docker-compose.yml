@@ -3,9 +3,10 @@ version: '3.8'
 services:
   postgres_db:
     image: postgres
-    container_name: postgres
+    container_name: postgres-dev
     # restart: always
     environment:
+      POSTGRES_DB: development
       POSTGRES_PASSWORD: secret
       # PGDATA: /var/lib/postgresql/data/pgdata
     # volumes:
@@ -15,7 +16,7 @@ services:
 
   redis_db:
     image: redis
-    container_name: redis
+    container_name: redis-dev
     ports:
       - 6379:6379
     tty: true
@@ -29,8 +30,9 @@ services:
       context: .
       dockerfile: dev.Dockerfile
     environment:
-      DATABASE_URL: postgres://postgres:secret@postgres:5432/postgres
-      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgres://postgres:secret@postgres-dev:5432/development
+      REDIS_URL: redis://redis-dev:6379
+      NODE_ENV: development
     volumes:
       - ./:/usr/src/app
     ports:

@@ -14,7 +14,7 @@ const Container = styled.div`
   }
 `
 
-const NotifSaved = ({ noteSaved }: { noteSaved: Boolean }) => {
+const NotifSaved = ({ noteSaved }: { noteSaved: boolean }) => {
   const style = {
     transform: noteSaved ? 'translateY(40%)' : 'translateY(-100%)',
   }

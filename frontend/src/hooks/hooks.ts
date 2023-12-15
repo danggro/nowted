@@ -5,8 +5,8 @@ import users from 'services/users'
 import auth from 'services/auth'
 import { getLocalSession } from 'utils/utils'
 
-export default function useComponentVisible(initial: Boolean) {
-  const [open, setOpen] = useState<Boolean>(initial)
+export default function useComponentVisible(initial: boolean) {
+  const [open, setOpen] = useState<boolean>(initial)
   const ref = useRef<HTMLDivElement>(null)
 
   const handleClickOutside = (event: MouseEvent) => {

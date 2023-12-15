@@ -32,7 +32,7 @@ const NoteView = () => {
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
-  const [noteSaved, setNoteSaved] = useState<Boolean>(false)
+  const [noteSaved, setNoteSaved] = useState<boolean>(false)
 
   const localSession = getLocalSession()
 
@@ -69,10 +69,7 @@ const NoteView = () => {
       userId: localSession.token,
     }
 
-    let timeout = setTimeout(() => {
-      console.log(note.date)
-      console.log(date)
-
+    const timeout = setTimeout(() => {
       if (
         note.title === title &&
         note.date === date &&

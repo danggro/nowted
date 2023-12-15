@@ -40,10 +40,10 @@ const ThreeDotPopup = () => {
   }
   return (
     <Container>
-      <div onClick={() => handleDeleteNote()}>
+      <button style={{ display: 'block' }} onClick={() => handleDeleteNote()}>
         <SVGDelete />
         <span>Delete</span>
-      </div>
+      </button>
     </Container>
   )
 }

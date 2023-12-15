@@ -30,5 +30,6 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import/no-named-as-default': 'off',
     'import/no-unresolved': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 }

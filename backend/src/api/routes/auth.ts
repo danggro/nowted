@@ -2,9 +2,10 @@ import router from 'express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import { User } from '../../db/models'
-import { SECRET } from '../../config'
+import { NODE_ENV, SECRET } from '../../config'
 import { clientRedis } from '../../config/redis'
 import { tokenExtractor } from '../middlewares'
+import { Environment } from '../../types'
 
 const route = router.Router()
 
@@ -36,8 +37,11 @@ route.post('/login', async (req, res) => {
     JSON.stringify({ userId: String(user.id), token })
   )
 
-  // await clientRedis.expire(token, 3600 * 3)
-  await clientRedis.expire(token, 4) // for testing
+  if (NODE_ENV === Environment.Development) {
+    await clientRedis.expire(token, 3600)
+  } else if (NODE_ENV === Environment.Production) {
+    await clientRedis.expire(token, 3600 * 3)
+  }
 
   return res
     .status(200)

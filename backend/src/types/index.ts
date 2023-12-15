@@ -24,3 +24,8 @@ export interface Note {
 }
 
 export type NoteForm = Omit<Note, 'id' | 'userId'>
+
+export enum Environment {
+  Development = 'development',
+  Production = 'production',
+}

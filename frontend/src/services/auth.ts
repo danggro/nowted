@@ -25,8 +25,12 @@ const getSession = async () => {
   const config = {
     headers: { Authorization: `Bearer ${getLocalSession().token}` },
   }
-  const response = await axios.get<Session>(`${baseUrl}/auth/session`, config)
-  return response.data
+  try {
+    const response = await axios.get<Session>(`${baseUrl}/auth/session`, config)
+    return response.data
+  } catch (err) {
+    return null
+  }
 }
 
 export default { login, logout, getSession }
