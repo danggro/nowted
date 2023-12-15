@@ -28,7 +28,10 @@ const deleteNote = async (id: number) => {
 }
 
 const update = async (note: Note) => {
-  const response = await axios.put(`${baseUrl}/notes/${note.id}`, note)
+  const config = {
+    headers: { Authorization: `Bearer ${getLocalSession().token}` },
+  }
+  const response = await axios.put(`${baseUrl}/notes/${note.id}`, note, config)
   return response
 }
 

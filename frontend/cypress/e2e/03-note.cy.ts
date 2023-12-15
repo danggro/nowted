@@ -69,6 +69,23 @@ describe('Note Page', () => {
     })
   })
 
+  it.only('Success update specific note', () => {
+    cy.note({
+      title: 'This is title',
+      date: '12/12/2023',
+      content: 'This is content',
+    })
+    cy.get('.test-note').click()
+    cy.get('#title').type(' update')
+    cy.get('#day').type('01')
+    cy.get('#month').type('01')
+    cy.get('#year').type('2022')
+    cy.get('#content').type(' update')
+    cy.get('.test-note').contains('This is title update')
+    cy.get('.test-note').contains('01/01/2022')
+    cy.get('.test-note').contains('This is content update')
+  })
+
   it('Success delete specific note', () => {
     cy.note({
       title: 'This is title',

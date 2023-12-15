@@ -7,7 +7,7 @@ module.exports = {
   devServer: {
     port: '3000',
     historyApiFallback: true,
-    allowedHosts: ['nowted-frontend'],
+    allowedHosts: ['nowted-frontend-dev'],
     client: {
       webSocketURL: 'ws://localhost:8080/ws',
     },
@@ -18,6 +18,9 @@ module.exports = {
       os: false,
       crypto: false,
     },
+  },
+  output: {
+    publicPath: '/',
   },
   plugins: [new MiniCssExtractPlugin()],
 }

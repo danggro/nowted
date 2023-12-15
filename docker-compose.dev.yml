@@ -1,6 +1,6 @@
 services:
-  nowted-frontend:
-    image: nowted-frontend-image
+  nowted-frontend-dev:
+    image: nowted-frontend-dev
     container_name: nowted-frontend-dev
     build:
       context: ./frontend
@@ -31,10 +31,10 @@ services:
       - 8080:80
     container_name: reverse-proxy
     depends_on:
-      - nowted-frontend
+      - nowted-frontend-dev
 
-  nowted-backend:
-    image: nowted-backend-image
+  nowted-backend-dev:
+    image: nowted-backend-dev
     container_name: nowted-backend-dev
     build:
       context: ./backend
