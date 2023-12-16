@@ -38,7 +38,6 @@ const NotePage = () => {
   const sessionLocal = getLocalSession()
 
   useEffect(() => {
-    console.log(sessionLocal)
     if (!sessionLocal) return navigate('/login')
     const getSessionDb = async () => {
       const data = await auth.getSession()

@@ -66,7 +66,7 @@ const NoteView = () => {
       title,
       date: complianceDate(date),
       content,
-      userId: localSession.token,
+      userId: localSession?.token,
     }
 
     const timeout = setTimeout(() => {

@@ -4,6 +4,7 @@ import * as palette from 'assets/Variables'
 import { useContext } from 'react'
 import { NoteContext } from 'context/NoteContext'
 import { NotesContext } from 'context/NotesContext'
+
 const Container = styled.div`
   display: flex;
   width: 200px;
@@ -16,12 +17,13 @@ const Container = styled.div`
   top: 50px;
   background-color: ${palette.BLACK_SECONDARY};
   z-index: 9999;
-  & > div {
+  & > button {
     display: flex;
     gap: 15px;
     cursor: pointer;
     width: 100%;
     padding: 15px;
+    align-items: center;
     & > span {
       font-weight: 500;
     }
@@ -40,7 +42,7 @@ const ThreeDotPopup = () => {
   }
   return (
     <Container>
-      <button style={{ display: 'block' }} onClick={() => handleDeleteNote()}>
+      <button onClick={() => handleDeleteNote()}>
         <SVGDelete />
         <span>Delete</span>
       </button>

@@ -12,7 +12,7 @@ import {
   setErrorInputAuth,
 } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useUser } from 'hooks/hooks'
+import { useUser } from 'hooks'
 
 const Login = () => {
   const [username, setUsername] = useState<string>('')

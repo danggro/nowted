@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import SVGDate from '../../SVG/SVGDate'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Input from './Input'
 import { handleInputDate, styleInputError } from 'utils/utils'
+import { NoteContext } from 'context/NoteContext'
 
 const InputDateContainer = styled.div`
   display: flex;
@@ -44,6 +45,7 @@ interface Props {
 
 const InputDate = (props: Props) => {
   const { date, setDate } = props
+  const { note } = useContext(NoteContext)
   const [day, setDay] = useState<string>('')
   const [month, setMonth] = useState<string>('')
   const [year, setYear] = useState<string>('')
@@ -59,14 +61,18 @@ const InputDate = (props: Props) => {
       setMonth('')
       setYear('')
     }
-    const errorElement = document.getElementById('date')
-      ?.lastElementChild as HTMLSpanElement
-    styleInputError(errorElement).valid()
   }, [date])
 
   useEffect(() => {
+    const errorElement = document.getElementById('date')
+      ?.lastElementChild as HTMLSpanElement
+    styleInputError(errorElement).valid()
+  }, [note.id])
+
+  useEffect(() => {
     setDate(() => {
-      if (!day || !month || !year) return ''
+      if (!day && !month && !year) return ''
+      // if (!day || !month || !year) return ''
       return `${day}/${month}/${year}`
     })
   }, [day, month, year])

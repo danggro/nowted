@@ -8,7 +8,7 @@ import { useState } from 'react'
 import InputAuth from 'components/auth/InputAuth'
 import { handleInputAuth, setErrorInputAuth } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useUser } from 'hooks/hooks'
+import { useUser } from 'hooks'
 
 const Signup = () => {
   const [username, setUsername] = useState<string>('')

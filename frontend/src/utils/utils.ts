@@ -50,14 +50,10 @@ export const setErrorInputAuth = (
   nextElement.textContent = message
 }
 
-interface SessionWithId extends Session {
-  id: string
-}
-
-export const getLocalSession = (): SessionWithId => {
-  const session = JSON.parse(
-    window.localStorage.getItem('loggedUser') as string
-  )
+export const getLocalSession = (): Session | null => {
+  const storage = window.localStorage.getItem('loggedUser')
+  if (!storage) return null
+  const session = JSON.parse(storage)
   return session
 }
 
@@ -65,6 +61,7 @@ export const preventPressNumber = (e: React.KeyboardEvent) => {
   if (
     isNaN(Number(e.key)) &&
     e.key !== 'Backspace' &&
+    e.key !== 'Tab' &&
     e.key !== 'ArrowLeft' &&
     e.key !== 'ArrowRight'
   ) {
@@ -83,6 +80,7 @@ export const handleInputDate = (
     ?.lastChild as HTMLSpanElement
   const nextInput = e.target.nextSibling?.nextSibling as HTMLInputElement
 
+  // limit maxlength input
   if (value.length > e.target.maxLength) {
     value = value.slice(0, e.target.maxLength)
   }
@@ -90,8 +88,6 @@ export const handleInputDate = (
   setState(value)
 
   if (Number(value) > condition || Number(value) === 0) {
-    console.log(errorElement)
-
     styleInputError(errorElement).invalid('Date not valid')
   } else {
     styleInputError(errorElement).valid()
@@ -104,7 +100,7 @@ export const handleInputDate = (
 
 const getDefaultDate = (): string => {
   const day = String(new Date().getDate())
-  const month = String(new Date().getMonth())
+  const month = String(new Date().getMonth() + 1)
   const year = String(new Date().getFullYear())
 
   const addZeroDate = (date: string): string => {
