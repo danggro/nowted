@@ -7,6 +7,9 @@ import { getLocalSession } from 'utils/utils'
 import { useNavigate } from 'react-router'
 import { useContext } from 'react'
 import { NoteContext } from 'context/NoteContext'
+import { useAppDispatch } from 'redux/store'
+import { setNoteAction } from 'redux/actions/noteActions'
+import { logoutAction } from 'redux/actions/authActions'
 
 const Header = styled.header`
   padding: 20px;
@@ -42,17 +45,23 @@ const HeaderNotePage = () => {
   const navigate = useNavigate()
   const { setNote } = useContext(NoteContext)
 
+  const dispatch = useAppDispatch()
+
   const handleLogout = async () => {
     const sessionLocal = getLocalSession()
     if (sessionLocal) {
-      await auth.logout(sessionLocal.id)
-      window.localStorage.clear
+      dispatch(logoutAction(sessionLocal.accessToken, navigate))
+      // await auth.logout(sessionLocal.id)
+      // window.localStorage.clear
+      // navigate('/login')
+    } else {
       navigate('/login')
     }
   }
 
   const handleNewNote = async () => {
-    setNote({ title: '', date: '', content: '', view: true })
+    dispatch(setNoteAction({ title: '', date: '', content: '', view: true }))
+    // setNote({ title: '', date: '', content: '', view: true })
   }
 
   return (

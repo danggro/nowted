@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 import HeaderNotePage from './HeaderNotePage'
 import ListNote from './ListNote'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import * as palette from 'assets/Variables'
 import NoteView from './NoteView'
 import { useNavigate } from 'react-router'
-import auth from 'services/auth'
-import { NotesContext } from 'context/NotesContext'
 import { getLocalSession } from 'utils/utils'
 import NoteContextProvider from 'context/NoteContext'
+import { useAppDispatch, useAppSelector } from 'redux/store'
+import { initializeAuth } from 'redux/actions/authActions'
+import { setInitialNotesAction } from 'redux/actions/noteActions'
 
 const Container = styled.div`
   width: 100%;
@@ -34,19 +35,16 @@ const Content = styled.div`
 `
 const NotePage = () => {
   const navigate = useNavigate()
-  const { notes, getInitialNotes } = useContext(NotesContext)
   const sessionLocal = getLocalSession()
+
+  const dispatch = useAppDispatch()
+  const notes = useAppSelector((state) => state.note.notes)
 
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
     const getSessionDb = async () => {
-      const data = await auth.getSession()
-
-      if (!data) {
-        window.localStorage.clear()
-        return navigate('/login')
-      }
-      getInitialNotes()
+      await dispatch(initializeAuth(navigate))
+      await dispatch(setInitialNotesAction())
     }
     getSessionDb()
   }, [])

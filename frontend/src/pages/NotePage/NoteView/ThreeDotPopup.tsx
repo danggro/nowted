@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import SVGDelete from '../SVG/SVGDelete'
 import * as palette from 'assets/Variables'
-import { useContext } from 'react'
-import { NoteContext } from 'context/NoteContext'
-import { NotesContext } from 'context/NotesContext'
+import { deleteNoteAction } from 'redux/actions/noteActions'
+import { useAppDispatch, useAppSelector } from 'redux/store'
 
 const Container = styled.div`
   display: flex;
@@ -34,11 +33,11 @@ const Container = styled.div`
 `
 
 const ThreeDotPopup = () => {
-  const { deleteNote } = useContext(NotesContext)
-  const { note, setNote } = useContext(NoteContext)
+  const dispatch = useAppDispatch()
+  const note = useAppSelector((state) => state.note.note)
+
   const handleDeleteNote = () => {
-    deleteNote(note.id as number)
-    setNote({ title: '', date: '', content: '', view: false })
+    dispatch(deleteNoteAction(note.id as number))
   }
   return (
     <Container>

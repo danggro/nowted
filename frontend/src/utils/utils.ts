@@ -51,7 +51,7 @@ export const setErrorInputAuth = (
 }
 
 export const getLocalSession = (): Session | null => {
-  const storage = window.localStorage.getItem('loggedUser')
+  const storage = localStorage.getItem('loggedUser')
   if (!storage) return null
   const session = JSON.parse(storage)
   return session

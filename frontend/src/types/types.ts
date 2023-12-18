@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios'
+
 export interface Note {
   id?: number
   title: string
@@ -19,7 +21,7 @@ export interface CredentialsLogin {
 
 export interface Session {
   username: string
-  token: number
+  accessToken: string
   userId: number
 }
 
@@ -32,3 +34,9 @@ export interface User {
 }
 
 export type UserForm = Omit<User, 'id' | 'created_at'>
+export type UserData = Omit<User, 'password' | 'email' | 'created_at'>
+
+export interface Response {
+  error: string | null
+  data: AxiosResponse | null
+}

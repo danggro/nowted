@@ -2,14 +2,16 @@ import axios from 'axios'
 import { baseUrl } from 'utils/contants'
 import { Note, NoteForm } from 'types/types'
 import { getLocalSession } from 'utils/utils'
+import { useAppSelector } from 'redux/store'
 
 const localSession = getLocalSession()
-const token = localSession !== null ? localSession.token : ''
+const token = localSession !== null ? localSession.accessToken : ''
 
 const get = async () => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   }
+
   const response = await axios.get<Note[]>(`${baseUrl}/notes`, config)
   return response
 }
@@ -18,6 +20,7 @@ const add = async (note: NoteForm) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   }
+
   const response = await axios.post<Note>(`${baseUrl}/notes`, note, config)
   return response
 }

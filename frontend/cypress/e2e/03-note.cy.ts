@@ -69,7 +69,7 @@ describe('Note Page', () => {
     })
   })
 
-  it.only('Success update specific note', () => {
+  it('Success update specific note', () => {
     cy.note({
       title: 'This is title',
       date: '12/12/2023',

@@ -8,14 +8,15 @@ import { useState } from 'react'
 import InputAuth from 'components/auth/InputAuth'
 import { handleInputAuth, setErrorInputAuth } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useUser } from 'hooks'
+import { useAppDispatch, useAppSelector } from 'redux/store'
+import { signUpAction } from 'redux/actions/authActions'
 
 const Signup = () => {
   const [username, setUsername] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const users = useUser()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -25,9 +26,9 @@ const Signup = () => {
     const elementEmail = form[1].childNodes[0] as HTMLInputElement
     const elementPassword = form[2].childNodes[0] as HTMLInputElement
 
+    const newUser = { username, email, password }
     try {
-      await users.add({ username, email, password })
-      navigate('/login')
+      await dispatch(signUpAction(newUser, navigate))
     } catch (err: unknown) {
       const error = err as Error
       if (error.message === 'User not available')

@@ -12,14 +12,19 @@ import {
   setErrorInputAuth,
 } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useUser } from 'hooks'
+import { useAppDispatch, useAppSelector } from 'redux/store'
+import { signInAction } from 'redux/actions/authActions'
 
 const Login = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
-  const users = useUser()
+
   const sessionLocal = getLocalSession()
+
+  const dispatch = useAppDispatch()
+  const error = useAppSelector((state) => state.auth.signInError)
+  console.log(error)
 
   useEffect(() => {
     if (sessionLocal) return navigate('/')
@@ -32,7 +37,7 @@ const Login = () => {
     const elementPassword = form[1].childNodes[0] as HTMLInputElement
 
     try {
-      await users.login({ username, password })
+      dispatch(signInAction({ username, password }, navigate))
     } catch (err: unknown) {
       const error = err as Error
       console.log(error)

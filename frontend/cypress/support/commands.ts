@@ -56,7 +56,7 @@ Cypress.Commands.add('note', ({ title, date, content }) => {
     },
     headers: {
       Authorization: `Bearer ${
-        JSON.parse(localStorage.getItem('loggedUser') as string).token
+        JSON.parse(localStorage.getItem('loggedUser') as string).accessToken
       }`,
     },
   }).then(() => {

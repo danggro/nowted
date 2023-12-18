@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { Note } from 'types/types'
 import * as palette from 'assets/Variables'
 import { getLocalSession } from 'utils/utils'
-import { useContext } from 'react'
-import { NoteContext } from 'context/NoteContext'
+import { useAppDispatch } from 'redux/store'
+import { setNoteAction } from 'redux/actions/noteActions'
 
 const NoteStyle = styled.div`
   display: grid;
@@ -39,12 +39,20 @@ const NoteStyle = styled.div`
 
 const ListNoteItem = ({ id, title, date, content }: Note) => {
   const session = getLocalSession()
-  const { setNote } = useContext(NoteContext)
-
+  const dispatch = useAppDispatch()
   return (
     <NoteStyle
       onClick={() => {
-        setNote({ id, title, date, content, userId: session.token, view: true })
+        dispatch(
+          setNoteAction({
+            id,
+            title,
+            date,
+            content,
+            userId: session?.userId,
+            view: true,
+          })
+        )
       }}
       className="test-note"
     >

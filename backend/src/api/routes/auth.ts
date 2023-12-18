@@ -19,9 +19,14 @@ route.post('/login', async (req, res) => {
   const passwordCorrect =
     user === null ? false : await bcrypt.compare(password, user.password)
 
-  if (!(user && passwordCorrect)) {
+  if (!user) {
     return res.status(404).json({
-      error: 'invalid username or password',
+      message: 'Username not found',
+    })
+  }
+  if (!passwordCorrect) {
+    return res.status(404).json({
+      message: 'Password incorrect',
     })
   }
 
@@ -45,7 +50,7 @@ route.post('/login', async (req, res) => {
 
   return res
     .status(200)
-    .send({ token, username: user.username, userId: user.id })
+    .send({ accessToken: token, username: user.username, userId: user.id })
 })
 
 route.get('/session', tokenExtractor, async (req, res) => {

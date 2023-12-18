@@ -4,7 +4,7 @@ import { baseUrl } from 'utils/contants'
 import { getLocalSession } from 'utils/utils'
 
 const localSession = getLocalSession()
-const token = localSession !== null ? localSession.token : ''
+const token = localSession !== null ? localSession.accessToken : ''
 
 const login = async (object: CredentialsLogin) => {
   const response = await axios.post<Session>(`${baseUrl}/auth/login`, {

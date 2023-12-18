@@ -1,20 +1,14 @@
 import styled from 'styled-components'
 import NoteNoView from './NoteNoView'
-import { useContext, useEffect, useState } from 'react'
-import { NoteContext } from 'context/NoteContext'
-import { NotesContext } from 'context/NotesContext'
+import { useEffect, useState } from 'react'
 import ThreeDotButton from './ThreeDotButton'
-import {
-  checkDate,
-  complianceDate,
-  getLocalSession,
-  styleInputError,
-} from 'utils/utils'
-import { Note } from 'types/types'
+import { checkDate, complianceDate, styleInputError } from 'utils/utils'
 import InputDate from './InputDate'
 import NotifSaved from './NotifSaved'
 import InputTitle from './InputTitle'
 import InputContent from './InputContent'
+import { useAppDispatch, useAppSelector } from 'redux/store'
+import { addNoteAction, updateNoteAction } from 'redux/actions/noteActions'
 
 const Container = styled.div`
   width: 100%;
@@ -27,14 +21,14 @@ const Container = styled.div`
 `
 
 const NoteView = () => {
-  const { note, setNote } = useContext(NoteContext)
-  const { updateNote, addNote } = useContext(NotesContext)
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
   const [noteSaved, setNoteSaved] = useState<boolean>(false)
 
-  const localSession = getLocalSession()
+  const note = useAppSelector((state) => state.note.note)
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (
@@ -48,25 +42,11 @@ const NoteView = () => {
     }
   }, [note])
 
-  const handleUpdateNoteAndNotes = async (baseNote: Note) => {
-    const updatedNote = {
-      ...baseNote,
-      id: note.id,
-    }
-    updateNote(updatedNote)
-  }
-
-  const handleNewNote = async (baseNote: Note) => {
-    const data = await addNote(baseNote)
-    setNote({ ...data, view: true })
-  }
-
   useEffect(() => {
     const baseNote = {
       title,
       date: complianceDate(date),
       content,
-      userId: localSession?.token,
     }
 
     const timeout = setTimeout(() => {
@@ -92,10 +72,11 @@ const NoteView = () => {
       styleInputError(dateElement).valid()
 
       if (note.id) {
-        handleUpdateNoteAndNotes(baseNote)
+        dispatch(updateNoteAction({ ...baseNote, id: note.id }))
       } else {
-        handleNewNote(baseNote)
+        dispatch(addNoteAction(baseNote))
       }
+
       setNoteSaved(true)
       setTimeout(() => setNoteSaved(false), 2500)
     }, 5000)
