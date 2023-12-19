@@ -57,7 +57,6 @@ const noteReducer: Reducer<NoteState, ActionRedux> = (
       const noteDeleted = state.notes.filter((note) => {
         return note.id !== payload
       })
-
       return {
         ...state,
         actionError: '',
@@ -80,6 +79,12 @@ const noteReducer: Reducer<NoteState, ActionRedux> = (
         ...state,
         actionError: '',
         successMessage: payload ? payload : '',
+      }
+    case ActionType.CLEAR_MESSAGE:
+      return {
+        ...state,
+        actionError: payload,
+        successMessage: payload,
       }
     default:
       return state

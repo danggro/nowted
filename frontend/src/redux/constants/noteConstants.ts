@@ -50,6 +50,11 @@ interface ActionSuccess {
   payload: string
 }
 
+interface ClearMessage {
+  type: ActionType.CLEAR_MESSAGE
+  payload: string
+}
+
 export type Action =
   | SetInitialNotes
   | AddNote
@@ -58,3 +63,4 @@ export type Action =
   | SetNote
   | ActionFail
   | ActionSuccess
+  | ClearMessage

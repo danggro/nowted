@@ -31,10 +31,6 @@ const Signup = () => {
       await dispatch(signUpAction(newUser, navigate))
     } catch (err: unknown) {
       const error = err as Error
-      if (error.message === 'User not available')
-        return setErrorInputAuth(error.message, elementUsername)
-      if (error.message === 'Email not available')
-        return setErrorInputAuth(error.message, elementEmail)
       if (error.message === 'Username is missing')
         return setErrorInputAuth(error.message, elementUsername)
       if (error.message === 'Email is missing')

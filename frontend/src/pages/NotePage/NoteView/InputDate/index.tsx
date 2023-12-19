@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import SVGDate from '../../SVG/SVGDate'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from './Input'
-import { handleInputDate, styleInputError } from 'utils/utils'
-import { NoteContext } from 'context/NoteContext'
+import { handleInputDate } from 'utils/utils'
+import { useAppSelector } from 'redux/store'
+import ErrorElement from '../ErrorElement'
 
 const InputDateContainer = styled.div`
   display: flex;
@@ -30,14 +31,7 @@ export const InputDateComponent = styled.input`
     opacity: 1;
   }
 `
-const ErrorElement = styled.span`
-  display: block;
-  color: ${palette.RED};
-  position: absolute;
-  bottom: -25px;
-  left: 127px;
-  opacity: var(--opacityErrNote, 0);
-`
+
 interface Props {
   date: string
   setDate: React.Dispatch<React.SetStateAction<string>>
@@ -45,10 +39,11 @@ interface Props {
 
 const InputDate = (props: Props) => {
   const { date, setDate } = props
-  const { note } = useContext(NoteContext)
   const [day, setDay] = useState<string>('')
   const [month, setMonth] = useState<string>('')
   const [year, setYear] = useState<string>('')
+
+  const errorMessage = useAppSelector((state) => state.note.actionError)
 
   useEffect(() => {
     const dateSplit = date.split('/')
@@ -64,15 +59,8 @@ const InputDate = (props: Props) => {
   }, [date])
 
   useEffect(() => {
-    const errorElement = document.getElementById('date')
-      ?.lastElementChild as HTMLSpanElement
-    styleInputError(errorElement).valid()
-  }, [note.id])
-
-  useEffect(() => {
     setDate(() => {
       if (!day && !month && !year) return ''
-      // if (!day || !month || !year) return ''
       return `${day}/${month}/${year}`
     })
   }, [day, month, year])
@@ -102,7 +90,7 @@ const InputDate = (props: Props) => {
           }
         />
       </div>
-      <ErrorElement></ErrorElement>
+      <ErrorElement name="date" />
     </InputDateContainer>
   )
 }

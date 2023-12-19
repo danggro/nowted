@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
+import { useAppDispatch, useAppSelector } from 'redux/store'
+import { useEffect } from 'react'
+import { clearMessageAction } from 'redux/actions/noteActions'
 const Container = styled.div`
   padding: 20px 30px;
   background-color: ${palette.BLACK_SECONDARY};
@@ -14,9 +17,18 @@ const Container = styled.div`
   }
 `
 
-const NotifSaved = ({ noteSaved }: { noteSaved: boolean }) => {
+const NotifSaved = () => {
+  const dispatch = useAppDispatch()
+  const success = useAppSelector((state) => state.note.successMessage)
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(clearMessageAction())
+    }, 2500)
+  }, [success])
+
   const style = {
-    transform: noteSaved ? 'translateY(40%)' : 'translateY(-100%)',
+    transform: success ? 'translateY(40%)' : 'translateY(-100%)',
   }
   return (
     <Container style={style}>

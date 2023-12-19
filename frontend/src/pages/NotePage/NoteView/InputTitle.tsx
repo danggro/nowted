@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import { styleInputError } from 'utils/utils'
-import { useEffect } from 'react'
+import ErrorElement from './ErrorElement'
 
 const Input = styled.input`
   font-size: 2rem;
@@ -13,27 +13,12 @@ const Input = styled.input`
   }
 `
 
-const ErrorElement = styled.span`
-  display: block;
-  color: ${palette.RED};
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  opacity: var(--opacityErrNote, 0);
-`
-
 interface Props {
   value: string
   setState: React.Dispatch<React.SetStateAction<string>>
 }
 
 const InputTitle = (props: Props) => {
-  useEffect(() => {
-    const errorElement = document.getElementById('title')
-      ?.nextElementSibling as HTMLSpanElement
-    styleInputError(errorElement).valid()
-  }, [props.value])
-
   return (
     <div style={{ position: 'relative' }}>
       <Input
@@ -47,7 +32,7 @@ const InputTitle = (props: Props) => {
           styleInputError(target.nextElementSibling as HTMLSpanElement).valid()
         }}
       />
-      <ErrorElement></ErrorElement>
+      <ErrorElement name="title" />
     </div>
   )
 }

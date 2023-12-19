@@ -21,10 +21,6 @@ export const setInitialNotesAction =
           type: ActionType.SET_INITIAL_NOTES,
           payload: data,
         })
-        dispatch({
-          type: ActionType.ACTION_SUCCESS,
-          payload: SAVED_SUCCESS_MESSAGE,
-        })
       }
     } catch (error) {
       dispatch({ type: ActionType.ACTION_FAIL, payload: ERROR_MESSAGE })
@@ -44,12 +40,12 @@ export const addNoteAction =
           payload: data,
         })
         dispatch({
-          type: ActionType.ACTION_SUCCESS,
-          payload: SAVED_SUCCESS_MESSAGE,
-        })
-        dispatch({
           type: ActionType.SET_NOTE,
           payload: { ...data, view: true },
+        })
+        dispatch({
+          type: ActionType.ACTION_SUCCESS,
+          payload: SAVED_SUCCESS_MESSAGE,
         })
       }
     } catch (error) {
@@ -66,16 +62,16 @@ export const updateNoteAction =
         dispatch({ type: ActionType.ACTION_FAIL, payload: error })
       } else {
         dispatch({
-          type: ActionType.ACTION_SUCCESS,
-          payload: SAVED_SUCCESS_MESSAGE,
-        })
-        dispatch({
           type: ActionType.UPDATE_NOTE,
           payload: data,
         })
         dispatch({
           type: ActionType.SET_NOTE,
           payload: { ...data, view: true },
+        })
+        dispatch({
+          type: ActionType.ACTION_SUCCESS,
+          payload: SAVED_SUCCESS_MESSAGE,
         })
       }
     } catch (error) {
@@ -109,3 +105,7 @@ export const setNoteAction =
   (note: NoteView) => async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.SET_NOTE, payload: note })
   }
+
+export const clearMessageAction = () => async (dispatch: Dispatch<Action>) => {
+  dispatch({ type: ActionType.CLEAR_MESSAGE, payload: '' })
+}

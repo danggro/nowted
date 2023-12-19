@@ -40,16 +40,20 @@ interface Props {
 
 const InputAuth = (props: Props) => {
   const { type, placeholder, id, name, value, onChange, minlength } = props
-  const error = useAppSelector((state) => state.auth.signUpError)
+  const error = useAppSelector((state) => {
+    if (state.auth.signUpError) return state.auth.signUpError
+    if (state.auth.signInError) return state.auth.signInError
+    return ''
+  })
 
   const filterInput = () => {
-    if (error.includes('username') && name === 'username') {
+    if (error.includes('Username') && name === 'username') {
       return error
     }
     if (error.includes('email') && name === 'email') {
       return error
     }
-    if (error.includes('password') && name === 'password') {
+    if (error.includes('Password') && name === 'password') {
       return error
     }
   }

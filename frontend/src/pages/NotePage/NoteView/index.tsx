@@ -24,10 +24,8 @@ const NoteView = () => {
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
-  const [noteSaved, setNoteSaved] = useState<boolean>(false)
 
   const note = useAppSelector((state) => state.note.note)
-
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -58,27 +56,11 @@ const NoteView = () => {
         return null
       }
 
-      const titleElement = document.getElementById('title')
-        ?.nextElementSibling as HTMLSpanElement
-      if (!title)
-        return styleInputError(titleElement).invalid('Title is missing')
-      styleInputError(titleElement).valid()
-
-      const dateElement = document.getElementById('date')
-        ?.lastChild as HTMLSpanElement
-      const dateChecked = checkDate(date)
-      if (!dateChecked)
-        return styleInputError(dateElement).invalid('Date not valid')
-      styleInputError(dateElement).valid()
-
       if (note.id) {
         dispatch(updateNoteAction({ ...baseNote, id: note.id }))
       } else {
         dispatch(addNoteAction(baseNote))
       }
-
-      setNoteSaved(true)
-      setTimeout(() => setNoteSaved(false), 2500)
     }, 5000)
     return () => clearTimeout(timeout)
   }, [title, date, content])
@@ -93,7 +75,7 @@ const NoteView = () => {
       <InputDate date={date} setDate={setDate} />
       <InputContent value={content} setState={setContent} />
       {note.title && <ThreeDotButton />}
-      <NotifSaved noteSaved={noteSaved} />
+      <NotifSaved />
     </Container>
   )
 }

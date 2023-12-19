@@ -24,7 +24,6 @@ const Login = () => {
 
   const dispatch = useAppDispatch()
   const error = useAppSelector((state) => state.auth.signInError)
-  console.log(error)
 
   useEffect(() => {
     if (sessionLocal) return navigate('/')
