@@ -3,7 +3,8 @@ import { ValidationError } from 'sequelize'
 
 import { SECRET } from '../../config'
 import jwt, { GetPublicKeyOrSecret, JwtPayload, Secret } from 'jsonwebtoken'
-import { getSession } from '../../utils/utils'
+import { authError, getSession } from '../../utils/utils'
+import { AuthError } from '../../types'
 
 const tokenExtractor = async (
   req: Request,
@@ -44,7 +45,11 @@ const errorHandler = (
 ) => {
   const { errors } = e as ValidationError
   const err = e as Error
-  console.log(e)
+
+  errors.forEach((error) => {
+    authError[error.path as AuthError] = error.message
+  })
+  res.status(400).send(authError)
 
   if (err.message.includes('No session'))
     res.status(401).send({ message: `${err.message}` })
@@ -52,12 +57,6 @@ const errorHandler = (
     errors[0].validatorKey === 'notEmpty' ||
     errors[0].validatorKey === null
   ) {
-    if (errors[0].path === 'username')
-      res.status(400).send({ message: `${errors[0].path} empty` })
-    if (errors[0].path === 'email')
-      res.status(400).send({ message: `${errors[0].path} empty` })
-    if (errors[0].path === 'password')
-      res.status(400).send({ message: `${errors[0].path} empty` })
     if (errors[0].path === 'title')
       res.status(400).send({ message: `${errors[0].path} empty` })
     if (errors[0].path === 'date')

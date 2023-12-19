@@ -4,42 +4,25 @@ import FormAuth from 'components/auth/FormAuth'
 import TitleAuth from 'components/auth/TitleAuth'
 import MainAuth from 'components/auth/MainAuth'
 import AnotherAuth from 'components/auth/AnotherAuth'
-import { useState } from 'react'
 import InputAuth from 'components/auth/InputAuth'
-import { handleInputAuth, setErrorInputAuth } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useAppDispatch, useAppSelector } from 'redux/store'
+import { useAppDispatch } from 'redux/store'
 import { signUpAction } from 'redux/actions/authActions'
+import useInputAuth from 'hooks/useInputAuth'
 
 const Signup = () => {
-  const [username, setUsername] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [username, setUsername] = useInputAuth()
+  const [email, setEmail] = useInputAuth()
+  const [password, setPassword] = useInputAuth()
+
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
-    const form = e.currentTarget.children
-    const elementUsername = form[0].childNodes[0] as HTMLInputElement
-    const elementEmail = form[1].childNodes[0] as HTMLInputElement
-    const elementPassword = form[2].childNodes[0] as HTMLInputElement
-
     const newUser = { username, email, password }
-    try {
-      await dispatch(signUpAction(newUser, navigate))
-    } catch (err: unknown) {
-      const error = err as Error
-      if (error.message === 'Username is missing')
-        return setErrorInputAuth(error.message, elementUsername)
-      if (error.message === 'Email is missing')
-        return setErrorInputAuth(error.message, elementEmail)
-      if (error.message === 'Password is missing')
-        return setErrorInputAuth(error.message, elementPassword)
-      if (error.message === 'Minimum 8 character')
-        return setErrorInputAuth(error.message, elementPassword)
-    }
+    dispatch(signUpAction(newUser, navigate))
   }
 
   return (
@@ -53,7 +36,7 @@ const Signup = () => {
             placeholder="Username"
             name="username"
             value={username}
-            onChange={(e) => handleInputAuth(e, setUsername)}
+            onChange={setUsername}
           />
           <InputAuth
             type="email"
@@ -61,7 +44,7 @@ const Signup = () => {
             placeholder="Email"
             name="email"
             value={email}
-            onChange={(e) => handleInputAuth(e, setEmail)}
+            onChange={setEmail}
           />
           <InputAuth
             type="password"
@@ -70,7 +53,7 @@ const Signup = () => {
             name="password"
             value={password}
             minlength={8}
-            onChange={(e) => handleInputAuth(e, setPassword)}
+            onChange={setPassword}
           />
           <ButtonAuth page="signup">Signup</ButtonAuth>
           <AnotherAuth

@@ -6,6 +6,7 @@ import { NODE_ENV, SECRET } from '../../config'
 import { clientRedis } from '../../config/redis'
 import { tokenExtractor } from '../middlewares'
 import { Environment } from '../../types'
+import { authError } from '../../utils/utils'
 
 const route = router.Router()
 
@@ -19,15 +20,16 @@ route.post('/login', async (req, res) => {
   const passwordCorrect =
     user === null ? false : await bcrypt.compare(password, user.password)
 
-  if (!user) {
-    return res.status(404).json({
-      message: 'Username not found',
-    })
-  }
-  if (!passwordCorrect) {
-    return res.status(404).json({
-      message: 'Password incorrect',
-    })
+  if (!user || !passwordCorrect) {
+    if (!user) {
+      authError.username = 'Username not found'
+      res.status(404).send(authError)
+    }
+    if (!passwordCorrect) {
+      authError.password = 'Password incorrect'
+      res.status(404).send(authError)
+    }
+    return
   }
 
   const userForToken = {
@@ -59,7 +61,7 @@ route.get('/session', tokenExtractor, async (req, res) => {
   res.status(200).send(req.decodedToken)
 })
 
-route.delete('/logout/', tokenExtractor, async (req, res) => {
+route.delete('/logout', tokenExtractor, async (req, res) => {
   if (!req.decodedToken.token) res.status(401).end()
   await clientRedis.del(req.decodedToken.token)
   res.status(200).send({ message: 'logout' })

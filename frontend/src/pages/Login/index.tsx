@@ -4,26 +4,22 @@ import FormAuth from 'components/auth/FormAuth'
 import ContainerAuth from 'components/auth/ContainerAuth'
 import MainAuth from 'components/auth/MainAuth'
 import AnotherAuth from 'components/auth/AnotherAuth'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import InputAuth from 'components/auth/InputAuth'
-import {
-  getLocalSession,
-  handleInputAuth,
-  setErrorInputAuth,
-} from 'utils/utils'
+import { getLocalSession } from 'utils/utils'
 import { useNavigate } from 'react-router'
-import { useAppDispatch, useAppSelector } from 'redux/store'
+import { useAppDispatch } from 'redux/store'
 import { signInAction } from 'redux/actions/authActions'
+import useInputAuth from 'hooks/useInputAuth'
 
 const Login = () => {
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [username, setUsername] = useInputAuth()
+  const [password, setPassword] = useInputAuth()
   const navigate = useNavigate()
 
   const sessionLocal = getLocalSession()
 
   const dispatch = useAppDispatch()
-  const error = useAppSelector((state) => state.auth.signInError)
 
   useEffect(() => {
     if (sessionLocal) return navigate('/')
@@ -31,25 +27,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    const form = e.currentTarget.children
-    const elementUsername = form[0].childNodes[0] as HTMLInputElement
-    const elementPassword = form[1].childNodes[0] as HTMLInputElement
-
-    try {
-      dispatch(signInAction({ username, password }, navigate))
-    } catch (err: unknown) {
-      const error = err as Error
-      console.log(error)
-
-      if (error.message === 'User not found')
-        setErrorInputAuth(error.message, elementUsername)
-      if (error.message === 'Wrong password')
-        setErrorInputAuth(error.message, elementPassword)
-      if (error.message === 'Username is missing')
-        return setErrorInputAuth(error.message, elementUsername)
-      if (error.message === 'Password is missing')
-        return setErrorInputAuth(error.message, elementPassword)
-    }
+    dispatch(signInAction({ username, password }, navigate))
   }
 
   if (sessionLocal) return null
@@ -65,7 +43,7 @@ const Login = () => {
             placeholder="Username"
             name="username"
             value={username}
-            onChange={(e) => handleInputAuth(e, setUsername)}
+            onChange={setUsername}
           />
           <InputAuth
             type="password"
@@ -73,7 +51,7 @@ const Login = () => {
             placeholder="Password"
             name="password"
             value={password}
-            onChange={(e) => handleInputAuth(e, setPassword)}
+            onChange={setPassword}
             minlength={8}
           />
           <ButtonAuth page="login">Login</ButtonAuth>

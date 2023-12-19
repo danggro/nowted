@@ -1,4 +1,4 @@
-import { UserData } from 'types/types'
+import { UserData, UserForm } from 'types/types'
 
 export enum ActionType {
   SET_USER_DATA = 'SET_USER_DATA',
@@ -16,7 +16,11 @@ export const SIGNUP_SUCCESS_MESSAGE =
   'You have successfully created an account. Please sign in.'
 export const SIGNIN_SUCCESS_MESSAGE =
   'Welcome to Nowted, note whatever you want.'
-export const ERROR_MESSAGE = 'Something went wrong.'
+export const UNEXPECTED_ERROR = {
+  username: 'Something went wrong.',
+  email: 'Something went wrong.',
+  password: 'Something went wrong.',
+}
 
 interface SetUserData {
   type: ActionType.SET_USER_DATA
@@ -30,7 +34,7 @@ interface SignUpSuccess {
 
 interface SignUpFail {
   type: ActionType.SIGNUP_FAIL
-  payload: string
+  payload: UserForm
 }
 
 interface SignInSuccess {
@@ -44,7 +48,7 @@ interface SignInSuccess {
 
 interface SignInFail {
   type: ActionType.SIGNIN_FAIL
-  payload: string
+  payload: UserForm
 }
 
 interface SetAccessToken {

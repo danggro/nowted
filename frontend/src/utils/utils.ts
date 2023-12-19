@@ -10,8 +10,9 @@ export const handleInputAuth = (
   setState(element.value)
 
   if (!element.checkValidity()) {
-    if (element.validity.tooShort)
-      nextElement.textContent = 'Minimum 8 character'
+    if (element.validity.tooShort) {
+      // nextElement.textContent = 'Minimum 8 character'
+    }
 
     if (element.validity.typeMismatch)
       nextElement.textContent = 'Email not valid'
@@ -28,8 +29,6 @@ const inValidStyleInputAuth = (element: HTMLInputElement) => {
   element?.style.setProperty('border-color', palette.RED)
   element?.style.setProperty('--placeholderColor', palette.RED)
   element?.style.setProperty('color', palette.RED)
-  const nextElement = element.nextElementSibling as HTMLSpanElement
-  nextElement.style.setProperty('--opacityErr', '1')
 }
 
 const validStyleInputAuth = (element: HTMLInputElement) => {
@@ -37,8 +36,6 @@ const validStyleInputAuth = (element: HTMLInputElement) => {
   element?.style.setProperty('border-color', palette.WHITE)
   element?.style.setProperty('--placeholderColor', palette.WHITE)
   element?.style.setProperty('color', palette.WHITE)
-  const nextElement = element.nextElementSibling as HTMLSpanElement
-  nextElement.style.setProperty('--opacityErr', '0')
 }
 
 export const setErrorInputAuth = (

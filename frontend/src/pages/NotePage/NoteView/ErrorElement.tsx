@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
-import { ReactNode } from 'react'
 import { useAppSelector } from 'redux/store'
 const Span = styled.span`
   display: block;

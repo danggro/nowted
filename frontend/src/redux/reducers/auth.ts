@@ -1,20 +1,22 @@
 import { Reducer, Action as ActionRedux } from 'redux'
 import { Action, ActionType } from 'redux/constants/authConstants'
-import { Response, UserData } from 'types/types'
+import { UserData, UserForm } from 'types/types'
 
 export interface AuthState {
   userData: UserData | null
   accessToken: string
-  signInError: string
-  signUpError: string
+  authError: UserForm
   successMessage: string
 }
 
 const initialState: AuthState = {
   userData: {} as UserData,
   accessToken: '',
-  signInError: '',
-  signUpError: '',
+  authError: {
+    username: '',
+    email: '',
+    password: '',
+  },
   successMessage: '',
 }
 
@@ -37,16 +39,18 @@ const authReducer: Reducer<AuthState, ActionRedux> = (
     case ActionType.SIGNUP_SUCCESS:
       return {
         ...state,
-        signInError: '',
-        signUpError: '',
+        authError: { username: '', email: '', password: '' },
         successMessage: payload ? payload : '',
       }
 
     case ActionType.SIGNUP_FAIL:
       return {
         ...state,
-        signInError: '',
-        signUpError: payload ? payload : '',
+        authError: {
+          username: payload.username,
+          email: payload.email,
+          password: payload.password,
+        },
         successMessage: '',
       }
 
@@ -55,16 +59,18 @@ const authReducer: Reducer<AuthState, ActionRedux> = (
         ...state,
         userData: payload ? payload.user : state.userData,
         accessToken: payload ? payload.accessToken : '',
-        signInError: '',
-        signUpError: '',
+        authError: { username: '', email: '', password: '' },
         successMessage: payload ? payload.successMessage : '',
       }
 
     case ActionType.SIGNIN_FAIL:
       return {
         ...state,
-        signInError: payload ? payload : '',
-        signUpError: '',
+        authError: {
+          username: payload.username,
+          email: payload.email,
+          password: payload.password,
+        },
         successMessage: '',
       }
 
@@ -73,16 +79,14 @@ const authReducer: Reducer<AuthState, ActionRedux> = (
         ...state,
         userData: state.userData,
         accessToken: '',
-        signInError: '',
-        signUpError: '',
+        authError: { username: '', email: '', password: '' },
         successMessage: '',
       }
 
     case ActionType.CLEAR_MESSAGE:
       return {
         ...state,
-        signInError: '',
-        signUpError: '',
+        authError: { username: '', email: '', password: '' },
         successMessage: '',
       }
 
@@ -91,7 +95,6 @@ const authReducer: Reducer<AuthState, ActionRedux> = (
         ...state,
         accessToken: payload ? payload : '',
       }
-
     default:
       return state
   }

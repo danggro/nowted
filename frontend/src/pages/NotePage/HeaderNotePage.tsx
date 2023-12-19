@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import logoSrc from 'assets/logo.png'
 import * as palette from 'assets/Variables'
 import SVGAdd from './SVG/SVGAdd'
-import auth from 'services/auth'
 import { getLocalSession } from 'utils/utils'
 import { useNavigate } from 'react-router'
 import { useContext } from 'react'
@@ -43,17 +42,12 @@ const Button = styled.button`
 
 const HeaderNotePage = () => {
   const navigate = useNavigate()
-  const { setNote } = useContext(NoteContext)
-
   const dispatch = useAppDispatch()
 
   const handleLogout = async () => {
     const sessionLocal = getLocalSession()
     if (sessionLocal) {
       dispatch(logoutAction(sessionLocal.accessToken, navigate))
-      // await auth.logout(sessionLocal.id)
-      // window.localStorage.clear
-      // navigate('/login')
     } else {
       navigate('/login')
     }
@@ -61,7 +55,6 @@ const HeaderNotePage = () => {
 
   const handleNewNote = async () => {
     dispatch(setNoteAction({ title: '', date: '', content: '', view: true }))
-    // setNote({ title: '', date: '', content: '', view: true })
   }
 
   return (

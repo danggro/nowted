@@ -9,6 +9,12 @@ export type UserForm = Omit<User, 'id'>
 
 export type UserLogin = Omit<User, 'id' | 'email'>
 
+export enum AuthError {
+  USERNAME = 'username',
+  EMAIL = 'email',
+  PASSWORD = 'password',
+}
+
 export interface Session {
   username: string
   userId: number

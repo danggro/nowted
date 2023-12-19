@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
+import { useAppDispatch } from 'redux/store'
+import { clearMessage } from 'redux/actions/authActions'
 
 const Span = styled.span<{ page: string }>`
   text-align: center;
@@ -31,9 +32,13 @@ const AnotherAuth = ({
   textTo: string
   page: string
 }) => {
+  const dispatch = useAppDispatch()
   return (
     <Span page={page}>
-      {someText} <Link to={to}>{textTo}</Link>
+      {someText}{' '}
+      <Link to={to} onClick={() => dispatch(clearMessage())}>
+        {textTo}
+      </Link>
     </Span>
   )
 }

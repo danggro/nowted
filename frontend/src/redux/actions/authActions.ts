@@ -1,9 +1,9 @@
 import {
   Action,
   ActionType,
-  ERROR_MESSAGE,
   SIGNIN_SUCCESS_MESSAGE,
   SIGNUP_SUCCESS_MESSAGE,
+  UNEXPECTED_ERROR,
 } from 'redux/constants/authConstants'
 import { UserForm, UserData, CredentialsLogin, Session } from 'types/types'
 import { Dispatch } from 'redux'
@@ -49,6 +49,11 @@ export const setAccessToken =
     dispatch({ type: ActionType.SET_ACCESS_TOKEN, payload: accessToken })
   }
 
+export const setSignUpError =
+  (objectError: UserForm) => async (dispatch: Dispatch<Action>) => {
+    dispatch({ type: ActionType.SIGNUP_FAIL, payload: objectError })
+  }
+
 export const clearMessage = () => async (dispatch: Dispatch<Action>) => {
   dispatch({ type: ActionType.CLEAR_MESSAGE, payload: null })
 }
@@ -84,7 +89,7 @@ export const signUpAction =
     } catch (error) {
       dispatch({
         type: ActionType.SIGNUP_FAIL,
-        payload: ERROR_MESSAGE,
+        payload: UNEXPECTED_ERROR,
       })
     }
   }
@@ -118,7 +123,7 @@ export const signInAction =
     } catch (error) {
       dispatch({
         type: ActionType.SIGNIN_FAIL,
-        payload: ERROR_MESSAGE,
+        payload: UNEXPECTED_ERROR,
       })
     }
   }
