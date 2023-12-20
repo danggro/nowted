@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { setSignUpError } from 'redux/actions/authActions'
+import { setAuthFail } from 'redux/actions/authActions'
 import { useAppDispatch } from 'redux/store'
 import * as palette from 'assets/Variables'
 
@@ -57,13 +57,13 @@ const useInputAuth = () => {
     message: string
   ) => {
     authError[element.id as InputForm] = message
-    dispatch(setSignUpError(authError))
+    dispatch(setAuthFail(authError))
     return inValidStyleInputAuth(element)
   }
 
   const validTemplate = (element: EventTarget & HTMLInputElement) => {
     authError[element.id as InputForm] = ''
-    dispatch(setSignUpError(authError))
+    dispatch(setAuthFail(authError))
     return validStyleInputAuth(element)
   }
 

@@ -49,9 +49,9 @@ export const setAccessToken =
     dispatch({ type: ActionType.SET_ACCESS_TOKEN, payload: accessToken })
   }
 
-export const setSignUpError =
+export const setAuthFail =
   (objectError: UserForm) => async (dispatch: Dispatch<Action>) => {
-    dispatch({ type: ActionType.SIGNUP_FAIL, payload: objectError })
+    dispatch({ type: ActionType.AUTH_FAIL, payload: objectError })
   }
 
 export const clearMessage = () => async (dispatch: Dispatch<Action>) => {
@@ -78,7 +78,7 @@ export const signUpAction =
       const response = await api.signUp(formData)
       const { error } = response
       if (error) {
-        dispatch({ type: ActionType.SIGNUP_FAIL, payload: error })
+        dispatch({ type: ActionType.AUTH_FAIL, payload: error })
       } else {
         dispatch({
           type: ActionType.SIGNUP_SUCCESS,
@@ -88,7 +88,7 @@ export const signUpAction =
       }
     } catch (error) {
       dispatch({
-        type: ActionType.SIGNUP_FAIL,
+        type: ActionType.AUTH_FAIL,
         payload: UNEXPECTED_ERROR,
       })
     }
@@ -101,7 +101,7 @@ export const signInAction =
       const response = await api.signIn(credential)
       const { error, data } = response
       if (error || !data) {
-        dispatch({ type: ActionType.SIGNIN_FAIL, payload: error })
+        dispatch({ type: ActionType.AUTH_FAIL, payload: error })
       } else {
         const { username, userId, accessToken } = data
         const user = { username, id: userId }
@@ -122,7 +122,7 @@ export const signInAction =
       }
     } catch (error) {
       dispatch({
-        type: ActionType.SIGNIN_FAIL,
+        type: ActionType.AUTH_FAIL,
         payload: UNEXPECTED_ERROR,
       })
     }

@@ -20,6 +20,7 @@ const ErrorElement = ({ name }: { name: string }) => {
       return error.date
     }
   }
+
   return (
     <Span style={{ left: name === 'title' ? '0' : '120px' }}>
       {filterInput()}

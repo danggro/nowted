@@ -1,7 +1,7 @@
 import SVGThreeDot from '../svg/SVGThreeDot'
 import * as palette from 'assets/Variables'
 import styled from 'styled-components'
-import useComponentVisible from 'hooks'
+import useComponentVisible from 'hooks/useComponentVisible'
 import ThreeDotPopup from './Delete'
 
 const Container = styled.div`

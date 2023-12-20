@@ -42,18 +42,6 @@ const authReducer: Reducer<AuthState, ActionRedux> = (
         authError: { username: '', email: '', password: '' },
         successMessage: payload ? payload : '',
       }
-
-    case ActionType.SIGNUP_FAIL:
-      return {
-        ...state,
-        authError: {
-          username: payload.username,
-          email: payload.email,
-          password: payload.password,
-        },
-        successMessage: '',
-      }
-
     case ActionType.SIGNIN_SUCCESS:
       return {
         ...state,
@@ -62,8 +50,7 @@ const authReducer: Reducer<AuthState, ActionRedux> = (
         authError: { username: '', email: '', password: '' },
         successMessage: payload ? payload.successMessage : '',
       }
-
-    case ActionType.SIGNIN_FAIL:
+    case ActionType.AUTH_FAIL:
       return {
         ...state,
         authError: {

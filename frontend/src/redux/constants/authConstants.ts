@@ -2,10 +2,9 @@ import { UserData, UserForm } from 'types/types'
 
 export enum ActionType {
   SET_USER_DATA = 'SET_USER_DATA',
+  AUTH_FAIL = 'AUTH_FAIL',
   SIGNUP_SUCCESS = 'SIGNUP_SUCCESS',
-  SIGNUP_FAIL = 'SIGNUP_FAIL',
   SIGNIN_SUCCESS = 'SIGNIN_SUCCESS',
-  SIGNIN_FAIL = 'SIGNIN_FAIL',
   SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN',
   CLEAR_MESSAGE = 'CLEAR_MESSAGE',
   LOGOUT = 'LOGOUT',
@@ -27,14 +26,14 @@ interface SetUserData {
   payload: UserData | null
 }
 
+interface AuthFail {
+  type: ActionType.AUTH_FAIL
+  payload: UserForm
+}
+
 interface SignUpSuccess {
   type: ActionType.SIGNUP_SUCCESS
   payload: string
-}
-
-interface SignUpFail {
-  type: ActionType.SIGNUP_FAIL
-  payload: UserForm
 }
 
 interface SignInSuccess {
@@ -44,11 +43,6 @@ interface SignInSuccess {
     accessToken: string
     successMessage: string
   }
-}
-
-interface SignInFail {
-  type: ActionType.SIGNIN_FAIL
-  payload: UserForm
 }
 
 interface SetAccessToken {
@@ -72,11 +66,10 @@ interface GetSession {
 }
 
 export type Action =
+  | AuthFail
   | SetUserData
   | SignUpSuccess
-  | SignUpFail
   | SignInSuccess
-  | SignInFail
   | SetAccessToken
   | Logout
   | ClearMessage

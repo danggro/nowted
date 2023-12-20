@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
-import { useAppSelector } from 'redux/store'
+import ErrorElement from './ErrorElement'
 
 const Input = styled.input`
   border-radius: 12px;
@@ -18,16 +18,6 @@ const Container = styled.div`
   position: relative;
 `
 
-const ErrorElement = styled.span`
-  color: ${palette.RED};
-  font-size: 0.9rem;
-  display: block;
-  /* opacity: var(--opacityErr, 0); */
-  position: absolute;
-  bottom: -25px;
-  left: 15px;
-`
-
 interface Props {
   type: string
   placeholder: string
@@ -40,22 +30,6 @@ interface Props {
 
 const InputAuth = (props: Props) => {
   const { type, placeholder, id, name, value, onChange, minlength } = props
-  const error = useAppSelector((state) => {
-    return state.auth.authError
-  })
-
-  const filterInput = () => {
-    if (error.username && id === 'username') {
-      return error.username
-    }
-    if (error.email && id === 'email') {
-      return error.email
-    }
-    if (error.password && id === 'password') {
-      return error.password
-    }
-  }
-
   return (
     <Container className="contInput">
       <Input
@@ -67,7 +41,7 @@ const InputAuth = (props: Props) => {
         onChange={onChange}
         minLength={minlength}
       />
-      <ErrorElement>{filterInput()}</ErrorElement>
+      <ErrorElement id={id} />
     </Container>
   )
 }

@@ -27,13 +27,11 @@ route.post('/login', async (req, res) => {
   if (!user || !passwordCorrect) {
     if (!user) {
       authError.username = 'Username not found'
-      res.status(404).send(authError)
     }
     if (!passwordCorrect) {
       authError.password = 'Password incorrect'
-      res.status(404).send(authError)
     }
-    return
+    return res.status(404).send(authError)
   }
 
   const userForToken = {
