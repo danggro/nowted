@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import SVGDelete from '../SVG/SVGDelete'
+import SVGDelete from '../svg/SVGDelete'
 import * as palette from 'assets/Variables'
 import { deleteNoteAction } from 'redux/actions/noteActions'
 import { useAppDispatch, useAppSelector } from 'redux/store'

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
-import SVGDate from '../../SVG/SVGDate'
+import SVGDate from '../../svg/SVGDate'
 import { useEffect } from 'react'
 import Input from './Input'
 import ErrorElement from '../ErrorElement'

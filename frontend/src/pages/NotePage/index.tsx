@@ -1,15 +1,14 @@
 import styled from 'styled-components'
-import HeaderNotePage from './HeaderNotePage'
-import ListNote from './ListNote'
 import { useEffect } from 'react'
 import * as palette from 'assets/Variables'
-import NoteView from './NoteView'
 import { useNavigate } from 'react-router'
 import { getLocalSession } from 'utils/utils'
-import NoteContextProvider from 'context/NoteContext'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import { initializeAuth } from 'redux/actions/authActions'
 import { setInitialNotesAction } from 'redux/actions/noteActions'
+import HeaderNotePage from 'components/note/header/HeaderNotePage'
+import ListNote from 'components/note/list/ListNote'
+import NoteView from 'components/note/view/NoteView'
 
 const Container = styled.div`
   width: 100%;
@@ -52,17 +51,15 @@ const NotePage = () => {
   if (!sessionLocal || !notes) return null
 
   return (
-    <NoteContextProvider>
-      <Container>
-        <Navigate>
-          <HeaderNotePage />
-          <ListNote data={notes} />
-        </Navigate>
-        <Content>
-          <NoteView />
-        </Content>
-      </Container>
-    </NoteContextProvider>
+    <Container>
+      <Navigate>
+        <HeaderNotePage />
+        <ListNote data={notes} />
+      </Navigate>
+      <Content>
+        <NoteView />
+      </Content>
+    </Container>
   )
 }
 export default NotePage
