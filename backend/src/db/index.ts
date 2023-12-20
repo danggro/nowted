@@ -28,8 +28,6 @@ const connectToDatabase = async () => {
     console.log('failed to connect to the database', err)
     return process.exit(1)
   }
-
-  return null
 }
 
 export type Migration = typeof umzug._types.migration

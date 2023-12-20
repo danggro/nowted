@@ -20,7 +20,9 @@ Note.init(
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notEmpty: {
+          msg: 'Title cannot be empty',
+        },
       },
     },
     date: {
@@ -28,10 +30,9 @@ Note.init(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [10, 10],
         isDateFormat(value: string) {
           const check = checkDate(value)
-          if (!check) throw Error('Format date invalid')
+          if (!check) throw Error('Date not valid')
           return true
         },
       },

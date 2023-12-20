@@ -1,12 +1,6 @@
 import { clientRedis } from '../config/redis'
 import { Session } from '../types'
 
-export const authError = {
-  username: '',
-  email: '',
-  password: '',
-}
-
 export const getSession = async (token: string): Promise<Session> => {
   const session = await clientRedis.get(token)
   if (!session) throw new Error('No session in database')

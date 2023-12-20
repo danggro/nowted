@@ -34,7 +34,10 @@ const InputTitle = (props: Props) => {
           props.setState(target.value)
           if (!target.value) {
             return dispatch(
-              setActionError({ title: 'Title empty', date: actionError.date })
+              setActionError({
+                title: 'Please give this note a title',
+                date: actionError.date,
+              })
             )
           }
           return dispatch(setActionError({ title: '', date: actionError.date }))

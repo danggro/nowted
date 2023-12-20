@@ -21,7 +21,9 @@ User.init(
       unique: true,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notEmpty: {
+          msg: 'Username cannot be empty',
+        },
       },
     },
     email: {
@@ -29,14 +31,18 @@ User.init(
       unique: true,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notEmpty: {
+          msg: 'Email cannot be empty',
+        },
       },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true,
+        notEmpty: {
+          msg: 'Password cannot be empty',
+        },
       },
     },
   },
