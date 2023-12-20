@@ -51,7 +51,7 @@ describe('Note Page', () => {
       cy.get('#month').type('12')
       cy.get('#year').type('2023')
       cy.get('#content').type('This is content')
-      cy.get('span').contains('Title is missing')
+      cy.get('span').contains('Title cannot be empty')
     })
 
     it('fails if date is not valid', () => {

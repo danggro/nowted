@@ -6,3 +6,6 @@ Content-Type: application/json
     "email": "digran@gmail.com",
     "password": ""
 }
+
+###
+POST http://localhost:8080/api/testing/reset

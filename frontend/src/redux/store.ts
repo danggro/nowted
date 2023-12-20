@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducers'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import authReducer from './reducers/auth'
-import noteReducer from './reducers/note'
 
 const createAppStore = () => {
   try {

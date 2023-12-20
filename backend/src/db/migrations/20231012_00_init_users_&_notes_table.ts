@@ -44,7 +44,7 @@ export const up: Migration = async ({ context: sequelize }) => {
       allowNull: false,
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
   })
   await sequelize.getQueryInterface().addColumn('notes', 'user_id', {

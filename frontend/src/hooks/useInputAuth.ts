@@ -5,8 +5,8 @@ import * as palette from 'assets/Variables'
 
 enum InputForm {
   USERNAME = 'username',
-  EMAIL = 'username',
-  PASSWORD = 'username',
+  EMAIL = 'email',
+  PASSWORD = 'password',
 }
 
 const authError = {
@@ -36,7 +36,7 @@ const useInputAuth = () => {
         return invalidTemplate(element, 'Please fill this input form')
       }
       if (element.validity.typeMismatch) {
-        return invalidTemplate(element, 'Email format not valid')
+        return invalidTemplate(element, 'Email not valid')
       }
       validTemplate(element)
     }
@@ -45,9 +45,9 @@ const useInputAuth = () => {
       if (!element.value) {
         return invalidTemplate(element, 'Please fill this input form')
       }
-      if (element.validity.tooShort) {
-        return invalidTemplate(element, 'Minimum 8 character')
-      }
+      // if (element.validity.tooShort) {
+      //   return invalidTemplate(element, 'Minimum 8 character')
+      // }
       validTemplate(element)
     }
   }

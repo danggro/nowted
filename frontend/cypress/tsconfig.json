@@ -4,5 +4,6 @@
     "baseUrl": "../node_modules",
     "types": ["cypress"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "e2e/01-register.cy."]
+  // "include": ["e2e/01-register.cy.ts"]
 }

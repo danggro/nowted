@@ -3,7 +3,7 @@ import { Note } from 'types/types'
 import { Reducer, Action as ActionRedux } from 'redux'
 
 export interface NoteView extends Note {
-  view: Boolean
+  view: boolean
 }
 
 export interface NoteState {

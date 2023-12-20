@@ -1,8 +1,12 @@
 describe('Signup Page', () => {
+  let wait: Boolean = true
   beforeEach(function () {
+    if (wait) {
+      cy.wait(10000)
+      wait = false
+    }
     cy.request('POST', `${Cypress.env('BACKEND_DEV')}/testing/reset`)
-    cy.visit('')
-    cy.get('a').contains('Signup').click()
+    cy.visit('/signup')
   })
 
   it('Signup form is shown', () => {
@@ -25,20 +29,20 @@ describe('Signup Page', () => {
 
     it('fails if username empty', () => {
       cy.get('button').contains('Signup').click()
-      cy.contains('Username is missing')
+      cy.contains('Username cannot be empty')
     })
 
     it('fails if email empty', () => {
       cy.get('#username').type('digran')
       cy.get('button').contains('Signup').click()
-      cy.contains('Email is missing')
+      cy.contains('Email cannot be empty')
     })
 
     it('fails if password empty', () => {
       cy.get('#username').type('digran')
       cy.get('#email').type('digran@gmail.com')
       cy.get('button').contains('Signup').click()
-      cy.contains('Password is missing')
+      cy.contains('Password cannot be empty')
     })
 
     it('fails if username not available', () => {
@@ -52,8 +56,7 @@ describe('Signup Page', () => {
       cy.get('#password').type('12345678')
       cy.get('button').contains('Signup').click()
 
-      cy.get('button').contains('Signup').click()
-      cy.contains('User not available')
+      cy.contains('Username not available')
     })
 
     it('fails if email not available', () => {
@@ -67,7 +70,6 @@ describe('Signup Page', () => {
       cy.get('#password').type('12345678')
       cy.get('button').contains('Signup').click()
 
-      cy.get('button').contains('Signup').click()
       cy.contains('Email not available')
     })
 
@@ -77,16 +79,13 @@ describe('Signup Page', () => {
       cy.get('#password').type('12345678')
       cy.get('button').contains('Signup').click()
 
-      cy.get('button').contains('Signup').click()
       cy.contains('Email not valid')
     })
 
     it('fails if password less than 8 character', () => {
       cy.get('#username').type('bambang')
       cy.get('#email').type('bambang@gmail.com')
-      cy.get('#password').type('1234567')
-      cy.get('button').contains('Signup').click()
-
+      cy.get('#password').type('123456')
       cy.get('button').contains('Signup').click()
       cy.contains('Minimum 8 character')
     })

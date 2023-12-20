@@ -80,6 +80,11 @@ export const signUpAction =
       if (error) {
         dispatch({ type: ActionType.AUTH_FAIL, payload: error })
       } else {
+        if (formData.password.length < 8)
+          return dispatch({
+            type: ActionType.AUTH_FAIL,
+            payload: { ...error, password: 'Minimum 8 character' },
+          })
         dispatch({
           type: ActionType.SIGNUP_SUCCESS,
           payload: SIGNUP_SUCCESS_MESSAGE,

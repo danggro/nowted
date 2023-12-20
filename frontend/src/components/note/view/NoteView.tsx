@@ -15,8 +15,8 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding: 50px;
+  gap: clamp(20px, 3vw, 30px);
+  padding: clamp(20px, 5vw, 50px);
   position: relative;
 `
 

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { isAxiosError } from 'axios'
 import { UNEXPECTED_ERROR } from 'redux/constants/authConstants'
 import { baseUrl } from 'utils/contants'
 
@@ -7,8 +7,7 @@ export const API = axios.create({
 })
 
 export const handleApiError = async (error: unknown) => {
-  if (!axios.isAxiosError(error))
-    throw new Error('An unexpected error occurred.')
+  if (!isAxiosError(error)) throw new Error('An unexpected error occurred.')
 
   try {
     const objectError = error.response?.data || UNEXPECTED_ERROR

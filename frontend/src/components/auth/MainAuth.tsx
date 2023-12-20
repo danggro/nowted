@@ -16,7 +16,8 @@ const Main = styled.main<{ page: string }>`
     position: absolute;
     border-radius: 302px;
     top: 15%;
-    right: 25%;
+    right: max(100px, 43%);
+    margin-right: -250px;
     z-index: -1;
 
     background: ${({ page }) =>
@@ -27,12 +28,14 @@ const Main = styled.main<{ page: string }>`
 
   &::after {
     content: '';
+    display: block;
     width: 220px;
     height: 220px;
     position: absolute;
     border-radius: 220px;
     bottom: 15%;
-    left: 25%;
+    left: max(100px, 42%);
+    margin-left: -250px;
     z-index: -1;
     background: ${({ page }) =>
       page === 'login'

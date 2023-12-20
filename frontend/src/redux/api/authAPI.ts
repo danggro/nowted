@@ -1,6 +1,5 @@
-import { CredentialsLogin, User, UserForm } from 'types/types'
+import { CredentialsLogin, User, UserForm, Session } from 'types/types'
 import { API, handleApiError } from './utils'
-import { Session } from 'types/types'
 
 export const signIn = async (credential: CredentialsLogin) => {
   try {

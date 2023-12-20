@@ -8,9 +8,13 @@ const Input = styled.textarea`
   padding-left: 5px;
   margin-left: -5px;
   border-left: 2px solid transparent;
+
   &:focus {
     border-left: 2px solid ${palette.BLACK_TERTIARY};
     background-color: ${palette.BLACK_SECONDARY};
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 `
 
@@ -26,6 +30,7 @@ const InputContent = (props: Props) => {
       name="content"
       placeholder="Write in"
       value={props.value}
+      spellCheck="false"
       onChange={({ target }) => props.setState(target.value)}
     />
   )

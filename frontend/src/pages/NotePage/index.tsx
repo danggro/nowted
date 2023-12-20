@@ -20,7 +20,7 @@ const Container = styled.div`
 `
 
 const Navigate = styled.div`
-  width: 350px;
+  width: clamp(200px, 20%, 350px);
   flex-shrink: 0;
   overflow-y: scroll;
   background: rgba(255, 255, 255, 0.015);

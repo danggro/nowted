@@ -6,7 +6,7 @@ const route = router.Router()
 route.post('/reset', async (_req, res) => {
   await Note.destroy({ where: {} })
   await User.destroy({ where: {} })
-  res.status(200).end()
+  res.status(200).send({ message: 'database reset' })
 })
 
 export default route

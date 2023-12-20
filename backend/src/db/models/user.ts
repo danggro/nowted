@@ -18,7 +18,10 @@ User.init(
     },
     username: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: {
+        name: 'username',
+        msg: 'Username not available',
+      },
       allowNull: false,
       validate: {
         notEmpty: {
@@ -28,7 +31,10 @@ User.init(
     },
     email: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: {
+        name: 'email',
+        msg: 'Email not available',
+      },
       allowNull: false,
       validate: {
         notEmpty: {

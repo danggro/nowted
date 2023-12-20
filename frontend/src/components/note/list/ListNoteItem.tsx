@@ -8,10 +8,10 @@ import { setNoteAction } from 'redux/actions/noteActions'
 const NoteStyle = styled.div`
   display: grid;
   grid-template: 1fr 25px / 75px 1fr;
-  row-gap: 5px;
+  row-gap: clamp(0px, 1.2vw, 5px);
   column-gap: 10px;
   border-radius: 3px;
-  padding: 20px;
+  padding: ${palette.WHITE_SPACE};
   background-color: ${palette.BLACK_SECONDARY};
   cursor: pointer;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);

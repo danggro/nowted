@@ -8,6 +8,7 @@ describe('Login Page', () => {
     })
     cy.visit('')
   })
+
   it('Login form is shown', () => {
     cy.get('h1').contains('Login')
     cy.get('#username')
@@ -26,13 +27,13 @@ describe('Login Page', () => {
 
     it('fails if username empty', () => {
       cy.get('button').contains('Login').click()
-      cy.contains('Username is missing')
+      cy.contains('Username not found')
     })
 
     it('fails if password empty', () => {
       cy.get('#username').type('digran')
       cy.get('button').contains('Login').click()
-      cy.contains('Password is missing')
+      cy.contains('Password incorrect')
     })
   })
 })

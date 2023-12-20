@@ -9,10 +9,10 @@ import { setNoteAction } from 'redux/actions/noteActions'
 import { logoutAction } from 'redux/actions/authActions'
 
 const Header = styled.header`
-  padding: 20px;
+  padding: ${palette.WHITE_SPACE};
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: ${palette.WHITE_SPACE};
   position: sticky;
   top: 0;
   background-color: ${palette.BLACK};

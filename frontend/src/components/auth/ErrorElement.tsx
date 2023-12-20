@@ -8,12 +8,10 @@ const Span = styled.span`
   position: absolute;
   bottom: -27px;
   left: 15px;
-  /* opacity: var(--opacityErrNote, 0); */
 `
 
 const ErrorElement = ({ id }: { id: string }) => {
   const error = useAppSelector((state) => state.auth.authError)
-  console.log(error)
 
   const filterInput = () => {
     if (error.username && id === 'username') {

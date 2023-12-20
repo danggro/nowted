@@ -1,12 +1,12 @@
 import { Note } from 'types/types'
 import ListNoteItem from './ListNoteItem'
 import styled from 'styled-components'
-
+import * as palette from 'assets/Variables'
 const Container = styled.div`
-  padding: 20px;
+  padding: ${palette.WHITE_SPACE};
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: ${palette.WHITE_SPACE};
 `
 
 const ListNote = ({ data }: { data: Note[] }) => {
