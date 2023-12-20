@@ -9,7 +9,10 @@ export interface NoteView extends Note {
 export interface NoteState {
   notes: Note[]
   note: NoteView
-  actionError: string
+  actionError: {
+    title: string
+    date: string
+  }
   successMessage: string
 }
 
@@ -21,7 +24,7 @@ const initialState: NoteState = {
     content: '',
     view: false,
   },
-  actionError: '',
+  actionError: { title: '', date: '' },
   successMessage: '',
 }
 
@@ -34,14 +37,14 @@ const noteReducer: Reducer<NoteState, ActionRedux> = (
     case ActionType.SET_INITIAL_NOTES:
       return {
         ...state,
-        actionError: '',
+        actionError: { title: '', date: '' },
         notes: payload ? payload : [],
       }
     case ActionType.ADD_NOTE:
       const noteAdded = state.notes.concat(payload)
       return {
         ...state,
-        actionError: '',
+        actionError: { title: '', date: '' },
         notes: payload ? noteAdded : state.notes,
       }
     case ActionType.UPDATE_NOTE:
@@ -50,7 +53,7 @@ const noteReducer: Reducer<NoteState, ActionRedux> = (
       })
       return {
         ...state,
-        actionError: '',
+        actionError: { title: '', date: '' },
         notes: payload ? noteUpdated : state.notes,
       }
     case ActionType.DELETE_NOTE:
@@ -59,31 +62,31 @@ const noteReducer: Reducer<NoteState, ActionRedux> = (
       })
       return {
         ...state,
-        actionError: '',
+        actionError: { title: '', date: '' },
         notes: payload ? noteDeleted : state.notes,
       }
     case ActionType.SET_NOTE:
       return {
         ...state,
-        actionError: '',
+        actionError: { title: '', date: '' },
         note: payload ? payload : state.note,
       }
     case ActionType.ACTION_FAIL:
       return {
         ...state,
         successMessage: '',
-        actionError: payload ? payload : '',
+        actionError: { title: payload.title, date: payload.date },
       }
     case ActionType.ACTION_SUCCESS:
       return {
         ...state,
-        actionError: '',
+        actionError: { title: '', date: '' },
         successMessage: payload ? payload : '',
       }
     case ActionType.CLEAR_MESSAGE:
       return {
         ...state,
-        actionError: payload,
+        actionError: { title: '', date: '' },
         successMessage: payload,
       }
     default:

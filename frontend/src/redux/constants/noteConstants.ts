@@ -14,7 +14,10 @@ export enum ActionType {
 
 export const SAVED_SUCCESS_MESSAGE = 'Note saved'
 export const DELETE_SUCCESS_MESSAGE = 'Note deleted'
-export const ERROR_MESSAGE = 'Something went wrong.'
+export const UNEXPECTED_ERROR = {
+  title: 'Something went wrong.',
+  date: 'Something went wrong.',
+}
 
 interface SetInitialNotes {
   type: ActionType.SET_INITIAL_NOTES
@@ -42,7 +45,7 @@ interface SetNote {
 
 interface ActionFail {
   type: ActionType.ACTION_FAIL
-  payload: string
+  payload: { title: string; date: string }
 }
 
 interface ActionSuccess {

@@ -10,17 +10,19 @@ const Span = styled.span`
 `
 
 const ErrorElement = ({ name }: { name: string }) => {
-  const errorMessage = useAppSelector((state) => {
-    if (name === 'title' && state.note.actionError.includes('title')) {
-      return state.note.actionError
+  const error = useAppSelector((state) => state.note.actionError)
+
+  const filterInput = () => {
+    if (error.title && name === 'title') {
+      return error.title
     }
-    if (name === 'date' && state.note.actionError.includes('date')) {
-      return state.note.actionError
+    if (error.date && name === 'date') {
+      return error.date
     }
-  })
+  }
   return (
     <Span style={{ left: name === 'title' ? '0' : '120px' }}>
-      {errorMessage}
+      {filterInput()}
     </Span>
   )
 }

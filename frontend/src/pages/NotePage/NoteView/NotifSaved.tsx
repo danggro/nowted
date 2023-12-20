@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import { useEffect } from 'react'
-import { clearMessageAction } from 'redux/actions/noteActions'
+import { clearMessage } from 'redux/actions/noteActions'
 const Container = styled.div`
   padding: 20px 30px;
   background-color: ${palette.BLACK_SECONDARY};
@@ -23,7 +23,7 @@ const NotifSaved = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(clearMessageAction())
+      dispatch(clearMessage())
     }, 2500)
   }, [success])
 

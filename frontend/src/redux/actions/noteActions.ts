@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import {
   Action,
   ActionType,
-  ERROR_MESSAGE,
+  UNEXPECTED_ERROR,
   SAVED_SUCCESS_MESSAGE,
 } from 'redux/constants/noteConstants'
 import { Note, NoteForm } from 'types/types'
@@ -23,7 +23,7 @@ export const setInitialNotesAction =
         })
       }
     } catch (error) {
-      dispatch({ type: ActionType.ACTION_FAIL, payload: ERROR_MESSAGE })
+      dispatch({ type: ActionType.ACTION_FAIL, payload: UNEXPECTED_ERROR })
     }
   }
 
@@ -49,7 +49,7 @@ export const addNoteAction =
         })
       }
     } catch (error) {
-      dispatch({ type: ActionType.ACTION_FAIL, payload: ERROR_MESSAGE })
+      dispatch({ type: ActionType.ACTION_FAIL, payload: UNEXPECTED_ERROR })
     }
   }
 
@@ -75,7 +75,7 @@ export const updateNoteAction =
         })
       }
     } catch (error) {
-      dispatch({ type: ActionType.ACTION_FAIL, payload: ERROR_MESSAGE })
+      dispatch({ type: ActionType.ACTION_FAIL, payload: UNEXPECTED_ERROR })
     }
   }
 
@@ -97,7 +97,7 @@ export const deleteNoteAction =
         })
       }
     } catch (error) {
-      dispatch({ type: ActionType.ACTION_FAIL, payload: ERROR_MESSAGE })
+      dispatch({ type: ActionType.ACTION_FAIL, payload: UNEXPECTED_ERROR })
     }
   }
 
@@ -106,6 +106,12 @@ export const setNoteAction =
     dispatch({ type: ActionType.SET_NOTE, payload: note })
   }
 
-export const clearMessageAction = () => async (dispatch: Dispatch<Action>) => {
+export const clearMessage = () => async (dispatch: Dispatch<Action>) => {
   dispatch({ type: ActionType.CLEAR_MESSAGE, payload: '' })
 }
+
+export const setActionError =
+  (objectError: { title: string; date: string }) =>
+  async (dispatch: Dispatch<Action>) => {
+    dispatch({ type: ActionType.ACTION_FAIL, payload: objectError })
+  }

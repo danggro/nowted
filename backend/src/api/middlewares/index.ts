@@ -49,6 +49,8 @@ const errorHandler = (
   errors.forEach((error) => {
     authError[error.path as AuthError] = error.message
   })
+  console.log(authError)
+
   res.status(400).send(authError)
 
   if (err.message.includes('No session'))

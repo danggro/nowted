@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import SVGDate from '../../SVG/SVGDate'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Input from './Input'
-import { handleInputDate } from 'utils/utils'
-import { useAppSelector } from 'redux/store'
 import ErrorElement from '../ErrorElement'
+import useInputDate from 'hooks/useInputDate'
 
 const InputDateContainer = styled.div`
   display: flex;
@@ -39,11 +38,9 @@ interface Props {
 
 const InputDate = (props: Props) => {
   const { date, setDate } = props
-  const [day, setDay] = useState<string>('')
-  const [month, setMonth] = useState<string>('')
-  const [year, setYear] = useState<string>('')
-
-  const errorMessage = useAppSelector((state) => state.note.actionError)
+  const [day, setDay] = useInputDate()
+  const [month, setMonth] = useInputDate()
+  const [year, setYear] = useInputDate()
 
   useEffect(() => {
     const dateSplit = date.split('/')
@@ -70,24 +67,18 @@ const InputDate = (props: Props) => {
       <SVGDate />
       <span>Date</span>
       <div>
-        <Input
-          value={day}
-          name="day"
-          onChange={(e) => handleInputDate(e, 31, setDay)}
-        />
+        <Input value={day} name="day" onChange={(e) => setDay('', e, 31)} />
         <span>/</span>
         <Input
           value={month}
           name="month"
-          onChange={(e) => handleInputDate(e, 12, setMonth)}
+          onChange={(e) => setMonth('', e, 12)}
         />
         <span>/</span>
         <Input
           value={year}
           name="year"
-          onChange={(e) =>
-            handleInputDate(e, new Date().getFullYear(), setYear)
-          }
+          onChange={(e) => setYear('', e, new Date().getFullYear())}
         />
       </div>
       <ErrorElement name="date" />

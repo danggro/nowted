@@ -1,51 +1,4 @@
-import * as palette from '../assets/Variables'
 import { Session } from '../types/types'
-
-export const handleInputAuth = (
-  e: React.FormEvent<HTMLInputElement>,
-  setState: React.Dispatch<React.SetStateAction<string>>
-) => {
-  const element = e.currentTarget as HTMLInputElement
-  const nextElement = e.currentTarget.nextElementSibling as HTMLSpanElement
-  setState(element.value)
-
-  if (!element.checkValidity()) {
-    if (element.validity.tooShort) {
-      // nextElement.textContent = 'Minimum 8 character'
-    }
-
-    if (element.validity.typeMismatch)
-      nextElement.textContent = 'Email not valid'
-    return inValidStyleInputAuth(element)
-  }
-  if (!element.value) {
-    nextElement.textContent = 'Please fill this input form'
-    return inValidStyleInputAuth(element)
-  }
-  validStyleInputAuth(element)
-}
-
-const inValidStyleInputAuth = (element: HTMLInputElement) => {
-  element?.style.setProperty('border-color', palette.RED)
-  element?.style.setProperty('--placeholderColor', palette.RED)
-  element?.style.setProperty('color', palette.RED)
-}
-
-const validStyleInputAuth = (element: HTMLInputElement) => {
-  element?.parentElement?.setAttribute('data-errmsg', '')
-  element?.style.setProperty('border-color', palette.WHITE)
-  element?.style.setProperty('--placeholderColor', palette.WHITE)
-  element?.style.setProperty('color', palette.WHITE)
-}
-
-export const setErrorInputAuth = (
-  message: string,
-  element: HTMLInputElement
-) => {
-  inValidStyleInputAuth(element)
-  const nextElement = element.nextElementSibling as HTMLSpanElement
-  nextElement.textContent = message
-}
 
 export const getLocalSession = (): Session | null => {
   const storage = localStorage.getItem('loggedUser')
@@ -64,34 +17,6 @@ export const preventPressNumber = (e: React.KeyboardEvent) => {
   ) {
     e.preventDefault()
     return false
-  }
-}
-
-export const handleInputDate = (
-  e: React.ChangeEvent<HTMLInputElement>,
-  condition: number,
-  setState: React.Dispatch<React.SetStateAction<string>>
-) => {
-  let value = e.target.value
-  const errorElement = e.target.parentElement?.parentElement
-    ?.lastChild as HTMLSpanElement
-  const nextInput = e.target.nextSibling?.nextSibling as HTMLInputElement
-
-  // limit maxlength input
-  if (value.length > e.target.maxLength) {
-    value = value.slice(0, e.target.maxLength)
-  }
-
-  setState(value)
-
-  if (Number(value) > condition || Number(value) === 0) {
-    styleInputError(errorElement).invalid('Date not valid')
-  } else {
-    styleInputError(errorElement).valid()
-
-    if (value.length === e.target.maxLength && e.target.id !== 'year') {
-      nextInput.focus()
-    }
   }
 }
 
@@ -128,19 +53,4 @@ export const complianceDate = (date: string): string => {
   if (day.length === 1) day = `0${day}`
   if (month.length === 1) month = `0${month}`
   return `${day}/${month}/${dateSplit[2]}`
-}
-
-export const styleInputError = (element: HTMLSpanElement) => {
-  const style = (opacity: number) => {
-    element?.style.setProperty('--opacityErrNote', `${opacity}`)
-  }
-  const invalid = (message: string) => {
-    style(1)
-    element.textContent = message
-  }
-  const valid = () => {
-    style(0)
-    element.textContent = ''
-  }
-  return { valid, invalid }
 }

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
-import { styleInputError } from 'utils/utils'
 import ErrorElement from './ErrorElement'
+import { useAppDispatch, useAppSelector } from 'redux/store'
+import { setActionError } from 'redux/actions/noteActions'
 
 const Input = styled.input`
   font-size: 2rem;
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const InputTitle = (props: Props) => {
+  const dispatch = useAppDispatch()
+  const actionError = useAppSelector((state) => state.note.actionError)
   return (
     <div style={{ position: 'relative' }}>
       <Input
@@ -29,7 +32,12 @@ const InputTitle = (props: Props) => {
         value={props.value}
         onChange={({ target }) => {
           props.setState(target.value)
-          styleInputError(target.nextElementSibling as HTMLSpanElement).valid()
+          if (!target.value) {
+            return dispatch(
+              setActionError({ title: 'Title empty', date: actionError.date })
+            )
+          }
+          return dispatch(setActionError({ title: '', date: actionError.date }))
         }}
       />
       <ErrorElement name="title" />
