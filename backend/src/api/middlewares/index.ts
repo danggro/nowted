@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'sequelize'
-
 import { SECRET } from '../../config'
 import jwt, { GetPublicKeyOrSecret, JwtPayload, Secret } from 'jsonwebtoken'
-import { authError, getSession } from '../../utils/utils'
-import { AuthError } from '../../types'
+import { getSession } from '../../utils/utils'
 
 const tokenExtractor = async (
   req: Request,
@@ -46,29 +44,48 @@ const errorHandler = (
   const { errors } = e as ValidationError
   const err = e as Error
 
-  errors.forEach((error) => {
-    authError[error.path as AuthError] = error.message
-  })
-  console.log(authError)
-
-  res.status(400).send(authError)
-
-  if (err.message.includes('No session'))
-    res.status(401).send({ message: `${err.message}` })
-  if (
-    errors[0].validatorKey === 'notEmpty' ||
-    errors[0].validatorKey === null
-  ) {
-    if (errors[0].path === 'title')
-      res.status(400).send({ message: `${errors[0].path} empty` })
-    if (errors[0].path === 'date')
-      res.status(400).send({ message: `${errors[0].path} empty` })
+  const authError = {
+    username: '',
+    email: '',
+    password: '',
   }
-  if (errors[0].validatorKey === 'isDateFormat')
-    res.status(400).send({ message: `${errors[0].message}` })
 
-  res.status(400).send({ message: errors[0].message })
-  next(e)
+  const noteError = {
+    title: '',
+    date: '',
+  }
+
+  if (err.message.includes('No session')) {
+    res.status(401).send({ message: `${err.message}` })
+  }
+
+  if (!errors) return null
+  errors.forEach((error) => {
+    if (
+      error.path === 'username' ||
+      error.path === 'email' ||
+      error.path === 'password'
+    ) {
+      authError[error.path] = error.message
+    }
+    if (error.path === 'title' || error.path === 'date') {
+      noteError[error.path] = error.message
+    }
+  })
+
+  if (authError.username || authError.email || authError.password) {
+    res.status(400).send(authError)
+  }
+
+  if (noteError.title || noteError.date) {
+    res.status(400).send(noteError)
+  }
+
+  if (errors[0].validatorKey === 'isDateFormat') {
+    res.status(400).send({ message: `${errors[0].message}` })
+  }
+
+  return next(e)
 }
 
 export { tokenExtractor, errorHandler }

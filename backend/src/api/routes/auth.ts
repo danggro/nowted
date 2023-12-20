@@ -6,12 +6,16 @@ import { NODE_ENV, SECRET } from '../../config'
 import { clientRedis } from '../../config/redis'
 import { tokenExtractor } from '../middlewares'
 import { Environment } from '../../types'
-import { authError } from '../../utils/utils'
 
 const route = router.Router()
 
 route.post('/login', async (req, res) => {
   const { username, password } = req.body
+
+  const authError = {
+    username: '',
+    password: '',
+  }
 
   const user = await User.findOne({
     where: { username },
