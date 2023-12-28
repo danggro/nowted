@@ -24,9 +24,12 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
 
   nginx-dev:
-    image: nginx:1.20.1
-    volumes:
-      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    image: nginx-dev
+    build:
+      context: ./nginx
+      dockerfile: dev.Dockerfile
+    # volumes:
+    #   - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 8080:80
     container_name: reverse-proxy
