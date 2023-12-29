@@ -5,6 +5,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      network: host
 
   postgres_db:
     image: postgres
@@ -28,14 +29,12 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    # volumes:
-    #   - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      network: host
     ports:
       - 8080:80
     container_name: reverse-proxy
     depends_on:
       - nowted-frontend
-      - nowted-backend
 
   nowted-backend:
     image: nowted-backend
@@ -43,6 +42,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      network: host
     environment:
       DATABASE_URL: postgres://postgres:secret@postgres_db:5432/production
       REDIS_URL: redis://redis_db:6379

@@ -28,8 +28,6 @@ services:
     build:
       context: ./nginx
       dockerfile: dev.Dockerfile
-    # volumes:
-    #   - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 8080:80
     container_name: reverse-proxy
@@ -48,3 +46,6 @@ services:
       DATABASE_URL: postgres://postgres:secret@postgres-dev:5432/development
       REDIS_URL: redis://redis-dev:6379
       NODE_ENV: development
+    depends_on:
+      - postgres_db
+      - redis_db

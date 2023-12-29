@@ -30,4 +30,6 @@ COPY --from=ts-remover /usr/src/app ./
 
 USER node
 
+ENV SECRET=token
+
 CMD ["node","index.js"]

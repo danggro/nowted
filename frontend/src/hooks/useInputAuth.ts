@@ -45,9 +45,9 @@ const useInputAuth = () => {
       if (!element.value) {
         return invalidTemplate(element, 'Please fill this input form')
       }
-      // if (element.validity.tooShort) {
-      //   return invalidTemplate(element, 'Minimum 8 character')
-      // }
+      if (element.validity.tooShort) {
+        return invalidTemplate(element, 'Minimum 8 character')
+      }
       validTemplate(element)
     }
   }

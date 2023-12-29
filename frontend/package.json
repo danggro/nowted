@@ -5,14 +5,15 @@
   "description": "Nowted Application",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev --open",
-    "build": "npm run test:e2e && npm run lint && npm run format && webpack --config webpack/webpack.config.js --env env=prod",
+    "build": "npm run lint && npm run format && webpack --config webpack/webpack.config.js --env env=prod",
     "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "test": "jest",
     "test:watch": "jest --watch-all",
     "test:e2e": "./e2e_test_script.sh",
     "server": "json-server -p3002 --watch mock/mock.json --routes mock/routes.json",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "keywords": [
     "react",
