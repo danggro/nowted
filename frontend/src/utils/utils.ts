@@ -54,3 +54,10 @@ export const complianceDate = (date: string): string => {
   if (month.length === 1) month = `0${month}`
   return `${day}/${month}/${dateSplit[2]}`
 }
+
+export const getTitleFromRoute = (route: string): string => {
+  if (route.includes('/login')) return 'Login Page'
+  if (route.includes('/signup')) return 'Signup Page'
+  if (route.includes('/')) return 'Write Your Note'
+  return 'Unkwown Path'
+}
