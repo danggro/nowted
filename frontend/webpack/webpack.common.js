@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const Dotenv = require('dotenv-webpack')
 
 module.exports = {
@@ -22,7 +22,9 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        // use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.html$/i,
@@ -38,7 +40,7 @@ module.exports = {
       },
     ],
   },
-
+  devtool: false,
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', './src/index.html'),

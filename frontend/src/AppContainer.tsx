@@ -1,6 +1,6 @@
 import './assets/global.css'
 import './assets/fonts.css'
-import { BrowserRouter as Router, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { getTitleFromRoute } from 'utils/utils'
