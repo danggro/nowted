@@ -55,7 +55,10 @@ export const setAuthFail =
   }
 
 export const clearMessage = () => async (dispatch: Dispatch<Action>) => {
-  dispatch({ type: ActionType.CLEAR_MESSAGE, payload: null })
+  dispatch({
+    type: ActionType.CLEAR_MESSAGE,
+    payload: { username: '', email: '', password: '' },
+  })
 }
 
 export const logoutAction =

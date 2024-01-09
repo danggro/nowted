@@ -30,8 +30,9 @@ interface Props {
 
 const InputAuth = (props: Props) => {
   const { type, placeholder, id, name, value, onChange, minlength } = props
+
   return (
-    <Container className="contInput">
+    <Container>
       <Input
         type={type}
         placeholder={placeholder}
@@ -40,6 +41,7 @@ const InputAuth = (props: Props) => {
         value={value}
         onChange={onChange}
         minLength={minlength}
+        autoComplete="on"
       />
       <ErrorElement id={id} />
     </Container>

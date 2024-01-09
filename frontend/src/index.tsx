@@ -5,10 +5,8 @@ import AppContainer from 'AppContainer'
 
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <AppContainer />
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <AppContainer />
+  </Router>,
   document.getElementById('root')
 )

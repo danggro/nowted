@@ -13,7 +13,7 @@ const Span = styled.span`
 const ErrorElement = ({ id }: { id: string }) => {
   const error = useAppSelector((state) => state.auth.authError)
 
-  const filterInput = () => {
+  const filterInput = (): string => {
     if (error.username && id === 'username') {
       return error.username
     }
@@ -23,6 +23,7 @@ const ErrorElement = ({ id }: { id: string }) => {
     if (error.password && id === 'password') {
       return error.password
     }
+    return ''
   }
 
   return <Span>{filterInput()}</Span>

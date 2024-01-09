@@ -52,7 +52,7 @@ const Signup = () => {
             placeholder="Password"
             name="password"
             value={password}
-            // minlength={8}
+            minlength={8}
             onChange={setPassword}
           />
           <ButtonAuth page="signup">Signup</ButtonAuth>
