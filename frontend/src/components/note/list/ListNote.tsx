@@ -2,6 +2,7 @@ import { Note } from 'types/types'
 import ListNoteItem from './ListNoteItem'
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
+import { useState } from 'react'
 const Container = styled.div`
   padding: ${palette.WHITE_SPACE};
   display: flex;
@@ -10,6 +11,8 @@ const Container = styled.div`
 `
 
 const ListNote = ({ data }: { data: Note[] }) => {
+  const [select, setSelect] = useState<number>(0)
+
   return (
     <Container>
       {data.map((note: Note) => {
@@ -20,6 +23,8 @@ const ListNote = ({ data }: { data: Note[] }) => {
             title={note.title}
             date={note.date}
             content={note.content}
+            select={select}
+            setSelect={setSelect}
           />
         )
       })}
