@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'sequelize'
-import { SECRET } from '../../config'
-import jwt, { GetPublicKeyOrSecret, JwtPayload, Secret } from 'jsonwebtoken'
 import { getSession } from '../../utils/utils'
 
 const tokenExtractor = async (
@@ -17,13 +15,9 @@ const tokenExtractor = async (
 
   if (session) {
     try {
-      const jwtResult = jwt.verify(
-        authorization.substring(7),
-        SECRET as Secret | GetPublicKeyOrSecret
-      ) as unknown as JwtPayload
       req.decodedToken = {
-        username: jwtResult.username,
-        userId: jwtResult.id,
+        username: session.username,
+        userId: session.userId,
         token: session.token,
       }
     } catch (error) {

@@ -1,8 +1,8 @@
 import router from 'express'
-import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import randomstring from 'randomstring'
 import { User } from '../../db/models'
-import { NODE_ENV, SECRET } from '../../config'
+import { NODE_ENV } from '../../config'
 import { clientRedis } from '../../config/redis'
 import { tokenExtractor } from '../middlewares'
 import { Environment } from '../../types'
@@ -34,12 +34,8 @@ route.post('/login', async (req, res) => {
     return res.status(404).send(authError)
   }
 
-  const userForToken = {
-    username: user.username,
-    id: user.id,
-  }
-
-  const token = jwt.sign(userForToken, SECRET as string)
+  const token = randomstring.generate(16)
+  console.log(token)
 
   await clientRedis.set(
     token,
