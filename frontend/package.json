@@ -1,11 +1,11 @@
 {
   "name": "nowted-frontend",
   "private": false,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Nowted Application",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev --open",
-    "build": "npm run lint && npm run format && REACT_APP_BACKEND_URL=/api webpack --config webpack/webpack.config.js --env env=prod",
+    "build": "npm run lint && npm run format && webpack --config webpack/webpack.config.js --env env=prod",
     "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "test": "jest",
@@ -13,7 +13,8 @@
     "test:e2e": "./e2e_test_script.sh",
     "server": "json-server -p3002 --watch mock/mock.json --routes mock/routes.json",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "commit:conv": "standard-version"
   },
   "keywords": [
     "react",
@@ -74,6 +75,7 @@
     "mini-css-extract-plugin": "^2.7.6",
     "path-browserify": "^1.0.1",
     "prettier": "^3.1.0",
+    "standard-version": "^9.5.0",
     "style-loader": "^3.3.3",
     "ts-jest": "^29.1.1",
     "typescript": "5.0.x",
@@ -86,7 +88,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "resolutions": {
-    "styled-components": "^5"
+  "standard-version": {
+    "skip": {
+      "tag": true,
+      "changelog": true,
+      "commit": true
+    }
   }
 }
