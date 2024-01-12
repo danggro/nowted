@@ -6,7 +6,7 @@ import { clearMessage } from 'redux/actions/authActions'
 
 const Span = styled.span<{ page: string }>`
   text-align: center;
-  margin-top: 50px;
+  margin-top: clamp(20px, 4.88vh, 50px);
   font-weight: 500;
   a {
     text-decoration: underline;

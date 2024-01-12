@@ -73,7 +73,7 @@ const authReducer: Reducer<AuthState, ActionRedux> = (
     case ActionType.CLEAR_MESSAGE:
       return {
         ...state,
-        authError: { username: '', email: '', password: '' },
+        authError: payload,
         successMessage: '',
       }
 

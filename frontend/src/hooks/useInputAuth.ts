@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { setAuthFail } from 'redux/actions/authActions'
 import { useAppDispatch } from 'redux/store'
 import * as palette from 'assets/Variables'
@@ -18,6 +18,12 @@ const authError = {
 const useInputAuth = () => {
   const [state, setState] = useState<string>('')
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    authError.username = ''
+    authError.email = ''
+    authError.password = ''
+  }, [])
 
   const setStateFunction = (event: React.FormEvent<HTMLInputElement>) => {
     const element = event.currentTarget

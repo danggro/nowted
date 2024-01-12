@@ -57,7 +57,7 @@ interface Logout {
 
 interface ClearMessage {
   type: ActionType.CLEAR_MESSAGE
-  payload: null
+  payload: UserForm
 }
 
 interface GetSession {

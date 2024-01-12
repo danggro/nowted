@@ -1,7 +1,7 @@
 {
   "name": "nowted-frontend",
   "private": false,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Nowted Application",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev --open",
@@ -13,7 +13,8 @@
     "test:e2e": "./e2e_test_script.sh",
     "server": "json-server -p3002 --watch mock/mock.json --routes mock/routes.json",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "commit:conv": "standard-version"
   },
   "keywords": [
     "react",
@@ -26,6 +27,7 @@
     "axios": "^1.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-redux": "^8.1.3",
     "react-router": "^6.20.0",
     "react-router-dom": "^6.20.0",
@@ -48,6 +50,7 @@
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
+    "@types/react-helmet": "^6.1.11",
     "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
@@ -72,6 +75,8 @@
     "mini-css-extract-plugin": "^2.7.6",
     "path-browserify": "^1.0.1",
     "prettier": "^3.1.0",
+    "standard-version": "^9.5.0",
+    "style-loader": "^3.3.3",
     "ts-jest": "^29.1.1",
     "typescript": "5.0.x",
     "url": "^0.11.3",
@@ -83,7 +88,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "resolutions": {
-    "styled-components": "^5"
+  "standard-version": {
+    "skip": {
+      "tag": true,
+      "changelog": true,
+      "commit": true
+    }
   }
 }
