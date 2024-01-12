@@ -5,7 +5,7 @@ import { getLocalSession } from 'utils/utils'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import { setNoteAction } from 'redux/actions/noteActions'
 
-const NoteStyle = styled.div<{ selected: Boolean }>`
+const NoteStyle = styled.div<{ selected: boolean }>`
   display: grid;
   grid-template: 1fr 25px / 75px 1fr;
   row-gap: clamp(0px, 1.2vw, 5px);
