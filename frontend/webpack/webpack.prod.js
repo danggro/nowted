@@ -10,11 +10,11 @@ module.exports = {
     assetModuleFilename: 'assets/[hash][ext]',
     clean: true,
   },
-  // plugins: [
-  // new MiniCssExtractPlugin({
-  //   filename: 'bundle.[contenthash].css',
-  // }),
-  // ],
+  plugins: [
+    // new MiniCssExtractPlugin({
+    //   filename: 'bundle.[contenthash].css',
+    // }),
+  ],
   optimization: {
     minimizer: [
       `...`,
