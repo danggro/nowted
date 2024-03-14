@@ -17,7 +17,7 @@ const tokenExtractor = async (
     try {
       req.decodedToken = {
         username: session.username,
-        userId: session.userId,
+        userId: Number(session.userId),
         token: session.token,
       }
     } catch (error) {
