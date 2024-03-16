@@ -40,3 +40,11 @@ export interface Response {
   error: string | null
   data: AxiosResponse | null
 }
+
+export interface Folder {
+  id: number
+  name: string
+  userId: number
+}
+
+export type FolderForm = Omit<Folder, 'id' | 'userId'>

@@ -61,3 +61,9 @@ export const getTitleFromRoute = (route: string): string => {
   if (route.includes('/')) return 'Write Your Note'
   return 'Unkwown Path'
 }
+
+export const keyPressEnter = (e: React.KeyboardEvent, func: Function) => {
+  if (e.key === 'Enter') {
+    func()
+  }
+}

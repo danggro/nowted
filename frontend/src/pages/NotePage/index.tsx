@@ -9,6 +9,7 @@ import { setInitialNotesAction } from 'redux/actions/noteActions'
 import HeaderNotePage from 'components/note/header/HeaderNotePage'
 import ListNote from 'components/note/list/ListNote'
 import NoteView from 'components/note/view/NoteView'
+import ListFolder from 'components/note/list/ListFolder'
 
 const Container = styled.div`
   width: 100%;
@@ -54,6 +55,7 @@ const NotePage = () => {
     <Container>
       <Navigate>
         <HeaderNotePage />
+        <ListFolder />
         <ListNote data={notes} />
       </Navigate>
       <Content>
