@@ -28,3 +28,16 @@ export const addFolder = async (folder: FolderForm) => {
     return handleApiError(error)
   }
 }
+
+export const deleteFolder = async (id: number) => {
+  const session = getLocalSession()
+  try {
+    const res = await API.delete(
+      `/folder/${id}`,
+      setConfig(session?.accessToken)
+    )
+    return { error: null, data: res.data }
+  } catch (error) {
+    return handleApiError(error)
+  }
+}

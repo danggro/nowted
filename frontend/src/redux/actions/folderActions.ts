@@ -46,3 +46,21 @@ export const selectFolderAction =
       payload: { ...folder, active: true },
     })
   }
+
+export const deleteFolderAction =
+  (folderId: number) => async (dispatch: Dispatch<Action>) => {
+    try {
+      const response = await api.deleteFolder(folderId)
+      const { error } = response
+      if (error) {
+        console.log(error)
+      } else {
+        dispatch({
+          type: ActionType.DELETE_FOLDER,
+          payload: folderId,
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }

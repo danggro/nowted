@@ -39,6 +39,14 @@ const folderReducer: Reducer<FolderState, ActionRedux> = (
         ...state,
         folder: payload.active ? payload : state.folder,
       }
+    case ActionType.DELETE_FOLDER:
+      const folderDeleted = state.folders.filter((folder) => {
+        return folder.id !== payload
+      })
+      return {
+        ...state,
+        folders: payload ? folderDeleted : state.folders,
+      }
     default:
       return state
   }

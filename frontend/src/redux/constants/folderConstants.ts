@@ -4,6 +4,7 @@ export enum ActionType {
   ADD_FOLDER = 'ADD_FOLDER',
   GET_FOLDER = 'GET_FOLDER',
   SELECT_FOLDER = 'SELECT_FOLDER',
+  DELETE_FOLDER = 'DELETE_FOLDER',
 }
 
 interface AddFolder {
@@ -21,4 +22,9 @@ interface SelectFolder {
   payload: FolderView
 }
 
-export type Action = AddFolder | GetFolder | SelectFolder
+interface DeleteFolder {
+  type: ActionType.DELETE_FOLDER
+  payload: number
+}
+
+export type Action = AddFolder | GetFolder | SelectFolder | DeleteFolder

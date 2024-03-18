@@ -15,10 +15,22 @@ route.post('/', tokenExtractor, async (req, res) => {
 
 route.get('/', tokenExtractor, async (req, res) => {
   const { userId } = req.decodedToken
-  console.log(userId)
 
   const folders = await Folder.findAll({ where: { userId } })
   res.status(201).json(folders)
+})
+
+route.delete('/:id', tokenExtractor, async (req, res) => {
+  const { id } = req.params
+  const folder = await Folder.findByPk(id)
+  if (!folder) return res.status(404).end()
+
+  if (req.decodedToken.userId !== folder.userId) {
+    return res.status(401).json({ error: 'no authorization' })
+  }
+
+  await folder.destroy()
+  return res.status(200).end()
 })
 
 export default route
