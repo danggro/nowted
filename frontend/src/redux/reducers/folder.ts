@@ -1,10 +1,6 @@
 import { Action, ActionType } from 'redux/constants/folderConstants'
-import { Folder } from 'types/types'
+import { Folder, FolderView } from 'types/types'
 import { Reducer, Action as ActionRedux } from 'redux'
-
-export interface FolderView extends Folder {
-  active: boolean
-}
 
 export interface FolderState {
   folders: Folder[]
@@ -37,6 +33,11 @@ const folderReducer: Reducer<FolderState, ActionRedux> = (
       return {
         ...state,
         folders: payload ? noteAdded : state.folders,
+      }
+    case ActionType.SELECT_FOLDER:
+      return {
+        ...state,
+        folder: payload.active ? payload : state.folder,
       }
     default:
       return state

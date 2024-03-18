@@ -48,3 +48,7 @@ export interface Folder {
 }
 
 export type FolderForm = Omit<Folder, 'id' | 'userId'>
+
+export interface FolderView extends Folder {
+  active: Boolean
+}

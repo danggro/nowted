@@ -1,6 +1,6 @@
 import { Dispatch } from 'react'
 import { Action, ActionType } from 'redux/constants/folderConstants'
-import { FolderForm } from 'types/types'
+import { Folder, FolderForm } from 'types/types'
 import * as api from 'redux/api/folderAPI'
 
 export const setInitialFolderAction =
@@ -37,4 +37,12 @@ export const addFolderAction =
     } catch (error) {
       console.log(error)
     }
+  }
+
+export const selectFolderAction =
+  (folder: Folder) => async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SELECT_FOLDER,
+      payload: { ...folder, active: true },
+    })
   }

@@ -1,8 +1,9 @@
-import { Folder } from 'types/types'
+import { Folder, FolderView } from 'types/types'
 
 export enum ActionType {
   ADD_FOLDER = 'ADD_FOLDER',
   GET_FOLDER = 'GET_FOLDER',
+  SELECT_FOLDER = 'SELECT_FOLDER',
 }
 
 interface AddFolder {
@@ -15,4 +16,9 @@ interface GetFolder {
   payload: Folder[]
 }
 
-export type Action = AddFolder | GetFolder
+interface SelectFolder {
+  type: ActionType.SELECT_FOLDER
+  payload: FolderView
+}
+
+export type Action = AddFolder | GetFolder | SelectFolder
