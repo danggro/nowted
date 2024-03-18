@@ -10,6 +10,7 @@ import HeaderNotePage from 'components/note/header/HeaderNotePage'
 import ListNote from 'components/note/list/ListNote'
 import NoteView from 'components/note/view/NoteView'
 import ListFolder from 'components/note/list/ListFolder'
+import { setInitialFolderAction } from 'redux/actions/folderActions'
 
 const Container = styled.div`
   width: 100%;
@@ -39,12 +40,14 @@ const NotePage = () => {
 
   const dispatch = useAppDispatch()
   const notes = useAppSelector((state) => state.note.notes)
+  const folders = useAppSelector((state) => state.folder.folders)
 
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
     const getSessionDb = async () => {
       await dispatch(initializeAuth(navigate))
       await dispatch(setInitialNotesAction())
+      await dispatch(setInitialFolderAction())
     }
     getSessionDb()
   }, [])
@@ -55,7 +58,7 @@ const NotePage = () => {
     <Container>
       <Navigate>
         <HeaderNotePage />
-        <ListFolder />
+        <ListFolder data={folders} />
         <ListNote data={notes} />
       </Navigate>
       <Content>

@@ -2,6 +2,7 @@ import { Folder } from 'types/types'
 
 export enum ActionType {
   ADD_FOLDER = 'ADD_FOLDER',
+  GET_FOLDER = 'GET_FOLDER',
 }
 
 interface AddFolder {
@@ -9,4 +10,9 @@ interface AddFolder {
   payload: Folder
 }
 
-export type Action = AddFolder
+interface GetFolder {
+  type: ActionType.GET_FOLDER
+  payload: Folder[]
+}
+
+export type Action = AddFolder | GetFolder

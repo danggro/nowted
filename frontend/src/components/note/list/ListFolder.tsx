@@ -4,6 +4,8 @@ import SVGAddFolder from '../svg/SVGAddFolder'
 import { useState } from 'react'
 import ListFolderItem from './ListFolderItem'
 import InputFolder from '../input/InputFolder'
+import { useAppSelector } from 'redux/store'
+import { Folder } from 'types/types'
 
 const Container = styled.div`
   display: flex;
@@ -36,8 +38,9 @@ const List = styled.div`
   flex-direction: column;
 `
 
-const ListFolder = () => {
+const ListFolder = ({ data }: { data: Folder[] }) => {
   const [showInputFolder, setShowInputFolder] = useState<Boolean>(false)
+
   return (
     <Container>
       <Header>
@@ -50,7 +53,9 @@ const ListFolder = () => {
         {showInputFolder && (
           <InputFolder value={showInputFolder} setState={setShowInputFolder} />
         )}
-        <ListFolderItem />
+        {data.map((folder) => {
+          return <ListFolderItem key={folder.id} folder={folder} />
+        })}
       </List>
     </Container>
   )

@@ -27,6 +27,11 @@ const folderReducer: Reducer<FolderState, ActionRedux> = (
 ): FolderState => {
   const { type, payload } = action as Action
   switch (type) {
+    case ActionType.GET_FOLDER:
+      return {
+        ...state,
+        folders: payload ? payload : state.folders,
+      }
     case ActionType.ADD_FOLDER:
       const noteAdded = state.folders.concat(payload)
       return {

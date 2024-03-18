@@ -13,4 +13,12 @@ route.post('/', tokenExtractor, async (req, res) => {
   res.status(201).json(folder)
 })
 
+route.get('/', tokenExtractor, async (req, res) => {
+  const { userId } = req.decodedToken
+  console.log(userId)
+
+  const folders = await Folder.findAll({ where: { userId } })
+  res.status(201).json(folders)
+})
+
 export default route
