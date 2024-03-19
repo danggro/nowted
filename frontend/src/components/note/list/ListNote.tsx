@@ -17,12 +17,18 @@ const TitleFolder = styled.div`
   font-weight: 600;
 `
 
-const ListNote = ({ data }: { data: Note[] }) => {
+const ListNote = ({
+  data,
+  titleFolder,
+}: {
+  data: Note[]
+  titleFolder: string
+}) => {
   const [select, setSelect] = useState<number>(0)
 
   return (
     <Container>
-      <TitleFolder>Folder</TitleFolder>
+      <TitleFolder>{titleFolder}</TitleFolder>
       {data.map((note: Note) => {
         return (
           <ListNoteItem
@@ -31,6 +37,7 @@ const ListNote = ({ data }: { data: Note[] }) => {
             title={note.title}
             date={note.date}
             content={note.content}
+            folderId={note.folderId}
             select={select}
             setSelect={setSelect}
           />

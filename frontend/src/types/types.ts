@@ -6,6 +6,7 @@ export interface Note {
   date: string
   content: string
   userId?: number //deleted after backend finish
+  folderId: number
 }
 
 export interface NoteState extends Note {

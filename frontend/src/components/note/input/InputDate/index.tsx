@@ -14,6 +14,7 @@ const InputDateContainer = styled.div`
   & > span {
     margin-left: 20px;
     margin-right: 60px;
+    font-weight: 600;
   }
 `
 

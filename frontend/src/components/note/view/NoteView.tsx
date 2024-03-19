@@ -9,6 +9,7 @@ import InputContent from '../input/InputContent'
 import NotifSaved from '../notif/NotifSaved'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import { addNoteAction, updateNoteAction } from 'redux/actions/noteActions'
+import SelectFolder from '../input/SelectFolder'
 
 const Container = styled.div`
   width: 100%;
@@ -24,8 +25,10 @@ const NoteView = () => {
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
+  const [folder, setFolder] = useState<string>('')
 
   const note = useAppSelector((state) => state.note.note)
+  const getFolder = useAppSelector((state) => state.folder.folder)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -37,6 +40,7 @@ const NoteView = () => {
       setTitle(note.title)
       setDate(note.date)
       setContent(note.content)
+      setFolder(getFolder.name)
     }
   }, [note])
 
@@ -45,6 +49,7 @@ const NoteView = () => {
       title,
       date: complianceDate(date),
       content,
+      folderId: getFolder.id,
     }
 
     const timeout = setTimeout(() => {
@@ -73,6 +78,7 @@ const NoteView = () => {
     <Container>
       <InputTitle value={title} setState={setTitle} />
       <InputDate date={date} setDate={setDate} />
+      <SelectFolder folder={folder} setFolder={setFolder} />
       <InputContent value={content} setState={setContent} />
       {note.title && <ThreeDotButton />}
       <NotifSaved />

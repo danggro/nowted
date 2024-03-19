@@ -40,6 +40,7 @@ const NotePage = () => {
   const dispatch = useAppDispatch()
   const notes = useAppSelector((state) => state.note.notes)
   const folders = useAppSelector((state) => state.folder.folders)
+  const folder = useAppSelector((state) => state.folder.folder)
 
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
@@ -59,7 +60,12 @@ const NotePage = () => {
         <HeaderNotePage />
         <ListFolder data={folders} />
       </Navigate>
-      <ListNote data={notes} />
+      {folder.active && (
+        <ListNote
+          data={notes.filter((note) => note.folderId === folder.id)}
+          titleFolder={folder.name}
+        />
+      )}
       <Content>
         <NoteView />
       </Content>

@@ -48,6 +48,7 @@ const ListNoteItem = ({
   title,
   date,
   content,
+  folderId,
   select,
   setSelect,
 }: Props) => {
@@ -65,6 +66,7 @@ const ListNoteItem = ({
             content,
             userId: session?.userId,
             view: true,
+            folderId,
           })
         )
         setSelect(id as number)
