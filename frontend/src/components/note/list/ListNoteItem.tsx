@@ -12,7 +12,7 @@ const NoteStyle = styled.div<{ selected: boolean }>`
   column-gap: 10px;
   border-radius: 3px;
   padding: ${palette.WHITE_SPACE};
-
+  width: 300px;
   background-color: ${({ selected }) =>
     selected ? palette.BLACK_TERTIARY : palette.BLACK_SECONDARY};
 

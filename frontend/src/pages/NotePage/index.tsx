@@ -25,7 +25,6 @@ const Navigate = styled.div`
   width: clamp(250px, 24vw, 350px);
   flex-shrink: 0;
   overflow-y: scroll;
-  background: rgba(255, 255, 255, 0.015);
   &::-webkit-scrollbar {
     display: none;
   }
@@ -59,8 +58,8 @@ const NotePage = () => {
       <Navigate>
         <HeaderNotePage />
         <ListFolder data={folders} />
-        <ListNote data={notes} />
       </Navigate>
+      <ListNote data={notes} />
       <Content>
         <NoteView />
       </Content>
