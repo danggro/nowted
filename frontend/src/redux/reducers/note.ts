@@ -23,6 +23,7 @@ const initialState: NoteState = {
     date: '',
     content: '',
     view: false,
+    folderId: 0,
   },
   actionError: { title: '', date: '' },
   successMessage: '',

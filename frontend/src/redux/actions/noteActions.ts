@@ -93,7 +93,13 @@ export const deleteNoteAction =
         })
         dispatch({
           type: ActionType.SET_NOTE,
-          payload: { title: '', date: '', content: '', view: false },
+          payload: {
+            title: '',
+            date: '',
+            content: '',
+            view: false,
+            folderId: 0,
+          },
         })
       }
     } catch (error) {

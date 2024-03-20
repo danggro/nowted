@@ -50,6 +50,7 @@ route.put('/:id', tokenExtractor, async (req, res) => {
     note.title = req.body.title
     note.date = date
     note.content = req.body.content
+    note.folderId = req.body.folderId
     await note.save()
     res.status(200).json(note)
   } else {

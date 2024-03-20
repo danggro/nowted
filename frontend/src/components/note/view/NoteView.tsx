@@ -25,7 +25,8 @@ const NoteView = () => {
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
-  const [folder, setFolder] = useState<string>('')
+  const [folder, setFolder] = useState<number>(0)
+  const [selectFolder, setSelectFolder] = useState<Boolean>(true)
 
   const note = useAppSelector((state) => state.note.note)
   const getFolder = useAppSelector((state) => state.folder.folder)
@@ -40,8 +41,9 @@ const NoteView = () => {
       setTitle(note.title)
       setDate(note.date)
       setContent(note.content)
-      setFolder(getFolder.name)
+      setFolder(getFolder.id)
     }
+    setSelectFolder(true)
   }, [note])
 
   useEffect(() => {
@@ -49,14 +51,15 @@ const NoteView = () => {
       title,
       date: complianceDate(date),
       content,
-      folderId: getFolder.id,
+      folderId: folder,
     }
 
     const timeout = setTimeout(() => {
       if (
         note.title === title &&
         note.date === date &&
-        note.content === content
+        note.content === content &&
+        selectFolder
       ) {
         return null
       }
@@ -68,7 +71,7 @@ const NoteView = () => {
       }
     }, 5000)
     return () => clearTimeout(timeout)
-  }, [title, date, content])
+  }, [title, date, content, folder])
 
   if (!note.view) {
     return <NoteNoView />
@@ -78,7 +81,11 @@ const NoteView = () => {
     <Container>
       <InputTitle value={title} setState={setTitle} />
       <InputDate date={date} setDate={setDate} />
-      <SelectFolder folder={folder} setFolder={setFolder} />
+      <SelectFolder
+        folder={folder}
+        setFolder={setFolder}
+        setSelectFolder={setSelectFolder}
+      />
       <InputContent value={content} setState={setContent} />
       {note.title && <ThreeDotButton />}
       <NotifSaved />

@@ -20,14 +20,13 @@ const SelectFolderContainer = styled.div`
 `
 
 interface Props {
-  folder: string
-  setFolder: React.Dispatch<React.SetStateAction<string>>
+  folder: number
+  setFolder: React.Dispatch<React.SetStateAction<number>>
+  setSelectFolder: React.Dispatch<React.SetStateAction<Boolean>>
 }
 
 const SelectFolder = (props: Props) => {
-  const foldersName = useAppSelector((state) =>
-    state.folder.folders.map((folder) => folder.name)
-  )
+  const folders = useAppSelector((state) => state.folder.folders)
 
   return (
     <SelectFolderContainer>
@@ -36,12 +35,15 @@ const SelectFolder = (props: Props) => {
       <select
         name="folder-select"
         id="folder-select"
-        value={props.folder}
-        onChange={({ target }) => props.setFolder(target.value)}
+        value={String(props.folder)}
+        onChange={({ target }) => {
+          props.setFolder(Number(target.value))
+          props.setSelectFolder(false)
+        }}
       >
-        {foldersName.map((folder, index) => (
-          <option key={index} value={folder}>
-            {folder}
+        {folders.map((folder) => (
+          <option key={folder.id} value={folder.id}>
+            {folder.name}
           </option>
         ))}
       </select>
