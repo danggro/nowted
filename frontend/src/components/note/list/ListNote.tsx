@@ -3,6 +3,7 @@ import ListNoteItem from './ListNoteItem'
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import { useState } from 'react'
+import ListNoNote from './ListNoNote'
 
 const Container = styled.div`
   padding: ${palette.WHITE_SPACE};
@@ -29,20 +30,26 @@ const ListNote = ({
   return (
     <Container>
       <TitleFolder>{titleFolder}</TitleFolder>
-      {data.map((note: Note) => {
-        return (
-          <ListNoteItem
-            key={note.id}
-            id={note.id}
-            title={note.title}
-            date={note.date}
-            content={note.content}
-            folderId={note.folderId}
-            select={select}
-            setSelect={setSelect}
-          />
-        )
-      })}
+      {data.length === 0 ? (
+        <ListNoNote />
+      ) : (
+        <>
+          {data.map((note: Note) => {
+            return (
+              <ListNoteItem
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                date={note.date}
+                content={note.content}
+                folderId={note.folderId}
+                select={select}
+                setSelect={setSelect}
+              />
+            )
+          })}
+        </>
+      )}
     </Container>
   )
 }
