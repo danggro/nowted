@@ -23,21 +23,24 @@ const folderReducer: Reducer<FolderState, ActionRedux> = (
 ): FolderState => {
   const { type, payload } = action as Action
   switch (type) {
-    case ActionType.GET_FOLDER:
+    case ActionType.GET_FOLDERS:
       return {
         ...state,
         folders: payload ? payload : state.folders,
       }
     case ActionType.ADD_FOLDER:
-      const noteAdded = state.folders.concat(payload)
+      const folderAdded = state.folders.concat(payload)
       return {
         ...state,
-        folders: payload ? noteAdded : state.folders,
+        folders: payload ? folderAdded : state.folders,
       }
     case ActionType.SELECT_FOLDER:
+      const selectedFolder = state.folders.filter(
+        (folder) => folder.id === payload
+      )
       return {
         ...state,
-        folder: payload.active ? payload : state.folder,
+        folder: payload ? { ...selectedFolder[0], active: true } : state.folder,
       }
     case ActionType.DELETE_FOLDER:
       const folderDeleted = state.folders.filter((folder) => {

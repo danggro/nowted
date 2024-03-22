@@ -10,7 +10,7 @@ import HeaderNotePage from 'components/note/header/HeaderNotePage'
 import ListNote from 'components/note/list/ListNote'
 import NoteView from 'components/note/view/NoteView'
 import ListFolder from 'components/note/list/ListFolder'
-import { setInitialFolderAction } from 'redux/actions/folderActions'
+import { getFoldersAction } from 'redux/actions/folderActions'
 
 const Container = styled.div`
   width: 100%;
@@ -47,7 +47,7 @@ const NotePage = () => {
     const getSessionDb = async () => {
       await dispatch(initializeAuth(navigate))
       await dispatch(setInitialNotesAction())
-      await dispatch(setInitialFolderAction())
+      await dispatch(getFoldersAction())
     }
     getSessionDb()
   }, [])

@@ -8,8 +8,14 @@ import InputTitle from '../input/InputTitle'
 import InputContent from '../input/InputContent'
 import NotifSaved from '../notif/NotifSaved'
 import { useAppDispatch, useAppSelector } from 'redux/store'
-import { addNoteAction, updateNoteAction } from 'redux/actions/noteActions'
+import {
+  addNoteAction,
+  setNoteAction,
+  updateNoteAction,
+} from 'redux/actions/noteActions'
 import SelectFolder from '../input/SelectFolder'
+import { selectFolderAction } from 'redux/actions/folderActions'
+import useAddOtherFolder from 'hooks/useAddOtherFolder'
 
 const Container = styled.div`
   width: 100%;
@@ -27,9 +33,11 @@ const NoteView = () => {
   const [content, setContent] = useState<string>('')
   const [folder, setFolder] = useState<number>(0)
   const [selectFolder, setSelectFolder] = useState<Boolean>(true)
+  const { addOtherFolder } = useAddOtherFolder()
 
   const note = useAppSelector((state) => state.note.note)
   const getFolder = useAppSelector((state) => state.folder.folder)
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -51,10 +59,9 @@ const NoteView = () => {
       title,
       date: complianceDate(date),
       content,
-      folderId: folder,
     }
 
-    const timeout = setTimeout(() => {
+    const timeout = setTimeout(async () => {
       if (
         note.title === title &&
         note.date === date &&
@@ -65,10 +72,19 @@ const NoteView = () => {
       }
 
       if (note.id) {
-        dispatch(updateNoteAction({ ...baseNote, id: note.id }))
+        dispatch(
+          updateNoteAction({ ...baseNote, id: note.id, folderId: folder })
+        )
       } else {
-        dispatch(addNoteAction(baseNote))
+        let folderId: number = folder
+        if (!folder) folderId = await addOtherFolder()
+
+        dispatch(addNoteAction({ ...baseNote, folderId }))
+        dispatch(
+          setNoteAction({ ...baseNote, view: true, id: note.id, folderId })
+        )
       }
+      dispatch(selectFolderAction(folder))
     }, 5000)
     return () => clearTimeout(timeout)
   }, [title, date, content, folder])

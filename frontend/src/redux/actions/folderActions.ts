@@ -1,25 +1,24 @@
 import { Dispatch } from 'react'
 import { Action, ActionType } from 'redux/constants/folderConstants'
-import { Folder, FolderForm } from 'types/types'
+import { FolderForm } from 'types/types'
 import * as api from 'redux/api/folderAPI'
 
-export const setInitialFolderAction =
-  () => async (dispatch: Dispatch<Action>) => {
-    try {
-      const response = await api.getFolder()
-      const { error, data } = response
-      if (error || !data) {
-        console.log(error)
-      } else {
-        dispatch({
-          type: ActionType.GET_FOLDER,
-          payload: data,
-        })
-      }
-    } catch (error) {
+export const getFoldersAction = () => async (dispatch: Dispatch<Action>) => {
+  try {
+    const response = await api.getFolder()
+    const { error, data } = response
+    if (error || !data) {
       console.log(error)
+    } else {
+      dispatch({
+        type: ActionType.GET_FOLDERS,
+        payload: data,
+      })
     }
+  } catch (error) {
+    console.log(error)
   }
+}
 
 export const addFolderAction =
   (folder: FolderForm) => async (dispatch: Dispatch<Action>) => {
@@ -40,10 +39,10 @@ export const addFolderAction =
   }
 
 export const selectFolderAction =
-  (folder: Folder) => async (dispatch: Dispatch<Action>) => {
+  (folderId: number) => async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.SELECT_FOLDER,
-      payload: { ...folder, active: true },
+      payload: folderId,
     })
   }
 

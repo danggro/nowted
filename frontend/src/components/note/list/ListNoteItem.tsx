@@ -4,6 +4,7 @@ import * as palette from 'assets/Variables'
 import { getLocalSession } from 'utils/utils'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import { setNoteAction } from 'redux/actions/noteActions'
+import { useEffect } from 'react'
 
 const NoteStyle = styled.div<{ selected: boolean }>`
   display: grid;
@@ -55,6 +56,9 @@ const ListNoteItem = ({
   const session = getLocalSession()
   const dispatch = useAppDispatch()
   const note = useAppSelector((state) => state.note.note)
+  useEffect(() => {
+    setSelect(note.id as number)
+  }, [note.id])
   return (
     <NoteStyle
       onClick={() => {

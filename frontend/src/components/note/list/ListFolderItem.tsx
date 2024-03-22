@@ -59,7 +59,7 @@ const ListFolderItem = ({ folder }: { folder: Folder }) => {
           </BtnDelete>
         </ListItemActive>
       ) : (
-        <ListItem onClick={() => dispatch(selectFolderAction(folder))}>
+        <ListItem onClick={() => dispatch(selectFolderAction(folder.id))}>
           <SVGClosedFolder />
           <span>{folder.name}</span>
         </ListItem>
