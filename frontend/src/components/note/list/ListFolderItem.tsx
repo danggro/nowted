@@ -9,6 +9,8 @@ import {
   selectFolderAction,
 } from 'redux/actions/folderActions'
 import SVGDelete from '../svg/SVGDelete'
+import useAddOtherFolder from 'hooks/useAddOtherFolder'
+import { moveToFolderAction } from 'redux/actions/noteActions'
 
 const ListItem = styled.button`
   padding: 10px 20px;
@@ -47,6 +49,9 @@ const ListFolderItem = ({ folder }: { folder: Folder }) => {
   const dispatch = useAppDispatch()
   const activeFolder = useAppSelector((state) => state.folder.folder.active)
   const folderId = useAppSelector((state) => state.folder.folder.id)
+  const folderName = useAppSelector((state) => state.folder.folder.name)
+  const notes = useAppSelector((state) => state.note.notes)
+  const { addOtherFolder } = useAddOtherFolder()
 
   return (
     <>
@@ -54,9 +59,22 @@ const ListFolderItem = ({ folder }: { folder: Folder }) => {
         <ListItemActive>
           <SVGOpenedFolder />
           <span>{folder.name}</span>
-          <BtnDelete onClick={() => dispatch(deleteFolderAction(folder.id))}>
-            <SVGDelete />
-          </BtnDelete>
+          {folderName !== 'Other' && (
+            <BtnDelete
+              onClick={async () => {
+                const notesFolderId = notes.filter(
+                  (note) => note.folderId === folderId
+                )
+                if (notesFolderId.length > 0) {
+                  const otherFolderId = await addOtherFolder()
+                  dispatch(moveToFolderAction(folder.id, otherFolderId))
+                }
+                dispatch(deleteFolderAction(folder.id))
+              }}
+            >
+              <SVGDelete />
+            </BtnDelete>
+          )}
         </ListItemActive>
       ) : (
         <ListItem onClick={() => dispatch(selectFolderAction(folder.id))}>

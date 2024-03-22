@@ -32,8 +32,8 @@ route.post('/', tokenExtractor, async (req, res) => {
   res.status(201).json(note)
 })
 
-route.put('/:id', tokenExtractor, async (req, res) => {
-  const { id } = req.params
+route.put('/', tokenExtractor, async (req, res) => {
+  const { id } = req.body
   let date: string
 
   req.body.date === '' ? (date = getDefaultDate()) : (date = req.body.date)
@@ -56,6 +56,18 @@ route.put('/:id', tokenExtractor, async (req, res) => {
   } else {
     res.status(404).end()
   }
+})
+
+route.put('/movetofolder/', async (req, res) => {
+  const { fromId, toId } = req.body
+  const notes = await Note.findAll({ where: { folderId: fromId } })
+
+  notes.forEach(async (note) => {
+    note.folderId = toId
+    await note.save()
+  })
+
+  res.status(200).json(notes.map((note) => note.folderId))
 })
 
 route.delete('/:id', tokenExtractor, async (req, res) => {

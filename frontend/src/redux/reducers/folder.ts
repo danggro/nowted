@@ -49,6 +49,7 @@ const folderReducer: Reducer<FolderState, ActionRedux> = (
       return {
         ...state,
         folders: payload ? folderDeleted : state.folders,
+        folder: payload ? { ...folderDeleted[0], active: false } : state.folder,
       }
     default:
       return state
