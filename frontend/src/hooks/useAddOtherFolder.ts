@@ -12,7 +12,7 @@ const useAddOtherFolder = () => {
 
   const addOtherFolder = async (): Promise<number> => {
     if (!!otherFolder) return otherFolder.id
-    const { data, error } = await api.addFolder({ name: 'Other' })
+    const { data } = await api.addFolder({ name: 'Other' })
     if (!data) return 0
 
     dispatch({ type: ActionType.ADD_FOLDER, payload: data })

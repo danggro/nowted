@@ -62,7 +62,7 @@ export const getTitleFromRoute = (route: string): string => {
   return 'Unkwown Path'
 }
 
-export const keyPressEnter = (e: React.KeyboardEvent, func: Function) => {
+export const keyPressEnter = (e: React.KeyboardEvent, func: () => void) => {
   if (e.key === 'Enter') {
     func()
   }
