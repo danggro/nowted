@@ -32,7 +32,7 @@ const NoteView = () => {
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
   const [folder, setFolder] = useState<number>(0)
-  const [selectFolder, setSelectFolder] = useState<Boolean>(true)
+  const [selectFolder, setSelectFolder] = useState<boolean>(true)
   const { addOtherFolder } = useAddOtherFolder()
 
   const note = useAppSelector((state) => state.note.note)

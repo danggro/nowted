@@ -22,7 +22,7 @@ const SelectFolderContainer = styled.div`
 interface Props {
   folder: number
   setFolder: React.Dispatch<React.SetStateAction<number>>
-  setSelectFolder: React.Dispatch<React.SetStateAction<Boolean>>
+  setSelectFolder: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const SelectFolder = (props: Props) => {

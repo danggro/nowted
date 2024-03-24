@@ -4,7 +4,7 @@ import SVGOpenedFolder from '../svg/SVGOpenedFolder'
 import { keyPressEnter } from 'utils/utils'
 import { useAppDispatch } from 'redux/store'
 import { addFolderAction } from 'redux/actions/folderActions'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 const ContainerInputFolder = styled.div`
   padding: 10px 20px;
@@ -25,18 +25,22 @@ const InputFolderTag = styled.input`
   background-color: ${palette.BLACK_TERTIARY};
 `
 interface Props {
-  value: Boolean
-  setState: React.Dispatch<React.SetStateAction<Boolean>>
+  value: boolean
+  setState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const InputFolder = (props: Props) => {
   const [folder, setFolder] = useState<string>('')
   const dispatch = useAppDispatch()
+  const autoFocus = useCallback(
+    (el: HTMLInputElement) => (el ? el.focus() : null),
+    []
+  )
   return (
     <ContainerInputFolder>
       <SVGOpenedFolder />
       <InputFolderTag
-        autoFocus
+        ref={autoFocus}
         onKeyDown={(e) =>
           keyPressEnter(e, () => {
             props.setState(!props.value)

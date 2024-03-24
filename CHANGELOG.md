@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/danggro/nowted/compare/v0.0.2...v0.1.1) (2024-03-24)
+
+
+### Features
+
+* add databas and migrations for feature folder ([9f0dbbf](https://github.com/danggro/nowted/commit/9f0dbbf37baa04e28cdcd3501f93d9f9ed61c6e5))
+* add shell script to bump tag version package.json ([0456fbe](https://github.com/danggro/nowted/commit/0456fbe5d214f388f3dac7ca6432433a967879f8))
+* **folder:** feature to create a new folder ([9f827c4](https://github.com/danggro/nowted/commit/9f827c470ac9e7d225d0f6fa4462c6867d1ba08a))
+* **folder:** feature to delete a folder ([fc2f590](https://github.com/danggro/nowted/commit/fc2f590532e2fa403666bb5b4c5d7e019d1ec9ac))
+* **folder:** feature to delete folder that have notes in it ([773723a](https://github.com/danggro/nowted/commit/773723a2e5bac3a27aef05a9558b5070c9d49ca6))
+* **folder:** feature to get folders from database ([2ece839](https://github.com/danggro/nowted/commit/2ece8397f2321c7350487de3878aba896422dc88))
+* **folder:** feature to select folder ([e0eaf89](https://github.com/danggro/nowted/commit/e0eaf891b8c12a4ead460d542135fc2f01606463))
+* **folder:** integrating between folder and  note list ([a9a8aff](https://github.com/danggro/nowted/commit/a9a8aff57f4f3720e65fdc47c7f26b1ec26bb86b))
+* **note:** feature to create a new folder name "Other" automatically when no folder yet ([053664c](https://github.com/danggro/nowted/commit/053664c4fe1f96224ac686c70100bb14a76ad9db))
+* **note:** feature to move a note to another folder ([259ed90](https://github.com/danggro/nowted/commit/259ed904dd2e1d4e99c37f6897d9e94bffb4605b))
+* **readme:** add folder feature content to README.md ([8de38b4](https://github.com/danggro/nowted/commit/8de38b49987fe48759c8aa1d54596cace1d03a63))
+
+
+### Bug Fixes
+
+* **lint:** fix linting ([be6e7f0](https://github.com/danggro/nowted/commit/be6e7f0e5259ded3f1f9c4e1dea33209bd460b18))
+
 ## [0.1.0](https://github.com/danggro/nowted/compare/v0.0.2...v0.1.0) (2024-03-24)
 
 

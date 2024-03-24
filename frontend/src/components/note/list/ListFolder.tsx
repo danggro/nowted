@@ -4,7 +4,6 @@ import SVGAddFolder from '../svg/SVGAddFolder'
 import { useState } from 'react'
 import ListFolderItem from './ListFolderItem'
 import InputFolder from '../input/InputFolder'
-import { useAppSelector } from 'redux/store'
 import { Folder } from 'types/types'
 
 const Container = styled.div`
@@ -39,7 +38,7 @@ const List = styled.div`
 `
 
 const ListFolder = ({ data }: { data: Folder[] }) => {
-  const [showInputFolder, setShowInputFolder] = useState<Boolean>(false)
+  const [showInputFolder, setShowInputFolder] = useState<boolean>(false)
 
   return (
     <Container>
