@@ -3,31 +3,53 @@ import ListNoteItem from './ListNoteItem'
 import styled from 'styled-components'
 import * as palette from 'assets/Variables'
 import { useState } from 'react'
+import ListNoNote from './ListNoNote'
+
 const Container = styled.div`
   padding: ${palette.WHITE_SPACE};
   display: flex;
   flex-direction: column;
   gap: ${palette.WHITE_SPACE};
+  background-color: rgba(255, 255, 255, 0.015);
 `
 
-const ListNote = ({ data }: { data: Note[] }) => {
+const TitleFolder = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+`
+
+const ListNote = ({
+  data,
+  titleFolder,
+}: {
+  data: Note[]
+  titleFolder: string
+}) => {
   const [select, setSelect] = useState<number>(0)
 
   return (
     <Container>
-      {data.map((note: Note) => {
-        return (
-          <ListNoteItem
-            key={note.id}
-            id={note.id}
-            title={note.title}
-            date={note.date}
-            content={note.content}
-            select={select}
-            setSelect={setSelect}
-          />
-        )
-      })}
+      <TitleFolder>{titleFolder}</TitleFolder>
+      {data.length === 0 ? (
+        <ListNoNote />
+      ) : (
+        <>
+          {data.map((note: Note) => {
+            return (
+              <ListNoteItem
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                date={note.date}
+                content={note.content}
+                folderId={note.folderId}
+                select={select}
+                setSelect={setSelect}
+              />
+            )
+          })}
+        </>
+      )}
     </Container>
   )
 }

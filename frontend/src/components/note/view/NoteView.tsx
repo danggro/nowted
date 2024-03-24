@@ -8,7 +8,14 @@ import InputTitle from '../input/InputTitle'
 import InputContent from '../input/InputContent'
 import NotifSaved from '../notif/NotifSaved'
 import { useAppDispatch, useAppSelector } from 'redux/store'
-import { addNoteAction, updateNoteAction } from 'redux/actions/noteActions'
+import {
+  addNoteAction,
+  setNoteAction,
+  updateNoteAction,
+} from 'redux/actions/noteActions'
+import SelectFolder from '../input/SelectFolder'
+import { selectFolderAction } from 'redux/actions/folderActions'
+import useAddOtherFolder from 'hooks/useAddOtherFolder'
 
 const Container = styled.div`
   width: 100%;
@@ -24,8 +31,13 @@ const NoteView = () => {
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
+  const [folder, setFolder] = useState<number>(0)
+  const [selectFolder, setSelectFolder] = useState<Boolean>(true)
+  const { addOtherFolder } = useAddOtherFolder()
 
   const note = useAppSelector((state) => state.note.note)
+  const getFolder = useAppSelector((state) => state.folder.folder)
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -37,7 +49,9 @@ const NoteView = () => {
       setTitle(note.title)
       setDate(note.date)
       setContent(note.content)
+      setFolder(getFolder.id)
     }
+    setSelectFolder(true)
   }, [note])
 
   useEffect(() => {
@@ -47,23 +61,33 @@ const NoteView = () => {
       content,
     }
 
-    const timeout = setTimeout(() => {
+    const timeout = setTimeout(async () => {
       if (
         note.title === title &&
         note.date === date &&
-        note.content === content
+        note.content === content &&
+        selectFolder
       ) {
         return null
       }
 
       if (note.id) {
-        dispatch(updateNoteAction({ ...baseNote, id: note.id }))
+        dispatch(
+          updateNoteAction({ ...baseNote, id: note.id, folderId: folder })
+        )
       } else {
-        dispatch(addNoteAction(baseNote))
+        let folderId: number = folder
+        if (!folder) folderId = await addOtherFolder()
+
+        dispatch(addNoteAction({ ...baseNote, folderId }))
+        dispatch(
+          setNoteAction({ ...baseNote, view: true, id: note.id, folderId })
+        )
       }
+      dispatch(selectFolderAction(folder))
     }, 5000)
     return () => clearTimeout(timeout)
-  }, [title, date, content])
+  }, [title, date, content, folder])
 
   if (!note.view) {
     return <NoteNoView />
@@ -73,6 +97,11 @@ const NoteView = () => {
     <Container>
       <InputTitle value={title} setState={setTitle} />
       <InputDate date={date} setDate={setDate} />
+      <SelectFolder
+        folder={folder}
+        setFolder={setFolder}
+        setSelectFolder={setSelectFolder}
+      />
       <InputContent value={content} setState={setContent} />
       {note.title && <ThreeDotButton />}
       <NotifSaved />

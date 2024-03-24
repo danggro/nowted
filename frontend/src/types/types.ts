@@ -6,6 +6,7 @@ export interface Note {
   date: string
   content: string
   userId?: number //deleted after backend finish
+  folderId: number
 }
 
 export interface NoteState extends Note {
@@ -39,4 +40,16 @@ export type UserData = Omit<User, 'password' | 'email' | 'created_at'>
 export interface Response {
   error: string | null
   data: AxiosResponse | null
+}
+
+export interface Folder {
+  id: number
+  name: string
+  userId: number
+}
+
+export type FolderForm = Omit<Folder, 'id' | 'userId'>
+
+export interface FolderView extends Folder {
+  active: Boolean
 }

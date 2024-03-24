@@ -4,6 +4,7 @@ import * as palette from 'assets/Variables'
 import { getLocalSession } from 'utils/utils'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import { setNoteAction } from 'redux/actions/noteActions'
+import { useEffect } from 'react'
 
 const NoteStyle = styled.div<{ selected: boolean }>`
   display: grid;
@@ -12,7 +13,7 @@ const NoteStyle = styled.div<{ selected: boolean }>`
   column-gap: 10px;
   border-radius: 3px;
   padding: ${palette.WHITE_SPACE};
-
+  width: 300px;
   background-color: ${({ selected }) =>
     selected ? palette.BLACK_TERTIARY : palette.BLACK_SECONDARY};
 
@@ -48,12 +49,16 @@ const ListNoteItem = ({
   title,
   date,
   content,
+  folderId,
   select,
   setSelect,
 }: Props) => {
   const session = getLocalSession()
   const dispatch = useAppDispatch()
   const note = useAppSelector((state) => state.note.note)
+  useEffect(() => {
+    setSelect(note.id as number)
+  }, [note.id])
   return (
     <NoteStyle
       onClick={() => {
@@ -65,6 +70,7 @@ const ListNoteItem = ({
             content,
             userId: session?.userId,
             view: true,
+            folderId,
           })
         )
         setSelect(id as number)

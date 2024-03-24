@@ -10,6 +10,7 @@ export enum ActionType {
   ACTION_FAIL = 'ACTION_FAIL',
   ACTION_SUCCESS = 'ACTION_SUCCESS',
   CLEAR_MESSAGE = 'CLEAR_MESSAGE',
+  MOVE_TO_FOLDER = 'MOVE_TO_FOLDER',
 }
 
 export const SAVED_SUCCESS_MESSAGE = 'Note saved'
@@ -58,6 +59,11 @@ interface ClearMessage {
   payload: string
 }
 
+interface MoveToFolder {
+  type: ActionType.MOVE_TO_FOLDER
+  payload: { fromId: number; toId: number }
+}
+
 export type Action =
   | SetInitialNotes
   | AddNote
@@ -67,3 +73,4 @@ export type Action =
   | ActionFail
   | ActionSuccess
   | ClearMessage
+  | MoveToFolder

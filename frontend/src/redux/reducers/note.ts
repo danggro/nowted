@@ -23,6 +23,7 @@ const initialState: NoteState = {
     date: '',
     content: '',
     view: false,
+    folderId: 0,
   },
   actionError: { title: '', date: '' },
   successMessage: '',
@@ -88,6 +89,15 @@ const noteReducer: Reducer<NoteState, ActionRedux> = (
         ...state,
         actionError: { title: '', date: '' },
         successMessage: payload,
+      }
+    case ActionType.MOVE_TO_FOLDER:
+      const { fromId, toId } = payload
+      const movedFolder = state.notes.map((note) =>
+        note.folderId === fromId ? { ...note, folderId: toId } : note
+      )
+      return {
+        ...state,
+        notes: payload ? movedFolder : state.notes,
       }
     default:
       return state

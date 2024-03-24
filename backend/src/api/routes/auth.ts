@@ -35,7 +35,6 @@ route.post('/login', async (req, res) => {
   }
 
   const token = randomstring.generate(16)
-  console.log(token)
 
   await clientRedis.set(
     token,

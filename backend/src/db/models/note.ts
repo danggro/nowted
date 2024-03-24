@@ -8,6 +8,7 @@ class Note extends Model {
   declare date: string
   declare content: string
   declare userId: number
+  declare folderId: number
 }
 Note.init(
   {

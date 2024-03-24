@@ -93,7 +93,13 @@ export const deleteNoteAction =
         })
         dispatch({
           type: ActionType.SET_NOTE,
-          payload: { title: '', date: '', content: '', view: false },
+          payload: {
+            title: '',
+            date: '',
+            content: '',
+            view: false,
+            folderId: 0,
+          },
         })
       }
     } catch (error) {
@@ -114,4 +120,22 @@ export const setActionError =
   (objectError: { title: string; date: string }) =>
   async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.ACTION_FAIL, payload: objectError })
+  }
+
+export const moveToFolderAction =
+  (fromId: number, toId: number) => async (dispatch: Dispatch<Action>) => {
+    try {
+      const response = await api.moveNoteToFolder(fromId, toId)
+      const { error, data } = response
+      if (error || !data) {
+        dispatch({ type: ActionType.ACTION_FAIL, payload: error })
+      } else {
+        dispatch({
+          type: ActionType.MOVE_TO_FOLDER,
+          payload: { fromId, toId },
+        })
+      }
+    } catch (error) {
+      dispatch({ type: ActionType.ACTION_FAIL, payload: UNEXPECTED_ERROR })
+    }
   }

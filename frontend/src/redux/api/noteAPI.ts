@@ -46,8 +46,23 @@ export const updateNote = async (note: Note) => {
   const session = getLocalSession()
   try {
     const res = await API.put<Note>(
-      `/notes/${note.id}`,
+      `/notes/`,
       note,
+      setConfig(session?.accessToken)
+    )
+    return { error: null, data: res.data }
+  } catch (error) {
+    return handleApiError(error)
+  }
+}
+
+export const moveNoteToFolder = async (fromId: number, toId: number) => {
+  const session = getLocalSession()
+
+  try {
+    const res = await API.put<number[]>(
+      `/notes/movetofolder`,
+      { fromId, toId },
       setConfig(session?.accessToken)
     )
     return { error: null, data: res.data }

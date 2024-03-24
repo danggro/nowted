@@ -238,3 +238,150 @@ Response :
   "status": "string"
 }
 ```
+
+### Add Note into a Folder
+
+Request :
+
+- Method : POST
+- Endpoint : `/api/folder/?notes_id={notes_id}&folder_id={folder_id}`
+- Header :
+  - Content-Type : application/json
+  - Accept : application/json
+  - Authentication : "Bearer token"
+- Body :
+
+```json
+{
+  "id": "int, unique",
+  "title": "string",
+  "name_folder": "string"
+}
+```
+
+Response :
+
+```json
+{
+  "code": "number",
+  "status": "string",
+  "data": {
+    "id": "int, unique",
+    "title": "string",
+    "name_folder": "string"
+  }
+}
+```
+
+### Move Note into Another Folder
+
+Request :
+
+- Method : UPDATE
+- Endpoint : `/api/folder/?notes_id={notes_id}&folder_id={folder_id}`
+- Header :
+  - Content-Type : application/json
+  - Accept : application/json
+  - Authentication : "Bearer token"
+- Body :
+
+```json
+{
+  "id": "int, unique",
+  "title": "string",
+  "name_folder": "string"
+}
+```
+
+Response :
+
+```json
+{
+  "code": "number",
+  "status": "string",
+  "data": {
+    "id": "int, unique",
+    "title": "string",
+    "name_folder": "string"
+  }
+}
+```
+
+## Folder Feature
+
+### Create Folder
+
+Request :
+
+- Method : POST
+- Endpoint : `/api/folder`
+- Header :
+  - Content-Type : application/json
+  - Accept : application/json
+  - Authentication : "Bearer token"
+- Body :
+
+```json
+{
+  "id": "int, unique",
+  "user_id": "int, unique",
+  "name": "string"
+}
+```
+
+Response :
+
+```json
+{
+  "code": "number",
+  "status": "string",
+  "data": {
+    "id": "int, unique",
+    "user_id": "int, unique",
+    "name": "string"
+  }
+}
+```
+
+### Get Folder
+
+Request :
+
+- Method : GET
+- Endpoint : `/api/folder/{folder_id}`
+- Header :
+  - Accept : application/json
+  - Authentication : "Bearer token"
+
+Response :
+
+```json
+{
+  "code": "number",
+  "status": "string",
+  "data": {
+    "id": "int, unique",
+    "user_id": "int, unique",
+    "name": "string"
+  }
+}
+```
+
+### Delete Folder
+
+Request :
+
+- Method : DELETE
+- Endpoint : `/api/folder/{folder_id}`
+- Header :
+  - Accept : application/json
+  - Authentication : "Bearer token"
+
+Response :
+
+```json
+{
+  "code": "number",
+  "status": "string"
+}
+```

@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/folder
+Content-Type: application/json
+
+{
+    "name": "This is Folder 2",
+    "userId": 40
+}
