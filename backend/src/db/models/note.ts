@@ -9,7 +9,10 @@ class Note extends Model {
   declare content: string
   declare userId: number
   declare folderId: number
+  declare favorite: boolean
+  declare archived: boolean
 }
+
 Note.init(
   {
     id: {
@@ -41,11 +44,19 @@ Note.init(
     content: {
       type: DataTypes.STRING,
     },
+    favorite: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    archived: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     sequelize,
     underscored: true,
-    timestamps: false,
+    timestamps: true,
     modelName: 'note',
   }
 )

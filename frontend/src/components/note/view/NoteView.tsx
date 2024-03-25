@@ -32,6 +32,8 @@ const NoteView = () => {
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
   const [folder, setFolder] = useState<number>(0)
+  const [favorite, setFavorite] = useState<boolean>(false)
+  const [archived, setArchived] = useState<boolean>(false)
   const [selectFolder, setSelectFolder] = useState<boolean>(true)
   const { addOtherFolder } = useAddOtherFolder()
 
@@ -50,6 +52,8 @@ const NoteView = () => {
       setDate(note.date)
       setContent(note.content)
       setFolder(getFolder.id)
+      setFavorite(note.favorite)
+      setArchived(note.archived)
     }
     setSelectFolder(true)
   }, [note])
@@ -59,6 +63,8 @@ const NoteView = () => {
       title,
       date: complianceDate(date),
       content,
+      favorite,
+      archived,
     }
 
     const timeout = setTimeout(async () => {
@@ -79,7 +85,14 @@ const NoteView = () => {
         let folderId: number = folder
         if (!folder) folderId = await addOtherFolder()
 
-        dispatch(addNoteAction({ ...baseNote, folderId }))
+        dispatch(
+          addNoteAction({
+            ...baseNote,
+            folderId,
+            favorite: false,
+            archived: false,
+          })
+        )
         dispatch(
           setNoteAction({ ...baseNote, view: true, id: note.id, folderId })
         )

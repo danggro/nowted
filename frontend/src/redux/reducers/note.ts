@@ -24,6 +24,8 @@ const initialState: NoteState = {
     content: '',
     view: false,
     folderId: 0,
+    favorite: false,
+    archived: false,
   },
   actionError: { title: '', date: '' },
   successMessage: '',
