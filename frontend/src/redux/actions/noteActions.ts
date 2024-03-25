@@ -101,6 +101,7 @@ export const deleteNoteAction =
             folderId: 0,
             favorite: false,
             archived: false,
+            updatedAt: '',
           },
         })
       }

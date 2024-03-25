@@ -11,6 +11,7 @@ import ListNote from 'components/note/list/ListNote'
 import NoteView from 'components/note/view/NoteView'
 import ListFolder from 'components/note/list/ListFolder'
 import { getFoldersAction } from 'redux/actions/folderActions'
+import RecentNotes from 'components/note/list/RecentNotes'
 
 const Container = styled.div`
   width: 100%;
@@ -25,6 +26,11 @@ const Navigate = styled.div`
   width: clamp(250px, 24vw, 350px);
   flex-shrink: 0;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  & > *:not(:first-child):not(:nth-child(2)) {
+    margin-top: ${palette.WHITE_SPACE};
+  }
   &::-webkit-scrollbar {
     display: none;
   }
@@ -58,6 +64,7 @@ const NotePage = () => {
     <Container>
       <Navigate>
         <HeaderNotePage />
+        <RecentNotes data={notes} />
         <ListFolder data={folders} />
       </Navigate>
       {folder.active && (

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { Note } from 'types/types'
 import * as palette from 'assets/Variables'
-import { getLocalSession } from 'utils/utils'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import { setNoteAction } from 'redux/actions/noteActions'
 import { useEffect } from 'react'
@@ -40,47 +39,34 @@ const NoteStyle = styled.div<{ selected: boolean }>`
     overflow: hidden;
   }
 `
-interface Props extends Note {
+interface Props {
   select: number
   setSelect: React.Dispatch<React.SetStateAction<number>>
+  note: Note
 }
-const ListNoteItem = ({
-  id,
-  title,
-  date,
-  content,
-  folderId,
-  select,
-  setSelect,
-}: Props) => {
-  const session = getLocalSession()
+const ListNoteItem = ({ select, setSelect, note }: Props) => {
   const dispatch = useAppDispatch()
-  const note = useAppSelector((state) => state.note.note)
+  const noteState = useAppSelector((state) => state.note.note)
   useEffect(() => {
-    setSelect(note.id as number)
-  }, [note.id])
+    setSelect(noteState.id as number)
+  }, [noteState.id])
   return (
     <NoteStyle
       onClick={() => {
         dispatch(
           setNoteAction({
-            id,
-            title,
-            date,
-            content,
-            userId: session?.userId,
+            ...note,
             view: true,
-            folderId,
           })
         )
-        setSelect(id as number)
+        setSelect(note.id as number)
       }}
       className="test-note"
-      selected={select === id && (note.id as number) > 0}
+      selected={select === note.id && (noteState.id as number) > 0}
     >
-      <h2>{title}</h2>
-      <span>{date}</span>
-      <p>{content}</p>
+      <h2>{note.title}</h2>
+      <span>{note.date}</span>
+      <p>{note.content}</p>
     </NoteStyle>
   )
 }

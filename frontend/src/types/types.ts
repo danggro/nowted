@@ -8,6 +8,7 @@ export interface Note {
   folderId: number
   favorite: boolean
   archived: boolean
+  updatedAt?: string
 }
 
 export interface NoteState extends Note {
