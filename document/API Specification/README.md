@@ -89,7 +89,10 @@ Request :
   "id": "int, unique",
   "title": "string",
   "date": "date",
-  "content": "string"
+  "content": "string",
+  "folder_id": "int",
+  "favorite": "boolean",
+  "archived": "boolean"
 }
 ```
 
@@ -103,7 +106,11 @@ Response :
     "id": "int, unique",
     "title": "string",
     "date": "date",
-    "content": "string"
+    "content": "string",
+    "folder_id": "int",
+    "favorite": "boolean",
+    "archived": "boolean",
+    "updated_at": "timestamp"
   }
 }
 ```
@@ -128,7 +135,11 @@ Response :
     "id": "int, unique",
     "title": "string",
     "date": "date",
-    "content": "string"
+    "content": "string",
+    "folder_id": "int",
+    "favorite": "boolean",
+    "archived": "boolean",
+    "updated_at": "timestamp"
   }
 }
 ```
@@ -149,7 +160,10 @@ Request :
 {
   "title": "string",
   "date": "date",
-  "content": "string"
+  "content": "string",
+  "folder_id": "int",
+  "favorite": "boolean",
+  "archived": "boolean"
 }
 ```
 
@@ -163,7 +177,11 @@ Response :
     "id": "int, unique",
     "title": "string",
     "date": "date",
-    "content": "string"
+    "content": "string",
+    "folder_id": "int",
+    "favorite": "boolean",
+    "archived": "boolean",
+    "updated_at": "timestamp"
   }
 }
 ```
@@ -189,13 +207,21 @@ Response :
       "id": "int, unique",
       "title": "string",
       "date": "date",
-      "content": "string"
+      "content": "string",
+      "folder_id": "int",
+      "favorite": "boolean",
+      "archived": "boolean",
+      "updated_at": "timestamp"
     },
     {
       "id": "int, unique",
       "title": "string",
       "date": "date",
-      "content": "string"
+      "content": "string",
+      "folder_id": "int",
+      "favorite": "boolean",
+      "archived": "boolean",
+      "updated_at": "timestamp"
     }
   ]
 }
