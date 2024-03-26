@@ -4,11 +4,11 @@ import * as palette from 'assets/Variables'
 import {
   SetFavoriteAction,
   deleteNoteAction,
-  setNoteAction,
   updateNoteAction,
 } from 'redux/actions/noteActions'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import SVGStar from '../svg/SVGStar'
+import SVGArchived from '../svg/SVGArchived'
 
 const Container = styled.div`
   display: flex;
@@ -56,6 +56,15 @@ const ThreeDotPopup = () => {
       >
         <SVGStar />
         <span>Favorite</span>
+      </button>
+      <button
+        onClick={() => {
+          const archived: boolean = !note.archived
+          dispatch(updateNoteAction({ ...note, archived }))
+        }}
+      >
+        <SVGArchived />
+        <span>Archived</span>
       </button>
       <button onClick={() => dispatch(deleteNoteAction(note.id as number))}>
         <SVGDelete />

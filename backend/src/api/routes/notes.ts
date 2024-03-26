@@ -52,6 +52,7 @@ route.put('/', tokenExtractor, async (req, res) => {
     note.content = req.body.content
     note.folderId = req.body.folderId
     note.favorite = req.body.favorite
+    note.archived = req.body.archived
     await note.save()
     res.status(200).json(note)
   } else {

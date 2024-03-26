@@ -67,19 +67,21 @@ const NotePage = () => {
     <Container>
       <Navigate>
         <HeaderNotePage />
-        <RecentNotes data={notes} />
+        <RecentNotes data={notes.filter((note) => !note.archived)} />
         <ListFolder data={folders} />
-        <ListMore data={notes} />
+        <ListMore />
       </Navigate>
       {folder.active && (
         <ListNote
-          data={notes.filter((note) => note.folderId === folder.id)}
+          data={notes.filter(
+            (note) => note.folderId === folder.id && !note.archived
+          )}
           titleFolder={folder.name}
         />
       )}
       {favorite && (
         <ListNote
-          data={notes.filter((note) => note.favorite)}
+          data={notes.filter((note) => note.favorite && !note.archived)}
           titleFolder={'Favorites'}
         />
       )}

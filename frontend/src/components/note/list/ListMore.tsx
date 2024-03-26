@@ -35,7 +35,7 @@ const List = styled.div`
   flex-direction: column;
 `
 
-const ListMore = ({ data }: { data: Note[] }) => {
+const ListMore = () => {
   const favorite = useAppSelector((state) => state.folder.favorite)
   const archived = useAppSelector((state) => state.folder.archived)
 
