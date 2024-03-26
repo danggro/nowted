@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import NoteNoView from './NoteNoView'
 import { useEffect, useState } from 'react'
-import ThreeDotButton from '../option/Button'
+import ThreeDotButton from '../option/ThreeDotButton'
 import { complianceDate } from 'utils/utils'
 import InputDate from '../input/InputDate'
 import InputTitle from '../input/InputTitle'
@@ -32,8 +32,6 @@ const NoteView = () => {
   const [date, setDate] = useState<string>('')
   const [content, setContent] = useState<string>('')
   const [folder, setFolder] = useState<number>(0)
-  const [favorite, setFavorite] = useState<boolean>(false)
-  const [archived, setArchived] = useState<boolean>(false)
   const [selectFolder, setSelectFolder] = useState<boolean>(true)
   const { addOtherFolder } = useAddOtherFolder()
 
@@ -52,8 +50,6 @@ const NoteView = () => {
       setDate(note.date)
       setContent(note.content)
       setFolder(getFolder.id)
-      setFavorite(note.favorite)
-      setArchived(note.archived)
     }
     setSelectFolder(true)
   }, [note])
@@ -63,8 +59,8 @@ const NoteView = () => {
       title,
       date: complianceDate(date),
       content,
-      favorite,
-      archived,
+      favorite: note.favorite,
+      archived: note.archived,
     }
 
     const timeout = setTimeout(async () => {

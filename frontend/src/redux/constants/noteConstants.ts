@@ -11,6 +11,7 @@ export enum ActionType {
   ACTION_SUCCESS = 'ACTION_SUCCESS',
   CLEAR_MESSAGE = 'CLEAR_MESSAGE',
   MOVE_TO_FOLDER = 'MOVE_TO_FOLDER',
+  SET_FAVORITE = 'SET_FAVORITE',
 }
 
 export const SAVED_SUCCESS_MESSAGE = 'Note saved'
@@ -64,6 +65,11 @@ interface MoveToFolder {
   payload: { fromId: number; toId: number }
 }
 
+interface SetFavorite {
+  type: ActionType.SET_FAVORITE
+  payload: boolean
+}
+
 export type Action =
   | SetInitialNotes
   | AddNote
@@ -74,3 +80,4 @@ export type Action =
   | ActionSuccess
   | ClearMessage
   | MoveToFolder
+  | SetFavorite

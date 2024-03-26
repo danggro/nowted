@@ -142,3 +142,8 @@ export const moveToFolderAction =
       dispatch({ type: ActionType.ACTION_FAIL, payload: UNEXPECTED_ERROR })
     }
   }
+
+export const SetFavoriteAction =
+  (favorite: boolean) => async (dispatch: Dispatch<Action>) => {
+    dispatch({ type: ActionType.SET_FAVORITE, payload: favorite })
+  }

@@ -2,7 +2,7 @@ import SVGThreeDot from '../svg/SVGThreeDot'
 import * as palette from 'assets/Variables'
 import styled from 'styled-components'
 import useComponentVisible from 'hooks/useComponentVisible'
-import ThreeDotPopup from './Delete'
+import ThreeDotPopup from './ThreeDotPopup'
 
 const Container = styled.div`
   width: fit-content;

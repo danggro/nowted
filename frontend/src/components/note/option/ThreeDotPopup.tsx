@@ -1,15 +1,20 @@
 import styled from 'styled-components'
 import SVGDelete from '../svg/SVGDelete'
 import * as palette from 'assets/Variables'
-import { deleteNoteAction } from 'redux/actions/noteActions'
+import {
+  SetFavoriteAction,
+  deleteNoteAction,
+  setNoteAction,
+  updateNoteAction,
+} from 'redux/actions/noteActions'
 import { useAppDispatch, useAppSelector } from 'redux/store'
+import SVGStar from '../svg/SVGStar'
 
 const Container = styled.div`
   display: flex;
   width: 200px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
   border-radius: 6px;
   position: absolute;
   right: 0;
@@ -28,6 +33,10 @@ const Container = styled.div`
     }
     &:hover {
       background-color: rgba(0, 0, 0, 0.2);
+      color: ${palette.WHITE};
+    }
+    svg {
+      color: ${palette.WHITE};
     }
   }
 `
@@ -36,12 +45,19 @@ const ThreeDotPopup = () => {
   const dispatch = useAppDispatch()
   const note = useAppSelector((state) => state.note.note)
 
-  const handleDeleteNote = () => {
-    dispatch(deleteNoteAction(note.id as number))
-  }
   return (
     <Container>
-      <button onClick={() => handleDeleteNote()}>
+      <button
+        onClick={() => {
+          const favorite: boolean = !note.favorite
+          dispatch(SetFavoriteAction(favorite))
+          dispatch(updateNoteAction({ ...note, favorite }))
+        }}
+      >
+        <SVGStar />
+        <span>Favorite</span>
+      </button>
+      <button onClick={() => dispatch(deleteNoteAction(note.id as number))}>
         <SVGDelete />
         <span>Delete</span>
       </button>
