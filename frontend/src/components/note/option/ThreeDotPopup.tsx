@@ -1,11 +1,7 @@
 import styled from 'styled-components'
 import SVGDelete from '../svg/SVGDelete'
 import * as palette from 'assets/Variables'
-import {
-  SetFavoriteAction,
-  deleteNoteAction,
-  updateNoteAction,
-} from 'redux/actions/noteActions'
+import { deleteNoteAction, updateNoteAction } from 'redux/actions/noteActions'
 import { useAppDispatch, useAppSelector } from 'redux/store'
 import SVGStar from '../svg/SVGStar'
 import SVGArchived from '../svg/SVGArchived'
@@ -50,7 +46,6 @@ const ThreeDotPopup = () => {
       <button
         onClick={() => {
           const favorite: boolean = !note.favorite
-          dispatch(SetFavoriteAction(favorite))
           dispatch(updateNoteAction({ ...note, favorite }))
         }}
       >

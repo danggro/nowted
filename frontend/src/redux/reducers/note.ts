@@ -101,14 +101,6 @@ const noteReducer: Reducer<NoteState, ActionRedux> = (
         ...state,
         notes: payload ? movedFolder : state.notes,
       }
-    case ActionType.SET_FAVORITE:
-      const notesFav = state.notes.map((note) =>
-        note.id === state.note.id ? { ...note, favorite: payload } : note
-      )
-      return {
-        ...state,
-        notes: notesFav,
-      }
     default:
       return state
   }
