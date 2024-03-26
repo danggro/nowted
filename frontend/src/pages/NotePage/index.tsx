@@ -12,6 +12,7 @@ import NoteView from 'components/note/view/NoteView'
 import ListFolder from 'components/note/list/ListFolder'
 import { getFoldersAction } from 'redux/actions/folderActions'
 import RecentNotes from 'components/note/list/RecentNotes'
+import ListMore from 'components/note/list/ListMore'
 
 const Container = styled.div`
   width: 100%;
@@ -47,6 +48,8 @@ const NotePage = () => {
   const notes = useAppSelector((state) => state.note.notes)
   const folders = useAppSelector((state) => state.folder.folders)
   const folder = useAppSelector((state) => state.folder.folder)
+  const favorite = useAppSelector((state) => state.folder.favorite)
+  const archived = useAppSelector((state) => state.folder.archived)
 
   useEffect(() => {
     if (!sessionLocal) return navigate('/login')
@@ -66,11 +69,24 @@ const NotePage = () => {
         <HeaderNotePage />
         <RecentNotes data={notes} />
         <ListFolder data={folders} />
+        <ListMore data={notes} />
       </Navigate>
       {folder.active && (
         <ListNote
           data={notes.filter((note) => note.folderId === folder.id)}
           titleFolder={folder.name}
+        />
+      )}
+      {favorite && (
+        <ListNote
+          data={notes.filter((note) => note.favorite)}
+          titleFolder={'Favorites'}
+        />
+      )}
+      {archived && (
+        <ListNote
+          data={notes.filter((note) => note.archived)}
+          titleFolder={'Archived Notes'}
         />
       )}
       <Content>

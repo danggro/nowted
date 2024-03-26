@@ -40,7 +40,8 @@ const RecentNotes = ({ data }: { data: Note[] }) => {
   const filteredRecentNotes = () => {
     const orderedNotes = data.sort(
       (a, b) =>
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        new Date(b.updatedAt as string).getTime() -
+        new Date(a.updatedAt as string).getTime()
     )
     return orderedNotes.slice(0, 3)
   }

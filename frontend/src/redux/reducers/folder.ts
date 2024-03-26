@@ -5,6 +5,8 @@ import { Reducer, Action as ActionRedux } from 'redux'
 export interface FolderState {
   folders: Folder[]
   folder: FolderView
+  favorite: boolean
+  archived: boolean
 }
 
 const initialState: FolderState = {
@@ -15,6 +17,8 @@ const initialState: FolderState = {
     name: '',
     active: false,
   },
+  favorite: false,
+  archived: false,
 }
 
 const folderReducer: Reducer<FolderState, ActionRedux> = (
@@ -50,6 +54,17 @@ const folderReducer: Reducer<FolderState, ActionRedux> = (
         ...state,
         folders: payload ? folderDeleted : state.folders,
         folder: payload ? { ...folderDeleted[0], active: false } : state.folder,
+      }
+    case ActionType.SELECT_MORE:
+      return {
+        ...state,
+        favorite: payload.favorite,
+        archived: payload.archived,
+      }
+    case ActionType.SET_ACTIVE:
+      return {
+        ...state,
+        folder: { ...state.folder, active: payload },
       }
     default:
       return state

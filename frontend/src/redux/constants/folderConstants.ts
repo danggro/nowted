@@ -5,6 +5,8 @@ export enum ActionType {
   GET_FOLDERS = 'GET_FOLDERS',
   SELECT_FOLDER = 'SELECT_FOLDER',
   DELETE_FOLDER = 'DELETE_FOLDER',
+  SELECT_MORE = 'SELECT_MORE',
+  SET_ACTIVE = 'SET_ACTIVE',
 }
 
 interface AddFolder {
@@ -27,4 +29,20 @@ interface DeleteFolder {
   payload: number
 }
 
-export type Action = AddFolder | GetFolder | SelectFolder | DeleteFolder
+interface SelectMore {
+  type: ActionType.SELECT_MORE
+  payload: { favorite: boolean; archived: boolean }
+}
+
+interface SetActive {
+  type: ActionType.SET_ACTIVE
+  payload: boolean
+}
+
+export type Action =
+  | AddFolder
+  | GetFolder
+  | SelectFolder
+  | DeleteFolder
+  | SelectMore
+  | SetActive

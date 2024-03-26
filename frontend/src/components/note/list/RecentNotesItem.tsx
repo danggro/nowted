@@ -5,7 +5,10 @@ import { useAppDispatch, useAppSelector } from 'redux/store'
 import { useEffect } from 'react'
 import { setNoteAction } from 'redux/actions/noteActions'
 import { Note } from 'types/types'
-import { selectFolderAction } from 'redux/actions/folderActions'
+import {
+  selectFolderAction,
+  selectMoreAction,
+} from 'redux/actions/folderActions'
 
 const ListItem = styled.button<{ selected: boolean }>`
   padding: 10px 20px;
@@ -49,6 +52,7 @@ const RecentNotesItem = ({ note, select, setSelect }: Props) => {
         )
         dispatch(selectFolderAction(note.folderId))
         setSelect(note.id as number)
+        dispatch(selectMoreAction({ favorite: false, archived: false }))
       }}
     >
       <SVGFile />
