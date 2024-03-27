@@ -34,7 +34,7 @@ interface Props {
   note: Note
 }
 
-const RecentNotesItem = ({ note, select, setSelect }: Props) => {
+const ListRecentNotesItem = ({ note, select, setSelect }: Props) => {
   const dispatch = useAppDispatch()
   const noteState = useAppSelector((state) => state.note.note)
   useEffect(() => {
@@ -61,4 +61,4 @@ const RecentNotesItem = ({ note, select, setSelect }: Props) => {
   )
 }
 
-export default RecentNotesItem
+export default ListRecentNotesItem

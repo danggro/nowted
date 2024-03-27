@@ -11,7 +11,7 @@ import ListNote from 'components/note/list/ListNote'
 import NoteView from 'components/note/view/NoteView'
 import ListFolder from 'components/note/list/ListFolder'
 import { getFoldersAction } from 'redux/actions/folderActions'
-import RecentNotes from 'components/note/list/RecentNotes'
+import ListRecentNotes from 'components/note/list/ListRecentNotes'
 import ListMore from 'components/note/list/ListMore'
 
 const Container = styled.div`
@@ -67,7 +67,7 @@ const NotePage = () => {
     <Container>
       <Navigate>
         <HeaderNotePage />
-        <RecentNotes data={notes.filter((note) => !note.archived)} />
+        <ListRecentNotes data={notes.filter((note) => !note.archived)} />
         <ListFolder data={folders} />
         <ListMore />
       </Navigate>

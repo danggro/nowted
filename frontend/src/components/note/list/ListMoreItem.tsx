@@ -27,7 +27,6 @@ const ListItem = styled.button<{ selected: boolean }>`
 interface Props {
   title: string
   state: boolean
-  // handleChangeListNote: () => void
 }
 
 const ListMoreItem = ({ title, state }: Props) => {
@@ -49,7 +48,6 @@ const ListMoreItem = ({ title, state }: Props) => {
         if (title === 'Favorites') favorite = true
         if (title === 'Archived Notes') archived = true
         dispatch(selectMoreAction({ favorite, archived }))
-        // handleChangeListNote()
       }}
     >
       {title === 'Favorites' ? <SVGStar /> : <SVGArchived />}

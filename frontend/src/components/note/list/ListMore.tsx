@@ -1,54 +1,21 @@
-import styled from 'styled-components'
-import * as palette from 'assets/Variables'
-import { Note } from 'types/types'
 import { useAppSelector } from 'redux/store'
 import ListMoreItem from './ListMoreItem'
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: ${palette.TEXT_SECONDARY};
-  span {
-    font-weight: 600;
-  }
-
-  button {
-    cursor: pointer;
-  }
-`
-
-const Header = styled.div`
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  span {
-    font-size: 14px;
-  }
-  button:hover {
-    color: ${palette.WHITE};
-  }
-`
-
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-`
+import { ContainerList, HeaderList, List } from './ListComponents'
 
 const ListMore = () => {
   const favorite = useAppSelector((state) => state.folder.favorite)
   const archived = useAppSelector((state) => state.folder.archived)
 
   return (
-    <Container>
-      <Header>
+    <ContainerList>
+      <HeaderList>
         <span>More</span>
-      </Header>
+      </HeaderList>
       <List>
         <ListMoreItem title="Favorites" state={favorite} />
         <ListMoreItem title="Archived Notes" state={archived} />
       </List>
-    </Container>
+    </ContainerList>
   )
 }
 
