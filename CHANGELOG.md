@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/danggro/nowted/compare/v0.0.3...v0.2.0) (2024-03-27)
+
+
+### Features
+
+* add feature move navigation favorite & archived ([ec26a90](https://github.com/danggro/nowted/commit/ec26a9030133aa0cb52bef72ce5ca8787ee432d4))
+* **archived:** add arhive note feature ([0bc3a43](https://github.com/danggro/nowted/commit/0bc3a431a35e667dc734c3736385c1f90e9c9994))
+* **database:** add databse, migrations, integration for mfa feature backend frontend ([ddbd7d3](https://github.com/danggro/nowted/commit/ddbd7d357b8b7b9204c3712ee031e48fe8006eae))
+* **documents:** add several documents recent, favorite, & archived features ([f7af8b6](https://github.com/danggro/nowted/commit/f7af8b628c21bdc9efea203c91e35ddf03975003))
+* **favorite:** add favorite feature ([2670ec5](https://github.com/danggro/nowted/commit/2670ec5c04417d8a1be96953b1221046f3108025))
+* **lint:** fix linting & trim some styled-components ([a317af4](https://github.com/danggro/nowted/commit/a317af4297dcbe6adc25e733e4415f789ebdcc0d))
+* **nix:** add shell.nix ([68fa2a3](https://github.com/danggro/nowted/commit/68fa2a3de58667b33943fd59cd367680a702a02b))
+* **note:** add feature recent notes ([7d1a55b](https://github.com/danggro/nowted/commit/7d1a55bab7846f134c763c3f734312421b0413f5))
+* **README:** add recent, facorite, & archived content to README.md ([9ed13e7](https://github.com/danggro/nowted/commit/9ed13e75b98cfd1f79442277d3b03d0324f2fe72))
+
+
+### Bug Fixes
+
+* **favorite:** remove SET_FAVORITE from redux ([7b00a27](https://github.com/danggro/nowted/commit/7b00a27a7b5e49ed5c54ea84e6f8bbe07c4d544f))
+
 ### [0.1.1](https://github.com/danggro/nowted/compare/v0.0.2...v0.1.1) (2024-03-24)
 
 
