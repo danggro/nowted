@@ -1,6 +1,6 @@
 # Nowted - Note Taking App
 
-A note taking application with CRUD, Folder Feature, Authentication & Authorization features.
+A note taking application with CRUD, Folder, Authentication & Authorization, Recent Notes, Favorites, & Archived features.
 
 <p align="center"><strong>Login page</strong>. Design from <a href="https://www.figma.com/community/file/1254024318818305187/login-pages-v1-carey">Figma</a> ( Daniel Carey )
 </p>
@@ -15,7 +15,7 @@ A note taking application with CRUD, Folder Feature, Authentication & Authorizat
 <p align="center"><strong>Main page</strong>. Design from <a href="https://codedesign.dev/challenge/nowted-app">codedesign.dev</a>
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/danggro/nowted/main/document/images/main-page-folder.png" width="640" height="360">
+  <img src="https://raw.githubusercontent.com/danggro/nowted/main/document/images/main-page-recent-favorites-archived.png" width="640" height="360">
 </p>
 
 ## Table of Contents
@@ -25,17 +25,20 @@ A note taking application with CRUD, Folder Feature, Authentication & Authorizat
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [document](#document)
+- [Documents](#Documents)
 
 ## Project Overview
 
-The project is a note-taking application built using Typescript, React.js, Styled Components, Express.js, Postgres for database, and Redis for session. It incorporates three major features: CRUD Note, Grouping Notes into Folder, Authentication + Authorization.
+The project is a note-taking application built using Typescript, React.js, Styled Components, Express.js, Postgres for database, and Redis for session. It incorporates three major features: CRUD Note, Grouping Notes into Folder, Authentication + Authorization, Recent Notes, Favorites, & Archived.
 
 ## Features
 
 - CRUD (Create, Read, Update, & Delete) note
 - Authentication & Authorization
 - Grouping Notes into Folder
+- Recent Notes
+- Favorites
+- Archived
 
 ## Technologies
 
@@ -54,6 +57,7 @@ The project is a note-taking application built using Typescript, React.js, Style
 - Umzug
 - Nginx
 - Docker
+- Pipeline Github
 
 ## Getting Started
 
@@ -63,6 +67,7 @@ Before running the application, make sure you have the following installed:
 
 - Node.js (node-16)
 - Docker
+- Nix (Optional), run with `nix-shell`. When running on Nix we don't need to install nodejs
 
 ### Installation
 
@@ -152,9 +157,21 @@ Select another folder in select box note view to move note into another folder
 
 Click button trash to delete folder. If a folder have note in it, the note will be automatically moved into "Other" folder.
 
+### Recent Notes Feature
+
+3 most updated notes are displayed in "Recent Notes" section.
+
+### Favorites Feature
+
+Give a favorite mark by clicking "Favorite" in 3 dot popup to make certain notes special. All favorite notes are collected in the "Favorites" folder in "More" section.
+
+### Archived Feature
+
+Archive certain note by clicking "Archive" in 3 dot popup. All archived notes are only displayed in "Archived Notes" folder in "More" section
+
 ## Deployments
 
-For deploying my application, I use Azure App Service, which allows for straightforward execution of Docker Compose by writing or simply copying the `docker-compose.yml` file from the application to Azure. Then, activate Continous Deployment, for `Azure Container Registry` can be activated directly, but for other registries like `Docker Hub`, it have to manually add Webhook URL to image repository on Docker Hub. But sadly my Azure Trial is expired so I don't have a live demo for this application :(.
+For deploying my application, I use Azure App Service, which allows for straightforward execution of Docker Compose by writing or simply copying the `docker-compose.yml` file from the application to Azure. Then, activate Continous Deployment, for `Azure Container Registry` can be activated directly, but for other registries like `Docker Hub`, it have to manually add Webhook URL to image repository on Docker Hub. But sadly my Azure Trial is expired so I don't have any live demo for this application :(.
 
 ## Documents
 
@@ -162,12 +179,14 @@ For deploying my application, I use Azure App Service, which allows for straight
 
 - [PRD](https://github.com/danggro/nowted/blob/main/document/PRD/PRD.pdf)
 - [MVP - Folder Feature](https://github.com/danggro/nowted/blob/main/document/PRD/Folder%20Feature%20MVP.pdf)
+- [MVP - Recent, Favorites, & Archived Feature](https://github.com/danggro/nowted/blob/main/document/PRD/Recent%2C%20Favorites%2C%20%26%20Archived%20Feature%20MVP.pdf)
 
 ### Technical Design
 
 - [Deployment Diagram](https://github.com/danggro/nowted/blob/main/document/Technical%20Design/Deployment%20Diagram/deployment_diagram.jpg)
 - [ERD ( Entity Relationships Diagram )](https://github.com/danggro/nowted/blob/main/document/Technical%20Design/ERD/ERD%20Diagram.jpg)
 - [ERD - Folder Feature](https://github.com/danggro/nowted/blob/main/document/Technical%20Design/ERD/ERD%20Folder%20Feature.png)
+- [ERD - Recent, Favorites, & Archived Feature](https://github.com/danggro/nowted/blob/main/document/Technical%20Design/ERD/ERD%20Recent%2C%20Favorites%2C%20Archived%20Feature.png)
 
 ### API Specification
 
