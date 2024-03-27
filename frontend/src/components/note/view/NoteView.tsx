@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import NoteNoView from './NoteNoView'
 import { useEffect, useState } from 'react'
-import ThreeDotButton from '../option/Button'
+import ThreeDotButton from '../option/ThreeDotButton'
 import { complianceDate } from 'utils/utils'
 import InputDate from '../input/InputDate'
 import InputTitle from '../input/InputTitle'
@@ -59,6 +59,8 @@ const NoteView = () => {
       title,
       date: complianceDate(date),
       content,
+      favorite: note.favorite,
+      archived: note.archived,
     }
 
     const timeout = setTimeout(async () => {
@@ -79,7 +81,14 @@ const NoteView = () => {
         let folderId: number = folder
         if (!folder) folderId = await addOtherFolder()
 
-        dispatch(addNoteAction({ ...baseNote, folderId }))
+        dispatch(
+          addNoteAction({
+            ...baseNote,
+            folderId,
+            favorite: false,
+            archived: false,
+          })
+        )
         dispatch(
           setNoteAction({ ...baseNote, view: true, id: note.id, folderId })
         )

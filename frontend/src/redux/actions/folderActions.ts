@@ -63,3 +63,20 @@ export const deleteFolderAction =
       console.log(error)
     }
   }
+
+export const selectMoreAction =
+  (more: { favorite: boolean; archived: boolean }) =>
+  async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SELECT_MORE,
+      payload: more,
+    })
+  }
+
+export const setActiveAction =
+  (active: boolean) => async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_ACTIVE,
+      payload: active,
+    })
+  }

@@ -38,11 +38,7 @@ const ListNote = ({
             return (
               <ListNoteItem
                 key={note.id}
-                id={note.id}
-                title={note.title}
-                date={note.date}
-                content={note.content}
-                folderId={note.folderId}
+                note={note}
                 select={select}
                 setSelect={setSelect}
               />

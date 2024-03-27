@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from 'redux/store'
 import {
   deleteFolderAction,
   selectFolderAction,
+  selectMoreAction,
 } from 'redux/actions/folderActions'
 import SVGDelete from '../svg/SVGDelete'
 import useAddOtherFolder from 'hooks/useAddOtherFolder'
@@ -77,7 +78,12 @@ const ListFolderItem = ({ folder }: { folder: Folder }) => {
           )}
         </ListItemActive>
       ) : (
-        <ListItem onClick={() => dispatch(selectFolderAction(folder.id))}>
+        <ListItem
+          onClick={() => {
+            dispatch(selectFolderAction(folder.id))
+            dispatch(selectMoreAction({ favorite: false, archived: false }))
+          }}
+        >
           <SVGClosedFolder />
           <span>{folder.name}</span>
         </ListItem>
